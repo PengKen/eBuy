@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="app">
+
+    <table>
+      <th v-for="th in content.ths"> {{ th }} </th>
+      <tr v-for="tr in content.trs">
+        <td v-for="td in tr">{{td}}</td>
+      </tr>
+
+    </table>
+</div>
+<script type="text/javascript" src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      content:{
+        ths:['th1','th2','th3','th4'],
+        trs:[ ['td1','td2','td3','td4'],
+              ['td1','td2','td3','td4'],
+              ['td1','td2','td3','td4'],
+              ['td1','td2','td3','td4']
+            ]
+        }}
+  })
+</script>
+</body>
+</html>
