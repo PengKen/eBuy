@@ -5,25 +5,25 @@ import * as API from '@/api/home'
 const state = {
   boardList: [
     {
-      userid:'',
-      name:'',
-      winrate:'',
-      challengeState:''// nothing : 无人挑战 playing：正在挑战
-    },
-
+      userId: '',
+      name: '',
+      winRate: '',
+      challengeState: '',// nothing : 无人挑战 playing：正在挑战
+      honor: ''
+    }
   ]
 }
 
 // getters
 const getters = {
-  specificBoardListUser: (state, getters, rootState) => {
-    return state.boardList.map(({ userid , name , challengeState ,winrate}) => {
-      const boardListUser = state.boardList.find( boardListUser => boardListUser.userid === userid)
-      return {
-        ...boardListUser
-      }
-    })
-  },
+  // specificBoardListUser: (state, getters, rootState) => {
+  //   return state.boardList.map(({ userId , name , challengeState ,winRate}) => {
+  //     const boardListUser = state.boardList.find( boardListUser => boardListUser.userId === userId)
+  //     return {
+  //       ...boardListUser
+  //     }
+  //   })
+  // },
   allBoardList: (state, getters, rootState) => {
     return state.boardList
   }
@@ -35,11 +35,12 @@ const getters = {
 const actions = {
   async getBoardList ({ commit, state }) {
     let boardList = await API.getBoardList()
-    commit('boardList/setBoardList', { boardList })
+
+    commit('setBoardList', { boardList })
     return state
   },
   async setBoardListUserState ({commit , state }) {
-    commit('boardList/setBoardListUserState', { boardListUser })
+    commit('setBoardListUserState', { boardListUser })
     return state
   }
 
@@ -50,8 +51,8 @@ const mutations = {
   setBoardList (state, newBoardList) {
     state.boardList = newBoardList
   },
-  setBoardListUserState (state , {userid, challenState }){
-    const boardListUser = state.boardList.find(boardList => boardList.userid === userid)
+  setBoardListUserState (state , {userId, challenState }){
+    const boardListUser = state.boardList.find(boardList => boardList.userId === userId)
     boardListUser.challenState = challenState
   }
 

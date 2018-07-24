@@ -1,15 +1,43 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
-
+import BattleHall from '@/views/BattleHall'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path:'/',
+      redirect:'/home'
+    },
+    {
+      path: '/home',
       name: 'Home',
+      component: Home,
+
+    },
+    {
+      path: '/battlehall',
+      name: 'BattleHall',
+      component: BattleHall,
+
+    },
+    {
+      path: '/battle',
+      name: 'hall',
+      component: Home,
+
+    },
+    {
+      path: '/battle',
+      name: 'perosonal',
       component: Home
+    },
+    {
+      path: '/battle',
+      name: 'personal',
+      component: Home,
+
     }
   ]
 })

@@ -16,23 +16,62 @@
     <div id="borad" ref="borad">
         <h2>排行榜</h2>
       <ul ref="ulBorad" :style="ulBoradStyle ">
-        <li v-for="user in  boardListUser">
+        <li v-for="user in  boardListUser.boardList">
           <img src="/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg" alt="">
           <span>{{ user.name }}</span>
-          <span>{{ user.winrate }}</span>
-          <button class="challenge">挑战</button>
+          <span><em>胜率/</em>{{ user.winRate.toFixed(2)*100 + '%'}}</span>
+          <button class="challenge" @click="challenge(user.userId)">挑战</button>
         </li>
       </ul>
     </div>
+
+    <keep-alive>
+      <popup class="pupup" :isShow.sync="showPopup" @hidePopUp="hidePopUp" :showClose="false">
+          <div class="content" slot="content">
+            <h2>擂台设置</h2>
+            <group label-width="5em" label-margin-right="2em" label-align="center">
+              <x-number :fillable="true" :step="step" title="初始资金(万元)" align="center" v-model="battleDetail.initialMoney" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
+              <x-number :fillable="true" :step="step" title="PKS时长(天)" align="center" v-model="battleDetail.duringTime" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
+              <datetime
+                  :required="true"
+                  title="摆擂时长"
+                  placeholder="擂台失效时间"
+                  v-model="battleDetail.expiredTime"
+                  value-text-align="left"
+                  format="YYYY-MM-DD HH"
+                  :min-hour="minHour"
+                  :start-date="battleDetail.currentTime"
+              ></datetime >
+
+
+              <x-textarea
+                title="捎话"
+                placeholder="呛他两句？"
+                :show-counter="false"
+                :rows="1"
+                v-model="battleDetail.content"
+              ></x-textarea>
+              <button type="submit" class="comfirm-button" @click="postNewBattle">确定</button>
+            </group>
+
+          </div>
+      </popup>
+    </keep-alive>
+
   </div>
 
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions,mapGetters } from 'vuex'
+  import getNormalTime from '@/utils/timeFormat'
   import 'swiper/dist/css/swiper.css'
   import Vue from 'vue'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
+  import popup from '@/components/popup'
+  import * as API from '@/api/home'
+  import {  Group,  AlertPlugin, Datetime, XNumber,  XTextarea ,XButton } from 'vux'
+  Vue.use(AlertPlugin)
   export default {
     name: "home",
     created(){
@@ -40,6 +79,17 @@
     },
     data() {
       return {
+        battleDetail:{
+          duringTime:6,
+          initialMoney:5,
+          invitee:'',
+          content:'',
+          expiredTime:''
+        },
+        currentTim:getNormalTime,
+        showPopup:false,
+        step:0.5,
+        minHour: new Date().getHours(),
         ulBoradStyle:{},//排行榜初始高度
         swiperOption: {
           // some swiper options/callbacks
@@ -47,7 +97,6 @@
           autoplay: 3000,
           grabCursor : true,
           setWrapperSize :true,
-
           pagination : '.swiper-pagination',
           paginationClickable :true,
           prevButton:'.swiper-button-prev',//上一张
@@ -60,6 +109,11 @@
         }
       }
     },
+    computed:{
+      expiredTime(){
+        return  this.getNormalTime+" " + this.minHour;
+      }
+    },
     mounted(){
       let rem = parseFloat(document.documentElement.style.fontSize)
       let borad = this.$refs.borad.clientHeight / rem - 1; /* h2 的高度为 1rem*/
@@ -69,20 +123,65 @@
     },
     components:{
       swiper,
-      swiperSlide
+      swiperSlide,
+      popup,
+      Group,
+      XButton,
+      Datetime,
+      XNumber,
+      XTextarea
     },
     methods:{
-      callback(){
+      challenge(userId){
+        this.battleDetail['invitee'] = userId
+        this.showPopup = true
+      },
+      hidePopUp(){
+        this.showPopup = false
+      },
+      postNewBattle(){
+        if(!this.battleDetail.expiredTime){
 
+          this.$vux.alert.show({
+            title: '系统提示',
+            content: '<br>请设置摆擂时间',
+            onShow () {
+            },
+            onHide () {
+            }
+          })
+          return
+        }
+        const battleDetail = {
+          ...battleDetail,
+          founder:123,
+          duringTime:123,
+          initialMoney:this.battleDetail.initialMoney*10000,
+          expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime()
+        }
+        API.postNewBattle(battleDetail).then(()=>{
+          this.$vux.alert.show({
+            title: '恭喜',
+            content: '战书已下达，请等待对方应战！',
+            onShow () {
+            },
+            onHide () {
+            }
+          })
+        })
       }
+
     },
-    computed: mapState({
-      boardListUser: state => state.boardList.allBoardList
-    })
+    computed: {
+      ...mapGetters({
+                 boardListUser: 'boardList/allBoardList'
+  })
+    }
   }
 </script>
 
 <style scoped lang="less">
+
   #home{
     position: relative;
     height: 100%;
@@ -126,11 +225,12 @@
           border-radius: 50%;
         }
         span{
+          flex: 0 0 2.8rem;
           font-weight: 700;
         }
         .challenge{
           display: inline-block;
-          width: 1.5rem;
+          width: 1.6rem;
           height: 0.8rem;
           border-radius: 1.6rem;
           font-size: 0.4rem;
@@ -139,7 +239,46 @@
       }
 
     }
+    .pupup{
+      margin-top: 30%;
+      .content{
+          flex:1 1 80%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+        .vux-number-selector svg {
+          fill: red;
+        }
+        .weui-cell__ft{
+          .vux-cell-value{
+            font-size: 1rem !important;
+          }
+        }
+        .comfirm-button{
+          margin: 0.5rem auto;
+          width: 80%;
+          height: 1rem;
+          background: orange;
+          border-radius: 0.5rem;
+          font-size: 0.4rem;
+        }
+      }
+      .weui-cells{
+        .weui-cell{
+          color: black;
+          font-weight: 420;
+          &:before{
+            border: none;
+          }
+        }
+
+      }
+
+
+    }
   }
 
 
 </style>
+

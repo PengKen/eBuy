@@ -2,21 +2,21 @@ import axios from 'axios'
 import qs from 'qs'
 import Vue from 'vue'
 import  { LoadingPlugin, ToastPlugin } from 'vux'
-Vue.use(vuxToastPlugin)
-Vue.use(LoadingPlugin )
+// Vue.use(vuxToastPlugin)
+// Vue.use(LoadingPlugin )
 Vue.use(ToastPlugin, {position: 'bottom'})
 axios.interceptors.request.use(config => {
-  Vue.$vux.loading.show({
-    text: 'Loading'
-  })
+  // Vue.$vux.loading.show({
+  //   text: 'Loading'
+  // })
   return config
 }, error => {
   return Promise.reject(error)
 })
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
-axios.defaults.baseURL = 'https://api.example.com';
+// axios.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
+const baseURL = 'http://localhost:3000';
 axios.interceptors.response.use(response => {
-  this.$vux.loading.hide()
+  // this.$vux.loading.hide()
   return response
 }, error => {
   return Promise.resolve(error.response)
@@ -76,11 +76,11 @@ const httpServer = (method = 'GET', url, data) => {
     params:Object.assign(Public, data),
     data:qs.stringify(Object.assign(Public, data)),
     headers: {
-      'X-Requested-With': 'XMLHttpRequest'
+      // 'X-Requested-With': 'XMLHttpRequest'
     }
   }
 
-  if(opts.method=='GET'){
+  if(method=='GET'){
     delete httpDefaultOpts.data
   }else{
     delete httpDefaultOpts.params
@@ -89,8 +89,9 @@ const httpServer = (method = 'GET', url, data) => {
   let promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
+        console.log(res)
         // successState(res)
-        resolve(res)
+        resolve(res.data)
       }
     ).catch(
       (response) => {
