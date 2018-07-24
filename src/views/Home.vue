@@ -57,7 +57,7 @@
           </div>
       </popup>
     </keep-alive>
-
+    <button-bar class="button"></button-bar>
   </div>
 
 </template>
@@ -65,6 +65,7 @@
 <script>
   import { mapState, mapActions,mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
+  import ButtonBar from '@/components/ButtonBar'
   import 'swiper/dist/css/swiper.css'
   import Vue from 'vue'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -129,7 +130,8 @@
       XButton,
       Datetime,
       XNumber,
-      XTextarea
+      XTextarea,
+      ButtonBar
     },
     methods:{
       challenge(userId){
