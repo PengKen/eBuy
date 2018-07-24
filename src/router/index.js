@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
 import BattleHall from '@/views/BattleHall'
+import PersonalBattle from '@/views/PersonalBattle'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +39,11 @@ export default new Router({
       name: 'personal',
       component: Home,
 
+    },
+    {
+      path: '/personalbattle',
+      name: 'personalBattle',
+      component: PersonalBattle,
     }
   ]
 })

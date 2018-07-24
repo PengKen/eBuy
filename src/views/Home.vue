@@ -1,7 +1,9 @@
 <template>
   <div id="home">
     <div id="swiper">
-      <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+      <swiper :options="swiperOption" ref="mySwiper" 
+      @someSwiperEvent=""
+      >
         <!-- slides -->
         <swiper-slide><img class="img" src="/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg" alt=""></swiper-slide>
         <swiper-slide><img class="img" src="/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg" alt=""></swiper-slide>
@@ -16,11 +18,11 @@
     <div id="borad" ref="borad">
         <h2>排行榜</h2>
       <ul ref="ulBorad" :style="ulBoradStyle ">
-        <li v-for="user in  boardListUser.boardList">
+        <li v-for="user in  boardListUser.boardList" @click="personalBattle(user.userId)">
           <img src="/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg" alt="">
           <span>{{ user.name }}</span>
           <span><em>胜率/</em>{{ user.winRate.toFixed(2)*100 + '%'}}</span>
-          <button class="challenge" @click="challenge(user.userId)">挑战</button>
+          <button class="challenge" @click.stop="challenge(user.userId)">挑战</button>
         </li>
       </ul>
     </div>
@@ -57,12 +59,13 @@
           </div>
       </popup>
     </keep-alive>
-
+      <button-bar class="button"></button-bar>
   </div>
 
 </template>
 
 <script>
+  import ButtonBar from '@/components/ButtonBar'
   import { mapState, mapActions,mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
   import 'swiper/dist/css/swiper.css'
@@ -129,9 +132,13 @@
       XButton,
       Datetime,
       XNumber,
-      XTextarea
+      XTextarea,
+      ButtonBar
     },
     methods:{
+      personalBattle(userId){
+        this.$router.push({path:"/PersonalBattle", query:{userId:userId}})
+      },
       challenge(userId){
         this.battleDetail['invitee'] = userId
         this.showPopup = true

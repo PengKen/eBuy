@@ -1,16 +1,14 @@
 <template>
   <div id="app">
     <router-view/>
-    <button-bar class="button"></button-bar>
+  
   </div>
 </template>
 
 <script>
-import ButtonBar from '@/components/ButtonBar'
 export default {
   name: 'App',
   components:{
-    ButtonBar
   }
 }
 </script>
