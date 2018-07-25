@@ -1,14 +1,15 @@
 <template>
     <div id="personal-battle">
-        <img class="back-arrow" src="/static/icon-img/icons8-back-26.png" @click="backHome()">
+        <img class="back-arrow" src="/static/icon-img/icons8-back-26.png" @click="back()">
         <div id="user-info">
             <div id="portrait">
                 <img class="portrait" :src="portrait">
             </div>
             <div id="data">
                 <div id="name">{{name}}</div>
-                <span class="honor">称号：{{honor}}</span>
-                <span class="win-rate">胜率：{{winRate}}</span>
+                <span class="win-rate">胜率：{{winRate}}&nbsp&nbsp&nbsp&nbsp</span>
+                <span class="honor">{{honor}}</span>
+                <img class="medal" :src="'/static/icon-img/honor-'+honor+'.png'">
             </div>
         </div>
         <div id="filter">
@@ -23,29 +24,37 @@
             <div class="record-item"
              v-for="(record, index) in records"
              @click="spanItem(index)"
-            :class="[record.collapsed  ? 'item-collapsed' : '']"
+             :class="record.collapsed || record.collapsed == undefined ? 'item-collapsed' : ''"
              >
                 <div class="item-body">
+                  <div v-if="curTime > record.endTime" class="stamp">已结束</div>
                     <table>
                         <tr>
                             <td>
                                 <img class="avatar" :src="record.founderPortrait">
-                                <div class="item-username"
+                                <img
+                                class="medal"
+                                :src="record.founderHonor.url">
+                                <div class="item-username right"
                                 :class="[record.founderRate>=record.inviteeRate ? 'winner' : '']"
                                 >{{record.founderName}}</div>
                             </td>
                             <td class="versus">VS</td>
+
                             <td>
+                                <div class="item-username left"
                                 <img class="avatar" :src="record.inviteePortrait">
                                 <div class="item-username"
                                 :class="[record.inviteeRate>=record.founderRate ? 'winner' : '']"
                                 >{{record.inviteeName}}</div>
+                                <img class="medal" :src="record.inviteeHonor.url">
+                                <img class="avatar" :src="record.inviteePortrait">
                             </td>
                         </tr>
                         <tr>
-                            <td>{{record.founderHonor}}</td>
+                            <td>{{record.founderHonor.title}}</td>
                             <td>称号</td>
-                            <td>{{record.inviteeHonor}}</td>
+                            <td>{{record.inviteeHonor.title}}</td>
                         </tr>
                         <tr>
                             <td>{{record.initialMoney}}</td>
@@ -77,19 +86,19 @@
 <script>
   import Vue from 'vue'
   import * as API from '@/api/home'
+  import getNormalTime from '@/utils/timeFormat'
+  import Vue from 'vue'
   export default {
     name: "personal-battle",
     data() {
         return {
-            collapsed:{
-              height:'1.5rem'
-            },
             userId: 1,
             name: "投资家",
             portrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-            honor: "大师",
+            honor: "吃鸡达人",
             winRate: 0.8,
             selectTime: "all",
+            curTime:"",
             filterOp: [
                 {
                     id:"all",
@@ -119,8 +128,8 @@
                     inviteeName:"userB",
                     founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-                    founderHonor:"",
-                    inviteeHonor:"",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    inviteeHonor:"初出茅庐",
                     founderCardId:"",
                     inviteeCardId:"",
                     startTime:"2018-07-20",
@@ -137,8 +146,8 @@
                     inviteeName:"userB",
                     founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-                    founderHonor:"",
-                    inviteeHonor:"",
+                    founderHonor:"吃鸡达人",
+                    inviteeHonor:"初出茅庐",
                     founderCardId:"",
                     inviteeCardId:"",
                     startTime:"2018-07-20",
@@ -155,12 +164,12 @@
                     inviteeName:"userB",
                     founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-                    founderHonor:"",
-                    inviteeHonor:"",
+                    founderHonor:"初出茅庐",
+                    inviteeHonor:"迷你鸡王",
                     founderCardId:"",
                     inviteeCardId:"",
                     startTime:"2018-07-20",
-                    endTime:"2018-07-25",
+                    endTime:"2018-07-23",
                     initialMoney:"",
                     founderBalance:"",
                     inviteeBalance:"",
@@ -173,8 +182,8 @@
                     inviteeName:"userB",
                     founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-                    founderHonor:"",
-                    inviteeHonor:"",
+                    founderHonor:"迷你鸡王",
+                    inviteeHonor:"吃鸡达人",
                     founderCardId:"",
                     inviteeCardId:"",
                     startTime:"",
@@ -191,10 +200,11 @@
     created() {
         this.userId = this.$route.query.userId;
         this.getUserRecords(this.userId, "all");
+        this.curTime = getNormalTime;
     },
     methods:{
-        backHome() {
-            this.$router.push({path:"/Home"})
+        back() {
+            this.$router.go(-1);
         },
         tapFilter(id) {
             for(let i=0; i<this.filterOp.length; i++) {
@@ -205,6 +215,7 @@
                 else
                     this.filterOp[i].active = false;
             }
+            this.records = {};
             this.getUserRecords(this.userId, this.selectTime)
         },
         spanItem(index) {
@@ -221,13 +232,14 @@
           })
         }
     }
+
   }
 </script>
 
-<style lang='less' >
-    @var: 1rem;
+<style lang='less' scoped>
     #personal-battle {
         height: 100%;
+        overflow: hidden;
         font-size: 0.4rem;
     }
 
@@ -236,7 +248,11 @@
         left:0.5rem;
         top:0.5rem;
     }
-
+    .medal {
+      width: 0.5rem;
+      height: 0.5rem;
+      vertical-align: middle;
+    }
     #user-info {
         height: 10%;
         padding-top: 1.5rem;
@@ -264,10 +280,12 @@
         }
         .honor {
             color:#e74c3c;
+          vertical-align: middle;
             margin-right: 0.5rem;
         }
         .win-rate {
             color:#2980b9;
+            vertical-align: middle;
         }
 
     }
@@ -299,6 +317,23 @@
             margin-bottom: 0.2rem;
             overflow: hidden;
             background: #f2f2f2;
+            position: relative;
+            .stamp {
+              font-size: 0.45rem;
+              font-weight: bold;
+              line-height: 0.8rem;
+              color: #aaaaaa;
+              width: 2rem;
+              height: 0.8rem;
+              position: absolute;
+              display: inline-block;
+              left: 50%;
+              border: 3px solid #aaaaaa;
+              opacity: 0.3;
+              // transform: translateX(-1rem);
+              transform: rotate(20deg);
+              z-index: 1;
+            }
             height: 6rem;
             table{
                 border-radius:0.1rem;
@@ -311,6 +346,39 @@
                 }
                 tr:first-child {
                     height: 1.5rem;
+                    // font-weight: bold;
+                    overflow: hidden;
+                    .item-username {
+                        // width: 90%;
+                        // text-align: center;
+                        width: 50%;
+                        text-align: center;
+                        display: inline-block;
+                        vertical-align: middle;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        color: #888888;
+                        // margin: 0 auto;
+                    }
+                    .winner {
+                      color: #e74c3c;
+                      text-shadow:0 0 0.2em #f87,
+                                  0 0 0.3em #f87;
+                    }
+                    .avatar {
+                        width: 0.7rem;
+                        height: 0.7rem;
+                        margin-top: 0.1rem;
+                        border-radius: 50%;
+                        vertical-align: middle;
+                        margin: 0 0.1rem;
+                    }
+                    .versus {
+                        color: #34495e;
+                        line-height: 1.5rem;
+                        font-size: 0.6rem;
+                    }
                 }
                 tr:nth-child(2n) {
                     background: #ffeff2;
@@ -320,40 +388,26 @@
                 }
                 td {
                     text-align: center;
-                    border: none;
+                    position: relative;
+                    z-index: 2;
                 }
                 td:first-child, td:nth-child(3) {
                     width: 40%;
                 }
+                // td:first-child {text-align: right}
+                // td:nth-child(3) {text-align: left}
                 td:nth-child(2) {
                     color: #e74c3c;
                     width: 20%;
+                    font-weight: bold;
                 }
-                .item-username {
-                    width: 90%;
-                    text-align: center;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    margin: 0 auto;
-                }
-                .winner {color: #e74c3c}
-                .avatar {
-                    width: 0.7rem;
-                    height: 0.7rem;
-                    margin-top: 0.1rem;
-                    border-radius: 50%;
-                    vertical-align: middle;
-                }
-                .versus {
-                    line-height: 1.5rem;
-                    font-size: 0.6rem;
-                }
+                // .left {text-align: left}
+                // .right {text-align: right;}
             }
             .time {
                 height: 1rem;
                 line-height: 1rem;
-                font-size: 0.3rem;
+                font-size: 0.35rem;
                 span {
                     padding: 0 0.5rem;
                 }
