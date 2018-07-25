@@ -34,7 +34,7 @@
                                 <img class="avatar" :src="record.founderPortrait">
                                 <img 
                                 class="medal" 
-                                :src="'/static/icon-img/honor-'+record.founderHonor+'.png'">
+                                :src="record.founderHonor.url">
                                 <div class="item-username right" 
                                 :class="[record.founderRate>=record.inviteeRate ? 'winner' : '']"
                                 >{{record.founderName}}</div>
@@ -45,14 +45,14 @@
                                 <div class="item-username left" 
                                 :class="[record.inviteeRate>=record.founderRate ? 'winner' : '']"
                                 >{{record.inviteeName}}</div>
-                                <img class="medal" :src="'/static/icon-img/honor-'+record.inviteeHonor+'.png'">
+                                <img class="medal" :src="record.inviteeHonor.url">
                                 <img class="avatar" :src="record.inviteePortrait">
                             </td>
                         </tr>
                         <tr>
-                            <td>{{record.founderHonor}}</td>
+                            <td>{{record.founderHonor.title}}</td>
                             <td>称号</td>
-                            <td>{{record.inviteeHonor}}</td>
+                            <td>{{record.inviteeHonor.title}}</td>
                         </tr>
                         <tr>
                             <td>{{record.initialMoney}}</td>
@@ -125,7 +125,7 @@
                     inviteeName:"userB",
                     founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-                    founderHonor:"迷你鸡王",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
                     inviteeHonor:"初出茅庐",
                     founderCardId:"",
                     inviteeCardId:"",

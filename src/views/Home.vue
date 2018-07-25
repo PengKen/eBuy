@@ -65,7 +65,6 @@
 </template>
 
 <script>
-  import ButtonBar from '@/components/ButtonBar'
   import { mapState, mapActions,mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
   import ButtonBar from '@/components/ButtonBar'
