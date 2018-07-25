@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home'
-import BattleHall from '@/views/BattleHall'
-import PersonalBattle from '@/views/PersonalBattle'
+import Home from '@/views/Home/Home'
+import BattleHall from '@/views/BattleHall/BattleHall'
+import PersonalBattle from '@/views/Home/PersonalBattle'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +21,18 @@ export default new Router({
       path: '/battlehall',
       name: 'BattleHall',
       component: BattleHall,
+      // children:[
+      //   {
+      //     path: '/invite',
+      //     name: '/Invite',
+      //     component: Invite,
+      //   },
+      //   {
+      //     path: '/setplatform',
+      //     name: '/SetPlatform',
+      //     component: SetPlatform,
+      //   }
+      // ]
 
     },
     {

@@ -10,8 +10,6 @@
 
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
         <div class="swiper-scrollbar"   slot="scrollbar"></div>
       </swiper>
     </div>
@@ -65,7 +63,6 @@
 </template>
 
 <script>
-  import ButtonBar from '@/components/ButtonBar'
   import { mapState, mapActions,mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
   import ButtonBar from '@/components/ButtonBar'
@@ -149,7 +146,6 @@
       },
       postNewBattle(){
         if(!this.battleDetail.expiredTime){
-
           this.$vux.alert.show({
             title: '系统提示',
             content: '<br>请设置摆擂时间',
@@ -165,7 +161,8 @@
           founder:123,
           duringTime:123,
           initialMoney:this.battleDetail.initialMoney*10000,
-          expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime()
+          expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+          duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
         }
         API.postNewBattle(battleDetail).then(()=>{
           this.$vux.alert.show({
