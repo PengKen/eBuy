@@ -7,11 +7,12 @@ const state = {
     {
       userId: '',
       name: '',
-      winRate: '',
+      winRate: 0,
       challengeState: '',// nothing : 无人挑战 playing：正在挑战
       honor: ''
     }
-  ]
+  ],
+  fuck:"aaa"
 }
 
 // getters
@@ -35,12 +36,11 @@ const getters = {
 const actions = {
   async getBoardList ({ commit, state }) {
     let boardList = await API.getBoardList()
-
-    commit('setBoardList', { boardList })
+    commit('setBoardList',  boardList )
     return state
   },
   async setBoardListUserState ({commit , state }) {
-    commit('setBoardListUserState', { boardListUser })
+    // commit('setBoardListUserState',  boardListUser )
     return state
   }
 

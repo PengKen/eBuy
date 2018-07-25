@@ -3,7 +3,7 @@
         <img class="back-arrow" src="/static/icon-img/icons8-back-26.png" @click="backHome()">
         <div id="user-info">
             <div id="portrait">
-                <img class="portrait" :src="portrait"> 
+                <img class="portrait" :src="portrait">
             </div>
             <div id="data">
                 <div id="name">{{name}}</div>
@@ -12,32 +12,32 @@
             </div>
         </div>
         <div id="filter">
-            <span 
+            <span
                 v-for="option in filterOp"
-                class="filter-button" 
+                class="filter-button"
                 @click="tapFilter(option.id)"
                 :class="[option.active ? 'selected' : '']"
                 >{{option.content}}</span>
         </div>
         <div id="records">
             <div class="record-item"
-             v-for="(record, index) in records" 
+             v-for="(record, index) in records"
              @click="spanItem(index)"
-             :class="[record.collapsed  ? 'item-collapsed' : '']"
+            :class="[record.collapsed  ? 'item-collapsed' : '']"
              >
                 <div class="item-body">
                     <table>
                         <tr>
                             <td>
                                 <img class="avatar" :src="record.founderPortrait">
-                                <div class="item-username" 
+                                <div class="item-username"
                                 :class="[record.founderRate>=record.inviteeRate ? 'winner' : '']"
                                 >{{record.founderName}}</div>
                             </td>
                             <td class="versus">VS</td>
                             <td>
                                 <img class="avatar" :src="record.inviteePortrait">
-                                <div class="item-username" 
+                                <div class="item-username"
                                 :class="[record.inviteeRate>=record.founderRate ? 'winner' : '']"
                                 >{{record.inviteeName}}</div>
                             </td>
@@ -75,11 +75,15 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import * as API from '@/api/home'
   export default {
     name: "personal-battle",
     data() {
         return {
+            collapsed:{
+              height:'1.5rem'
+            },
             userId: 1,
             name: "投资家",
             portrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
@@ -204,8 +208,9 @@
             this.getUserRecords(this.userId, this.selectTime)
         },
         spanItem(index) {
-            this.records[index]['collapsed'] ?  this.records[index]['collapsed']=false : this.records[index]['collapsed']=true;
-        }, 
+            this.records[index]['collapsed'] ?  Vue.set(this.records[index],'collapsed',false) : Vue.set(this.records[index],'collapsed',true) ;
+
+        },
         getUserRecords(userId, selectTime) {
           API.getPersonalBattle(userId, selectTime).then(res=>{
             this.name = res.name;
@@ -219,7 +224,8 @@
   }
 </script>
 
-<style lang='less' scoped>
+<style lang='less' >
+    @var: 1rem;
     #personal-battle {
         height: 100%;
         font-size: 0.4rem;
@@ -288,10 +294,12 @@
         height: 12rem;
         overflow: scroll;
         .record-item {
+          transition: all 500ms;
             border-radius:0.1rem;
             margin-bottom: 0.2rem;
             overflow: hidden;
             background: #f2f2f2;
+            height: 6rem;
             table{
                 border-radius:0.1rem;
                 overflow: hidden;

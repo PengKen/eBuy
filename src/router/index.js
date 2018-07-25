@@ -21,18 +21,7 @@ export default new Router({
       path: '/battlehall',
       name: 'BattleHall',
       component: BattleHall,
-      // children:[
-      //   {
-      //     path: '/invite',
-      //     name: '/Invite',
-      //     component: Invite,
-      //   },
-      //   {
-      //     path: '/setplatform',
-      //     name: '/SetPlatform',
-      //     component: SetPlatform,
-      //   }
-      // ]
+
 
     },
     {
