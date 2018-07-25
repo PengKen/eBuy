@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <div id="swiper">
-      <swiper :options="swiperOption" ref="mySwiper" 
+      <swiper :options="swiperOption" ref="mySwiper"
       @someSwiperEvent=""
       >
         <!-- slides -->
@@ -59,7 +59,7 @@
           </div>
       </popup>
     </keep-alive>
-      <button-bar class="button"></button-bar>
+    <button-bar class="button"></button-bar>
   </div>
 
 </template>
@@ -68,6 +68,7 @@
   import ButtonBar from '@/components/ButtonBar'
   import { mapState, mapActions,mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
+  import ButtonBar from '@/components/ButtonBar'
   import 'swiper/dist/css/swiper.css'
   import Vue from 'vue'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
