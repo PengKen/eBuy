@@ -42,8 +42,7 @@
                             <td class="versus">VS</td>
 
                             <td>
-                                <div class="item-username left"
-                                <img class="avatar" :src="record.inviteePortrait">
+
                                 <div class="item-username"
                                 :class="[record.inviteeRate>=record.founderRate ? 'winner' : '']"
                                 >{{record.inviteeName}}</div>
@@ -84,7 +83,6 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import * as API from '@/api/home'
   import getNormalTime from '@/utils/timeFormat'
   import Vue from 'vue'
