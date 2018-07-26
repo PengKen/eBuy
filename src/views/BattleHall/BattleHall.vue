@@ -9,7 +9,7 @@
           </tab>
         </div>
       </div>
-
+      <record-list id="record-list" :records="records"></record-list>
       <div class="battle" @click="battle">对战
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
         <div class="set-battle" :class="[out ? showBattle : '']" >摆擂台</div>
@@ -20,6 +20,7 @@
 
 <script>
   import ButtonBar from '@/components/ButtonBar'
+  import RecordList from '@/components/RecordList'
   import { Tab, TabItem }  from 'vux'
   export default {
     name: "battle-hall",
@@ -27,13 +28,84 @@
       return {
         out: false,
         showInvite:"show-invite",
-        showBattle:'show-battle'
+        showBattle:'show-battle',
+            records: [
+                {
+                    founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
+                    inviteeName:"userB",
+                    founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    inviteeHonor:"初出茅庐",
+                    founderCardId:"",
+                    inviteeCardId:"",
+                    startTime:"2018-07-20",
+                    endTime:"2018-07-25",
+                    initialMoney:"",
+                    founderBalance:"",
+                    inviteeBalance:"",
+                    founderRate:1.1,
+                    inviteeRate:1.2,
+                },
+                {
+                    founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
+                    inviteeName:"userB",
+                    founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    inviteeHonor:"初出茅庐",
+                    founderCardId:"",
+                    inviteeCardId:"",
+                    startTime:"2018-07-20",
+                    endTime:"2018-07-29",
+                    initialMoney:"",
+                    founderBalance:"",
+                    inviteeBalance:"",
+                    founderRate:1.1,
+                    inviteeRate:1.2,
+                },
+                {
+                    founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
+                    inviteeName:"userB",
+                    founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    inviteeHonor:"初出茅庐",
+                    founderCardId:"",
+                    inviteeCardId:"",
+                    startTime:"2018-07-20",
+                    endTime:"2018-07-29",
+                    initialMoney:"",
+                    founderBalance:"",
+                    inviteeBalance:"",
+                    founderRate:1.1,
+                    inviteeRate:1.2,
+                },
+                {
+                    founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
+                    inviteeName:"userB",
+                    founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    inviteeHonor:"初出茅庐",
+                    founderCardId:"",
+                    inviteeCardId:"",
+                    startTime:"2018-07-20",
+                    endTime:"2018-07-29",
+                    initialMoney:"",
+                    founderBalance:"",
+                    inviteeBalance:"",
+                    founderRate:1.1,
+                    inviteeRate:1.2,
+                }
+            ]
       }
     },
     components:{
       ButtonBar,
       Tab,
-      TabItem
+      TabItem,
+      RecordList
 
     },
     methods:{
@@ -55,6 +127,11 @@
       background: #c71717;
       color: white;
 
+    }
+    #record-list {
+        padding: 0.3rem 0.3rem 0;
+        height: 12rem;
+        overflow: scroll;
     }
     .battle,.invite,.set-battle{
       position: relative;
