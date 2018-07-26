@@ -13,15 +13,15 @@
                       <tr>
                           <td>
                               <img class="avatar" :src="record.founderPortrait">
-                              <img 
-                              class="medal" 
+                              <img
+                              class="medal"
                               :src="record.founderHonor.url">
-                              <div class="item-username" 
+                              <div class="item-username"
                               :class="[record.founderRate>=record.inviteeRate ? 'winner' : '']"
                               >{{record.founderName}}</div>
                           </td>
                           <td class="versus">VS</td>
-                          
+
                           <td>
                               <div class="item-username"
                               :class="[record.inviteeRate>=record.founderRate ? 'winner' : '']"
@@ -67,6 +67,7 @@
 <style lang="less">
     #records {
         .record-item {
+          font-size: 0.4rem;
           transition: all 500ms;
             border-radius:0.1rem;
             margin-bottom: 0.2rem;
@@ -74,6 +75,11 @@
             background: #f2f2f2;
             position: relative;
             height: 1.5rem;
+            .medal {
+              width: 0.5rem;
+              height: 0.5rem;
+              vertical-align: middle;
+            }
             .stamp {
               font-size: 0.45rem;
               font-weight: bold;
