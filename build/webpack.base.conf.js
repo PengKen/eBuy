@@ -7,7 +7,7 @@ const vuxLoader = require('vux-loader')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-
+console.log(process.env.NODE_ENV)
 
 const webpackConfig = {
   context: path.resolve(__dirname, '../'),

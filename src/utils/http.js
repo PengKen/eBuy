@@ -14,7 +14,7 @@ axios.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 // axios.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
-const baseURL = 'http://172.20.10.2:3000';
+const baseURL = process.env.API_URL;
 axios.interceptors.response.use(response => {
   // this.$vux.loading.hide()
   return response
