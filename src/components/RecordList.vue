@@ -66,6 +66,7 @@
 
 <style lang="less">
     #records {
+        font-size: 0.4rem;
         .record-item {
           transition: all 500ms;
             border-radius:0.1rem;
@@ -74,6 +75,11 @@
             background: #f2f2f2;
             position: relative;
             height: 1.5rem;
+            .medal {
+              width: 0.5rem;
+              height: 0.5rem;
+              vertical-align: middle;
+            }
             .stamp {
               font-size: 0.45rem;
               font-weight: bold;
