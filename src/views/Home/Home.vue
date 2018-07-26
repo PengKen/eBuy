@@ -10,15 +10,13 @@
 
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
         <div class="swiper-scrollbar"   slot="scrollbar"></div>
       </swiper>
     </div>
-    <div id="borad" ref="borad">
+    <div id="board" ref="board">
         <h2>排行榜</h2>
-      <ul ref="ulBorad" :style="ulBoradStyle ">
-        <li v-for="user in  boardListUser.boardList" @click="personalBattle(user.userId)">
+      <ul ref="ulBorad" :style="ulBoradStyle" v-if="boardListUser">
+        <li  v-for="user in  boardListUser" @click="personalBattle(user.userId)">
           <img src="/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg" alt="">
           <span>{{ user.name }}</span>
           <span><em>胜率/</em>{{ user.winRate.toFixed(2)*100 + '%'}}</span>
@@ -78,7 +76,7 @@
   export default {
     name: "home",
     created(){
-      this.$store.dispatch('boardList/getBoardList')
+      this.$store.dispatch('boardList/getBoardList').then( state => console.log(state))
     },
     data() {
       return {
@@ -112,17 +110,10 @@
         }
       }
     },
-    computed:{
-      expiredTime(){
-        return  this.getNormalTime+" " + this.minHour;
-      }
-    },
     mounted(){
       let rem = parseFloat(document.documentElement.style.fontSize)
-      let borad = this.$refs.borad.clientHeight / rem - 1; /* h2 的高度为 1rem*/
-      console.log(borad)
-      Vue.set( this.ulBoradStyle, 'height',  Math.floor(borad / 1.8) * 1.8* rem  + 'px' )
-
+      let board = this.$refs.board.clientHeight / rem - 1; /* h2 的高度为 1rem*/
+      Vue.set( this.ulBoradStyle, 'height',  Math.floor(board / 1.8) * 1.8* rem  + 'px' )
     },
     components:{
       swiper,
@@ -148,7 +139,6 @@
       },
       postNewBattle(){
         if(!this.battleDetail.expiredTime){
-
           this.$vux.alert.show({
             title: '系统提示',
             content: '<br>请设置摆擂时间',
@@ -164,7 +154,8 @@
           founder:123,
           duringTime:123,
           initialMoney:this.battleDetail.initialMoney*10000,
-          expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime()
+          expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+          duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
         }
         API.postNewBattle(battleDetail).then(()=>{
           this.$vux.alert.show({
@@ -180,6 +171,9 @@
 
     },
     computed: {
+      expiredTime(){
+        return  this.getNormalTime+" " + this.minHour;
+      },
       ...mapGetters({
                  boardListUser: 'boardList/allBoardList'
   })
@@ -203,7 +197,7 @@
         /*background-size: contain;*/
       }
     }
-    #borad{
+    #board{
       width: 100%;
       position: absolute;
       top:30%;

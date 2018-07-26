@@ -52,7 +52,7 @@
     height: 100%;
     .header{
       height: 15%;
-      background: red;
+      background: #c71717;
       color: white;
 
     }
@@ -61,7 +61,7 @@
       width: 1.5rem;
       height: 1.5rem;
       border-radius: 50%;
-      background: red;
+      background: #c71717;
       text-align: center;
       line-height: 1.5rem;
       transition: all 1s;
