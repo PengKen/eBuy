@@ -7,8 +7,8 @@
             :class="record.collapsed　? 'item-collapsed' : ''"
             >
               <div class="item-body">
-                <div v-if="curTime > record.endTime" class="stamp">已结束</div>
-                <div v-if="curTime <= record.endTime" class="stamp stamp-red">进行中</div>
+                <div v-if="showStamp && curTime > record.endTime" class="stamp">已结束</div>
+                <div v-if="showStamp && curTime <= record.endTime" class="stamp stamp-red">进行中</div>
                   <table>
                       <tr>
                           <td>
@@ -129,7 +129,7 @@
                         // margin: 0 auto;
                     }
                     .winner {
-                      color: #e74c3c;
+                      color: #c7000b;
                       text-shadow:0 0 0.2em #f87,
                                   0 0 0.3em #f87;
                     }
@@ -164,7 +164,7 @@
                 // td:first-child {text-align: right}
                 // td:nth-child(3) {text-align: left}
                 td:nth-child(2) {
-                    color: #e74c3c;
+                    color: #c7000b;
                     width: 20%;
                     font-weight: bold;
                 }
@@ -198,6 +198,10 @@
     props:{
       records:{
         type:Array
+      },
+      showStamp:{
+        type:Boolean,
+        default:true
       }
 
     },

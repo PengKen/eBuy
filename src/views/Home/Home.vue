@@ -6,7 +6,7 @@
       >
         <!-- slides -->
         <swiper-slide><img class="img" src="/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg" alt=""></swiper-slide>
-        <swiper-slide><img class="img" src="/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg" alt=""></swiper-slide>
+        <swiper-slide><img @click="expertDetail()" class="img" src="/static/img/expert-click.jpg" alt=""></swiper-slide>
 
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>
@@ -127,6 +127,9 @@
       ButtonBar
     },
     methods:{
+      expertDetail(){
+        this.$router.push({path:"/expertDetail", query:{}})
+      },
       personalBattle(userId){
         this.$router.push({path:"/PersonalBattle", query:{userId:userId}})
       },

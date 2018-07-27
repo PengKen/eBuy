@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
+import expertDetail from '@/views/Home/expertDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,11 @@ export default new Router({
       path: '/personalbattle',
       name: 'personalBattle',
       component: PersonalBattle,
+    },
+    {
+      path: '/expertDetail',
+      name: 'expertDetail',
+      component: expertDetail,
     }
   ]
 })

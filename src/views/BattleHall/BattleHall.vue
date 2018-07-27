@@ -9,7 +9,7 @@
           </tab>
         </div>
       </div>
-      <record-list id="record-list" :records="records"></record-list>
+      <record-list id="record-list" :records="records" :showStamp="false"></record-list>
       <div class="battle" @click="battle">对战
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
         <div class="set-battle" :class="[out ? showBattle : '']" >摆擂台</div>
