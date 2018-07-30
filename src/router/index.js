@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import HomeIndex from '@/views/Home'
 import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
@@ -14,7 +15,30 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home,
+      component: HomeIndex,
+      redirect:'/home/home',
+      meta:{
+        index:0
+      },
+      children:[
+        {
+          path: 'personalbattle',
+          name: 'personalBattle',
+          component: PersonalBattle,
+          meta:{
+            index:1
+          }
+        },
+        {
+          path: 'home',
+          name: 'Home',
+          component: Home,
+          meta:{
+            index:0
+          }
+        },
+
+      ]
 
     },
     {
@@ -40,11 +64,6 @@ export default new Router({
       name: 'personal',
       component: Home,
 
-    },
-    {
-      path: '/personalbattle',
-      name: 'personalBattle',
-      component: PersonalBattle,
     }
   ]
 })

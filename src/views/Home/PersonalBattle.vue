@@ -7,7 +7,7 @@
             </div>
             <div id="data">
                 <div id="name">{{name}}</div>
-                <span class="win-rate">胜率：{{winRate}}&nbsp&nbsp&nbsp&nbsp</span>
+                <span class="win-rate">胜率：{{winRate.toFixed(2)*100 + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
                 <span class="honor">{{honor}}</span>
                 <img class="medal" :src="'/static/icon-img/honor-'+honor+'.png'">
             </div>
@@ -104,6 +104,15 @@
     created() {
         this.userId = this.$route.query.userId;
         this.getUserRecords(this.userId, "all");
+    },
+    watch:{
+      honor(newVal,oldVal){
+        if(newVal === 2)
+          this.honor = "吃鸡达人"
+        else if(newVal === 1)
+          this.honor = '迷你鸡王'
+        else this.honor = '初出茅庐'
+      }
     },
     methods:{
         back() {
