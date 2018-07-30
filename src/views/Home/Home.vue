@@ -132,7 +132,7 @@
     },
     methods:{
       expertDetail(){
-        this.$router.push({path:"/expertDetail", query:{}})
+        this.$router.push({path:"/home/expertDetail", query:{}})
       },
       personalBattle(userId){
         this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})

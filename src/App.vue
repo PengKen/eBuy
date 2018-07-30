@@ -69,17 +69,21 @@ html,body{
     position: absolute !important;
   }
   .silde-hide-enter {
-    opacity: 0;
+    opacity: 0; //页面刚进来的时候，由0变成1
     /*定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。
      * 只应用了一帧就被删除，肉眼看不出来透明度发生了变化
      * 即只有在第一帧的时候透明度为0，但也因此引发了过渡
      * translate同理
      * */
-    transform: translate3d( 0,-100%, 0);
+    transform: translate3d( 0,1.5rem, 0);
   }
-  .silde-hide-leave-active {
-    opacity: 0;
-    transform: translate3d( 0,100%, 0);
+  .slide-hide-enter-to{
+    transform: translate3d(0,-1.5rem);
+  }
+
+  .silde-hide-leave-to {
+    opacity: 0;//页面离开时由1变成0
+    transform: translate3d( 0,1.5rem, 0);
   }
 
 </style>

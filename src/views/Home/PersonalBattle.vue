@@ -105,6 +105,7 @@
     created() {
         this.userId = this.$route.query.userId;
         this.getUserRecords(this.userId, "all");
+        console.log("created")
     },
     watch:{
       honor(newVal,oldVal){
@@ -148,11 +149,13 @@
       RecordList,
       BackArrow
     },
+    destoryed () {
+      console.log("i am destory")
+    }
   }
 </script>
 
 <style lang='less' >
-    @var: 1rem;
     #personal-battle {
         height: 100%;
         overflow: hidden;

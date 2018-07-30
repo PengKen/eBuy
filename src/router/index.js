@@ -27,7 +27,8 @@ export default new Router({
           name: 'personalBattle',
           component: PersonalBattle,
           meta:{
-            index:1
+            index:1,
+            transform:'battle'
           }
         },
         {
@@ -35,9 +36,18 @@ export default new Router({
           name: 'Home',
           component: Home,
           meta:{
-            index:0
+            index:0,
+            transform:'home'
           }
         },
+        {
+          path: 'expertDetail',
+          name: 'expertDetail',
+          component: expertDetail,
+          meta:{
+            index:1
+          }
+        }
 
       ]
 
@@ -70,11 +80,7 @@ export default new Router({
       path: '/personalbattle',
       name: 'personalBattle',
       component: PersonalBattle,
-    },
-    {
-      path: '/expertDetail',
-      name: 'expertDetail',
-      component: expertDetail,
     }
+
   ]
 })
