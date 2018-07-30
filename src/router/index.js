@@ -4,6 +4,7 @@ import HomeIndex from '@/views/Home'
 import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
+import expertDetail from '@/views/Home/expertDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -64,6 +65,16 @@ export default new Router({
       name: 'personal',
       component: Home,
 
+    },
+    {
+      path: '/personalbattle',
+      name: 'personalBattle',
+      component: PersonalBattle,
+    },
+    {
+      path: '/expertDetail',
+      name: 'expertDetail',
+      component: expertDetail,
     }
   ]
 })

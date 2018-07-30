@@ -4,11 +4,10 @@
           <div class="record-item"
             v-for="(record, index) in records"
             @click="spanItem(index)"
-            :class="record.collapsed　? 'item-collapsed' : ''"
-            >
+            :class="collapsedClass(index)">
               <div class="item-body">
-                <div v-if="curTime > record.endTime" class="stamp">已结束</div>
-                <div v-if="curTime <= record.endTime" class="stamp stamp-red">进行中</div>
+                <div v-if="showStamp && curTime > record.endTime" class="stamp">已结束</div>
+                <div v-if="showStamp && curTime <= record.endTime" class="stamp stamp-red">进行中</div>
                   <table>
                       <tr>
                           <td>
@@ -58,6 +57,11 @@
                       <span>开始时间：{{record.startTime}}</span>
                       <span>结束时间：{{record.endTime}}</span>
                   </div>
+                  <div v-if="showBtn && curTime >= record.endTime">
+                    <!-- <div v-if="record.focus" class="focus" @click.stop="focus(false, index)">关注比赛进程</div>
+                    <div v-if="!record.focus" class="focus btn-grey" @click.stop="focus(true, index)">取消关注比赛进程</div> -->
+                    <div class="focus" :class="record.focus ? 'btn-grey' : ''" @click.stop="focus(!record.focus, index)">{{record.focus ? '已关注' : '关注比赛进程'}}</div>
+                  </div>
               </div>
           </div>
       </div>
@@ -66,6 +70,7 @@
 
 <style lang="less">
     #records {
+        font-size: 0.4rem;
         .record-item {
           font-size: 0.4rem;
           transition: all 500ms;
@@ -128,7 +133,7 @@
                         // margin: 0 auto;
                     }
                     .winner {
-                      color: #e74c3c;
+                      color: #c7000b;
                       text-shadow:0 0 0.2em #f87,
                                   0 0 0.3em #f87;
                     }
@@ -163,7 +168,7 @@
                 // td:first-child {text-align: right}
                 // td:nth-child(3) {text-align: left}
                 td:nth-child(2) {
-                    color: #e74c3c;
+                    color: #c7000b;
                     width: 20%;
                     font-weight: bold;
                 }
@@ -178,13 +183,31 @@
                     padding: 0 0.5rem;
                 }
             }
+            .focus {
+              height: 1rem;
+              line-height: 1rem;
+              // border: 2px solid #c7000b;
+              background: #f77062;
+              color: white;
+              border-radius: 0.1rem;
+              box-sizing: border-box;
+              transition: background-color 0.5s;
+            }
+            .btn-grey {
+              background: #bbbbbb;
+              // color: #2c3e50;
+              // transition: background-color 0.5s;
+            }
 
         }
-        .item-collapsed {
+        .item-collapsed-long {
+            height: 6.7rem;
+            overflow: hidden;
+        }
+        .item-collapsed-short {
             height: 5.7rem;
             overflow: hidden;
         }
-
     }
 </style>
 
@@ -192,13 +215,22 @@
   import * as API from '@/api/home'
   import getNormalTime from '@/utils/timeFormat'
   import Vue from 'vue'
+  import { Toast } from 'vux'
+
   export default {
     name:'record-list',
     props:{
       records:{
         type:Array
+      },
+      showStamp:{
+        type:Boolean,
+        default:true
+      },
+      showBtn: {
+        type: Boolean,
+        default: true
       }
-
     },
     created() {
     },
@@ -214,7 +246,23 @@
             }
             else
               Vue.set(this.records[index],'collapsed',false);
+        },
+        focus(option, index) {
+          Vue.set(this.records[index],'focus',option);
+          var msg = option ? '关注成功' : '取消关注成功';
+          this.$vux.toast.text(msg, 'top')
+        },
+        collapsedClass: function(index){
+          if(!this.records[index].collapsed)
+            return ""
+          else if(this.showBtn && getNormalTime >= this.records[index].endTime)
+            return "item-collapsed-long"
+          else
+            return "item-collapsed-short"
         }
+    },
+    components: {
+      Toast,
     }
   }
 

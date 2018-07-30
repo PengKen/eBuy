@@ -1,6 +1,6 @@
 <template>
     <div id="personal-battle">
-        <img class="back-arrow" src="/static/icon-img/icons8-back-26.png" @click="back()">
+        <back-arrow></back-arrow>
         <div id="user-info">
             <div id="portrait">
                 <img class="portrait" :src="portrait">
@@ -8,8 +8,8 @@
             <div id="data">
                 <div id="name">{{name}}</div>
                 <span class="win-rate">胜率：{{winRate.toFixed(2)*100 + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
-                <span class="honor">{{honor}}</span>
-                <img class="medal" :src="'/static/icon-img/honor-'+honor+'.png'">
+                <span class="honor">{{honor.title}}</span>
+                <img class="medal" :src="honor.url">
             </div>
         </div>
         <div id="filter">
@@ -27,6 +27,7 @@
 <script>
   import * as API from '@/api/home'
   import RecordList from '@/components/RecordList'
+  import BackArrow from '@/components/BackArrow'
   import Vue from 'vue'
   export default {
     name: "personal-battle",
@@ -144,7 +145,8 @@
         }
     },
     components:{
-      RecordList
+      RecordList,
+      BackArrow
     },
   }
 </script>
@@ -155,12 +157,6 @@
         height: 100%;
         overflow: hidden;
         font-size: 0.4rem;
-    }
-
-    .back-arrow {
-        position: absolute;
-        left:0.5rem;
-        top:0.5rem;
     }
     .medal {
       width: 0.5rem;
@@ -193,7 +189,7 @@
             font-weight: bold;
         }
         .honor {
-            color:#e74c3c;
+            color:#c7000b;
             vertical-align: middle;
             // margin-right: 0.5rem;
         }
@@ -216,9 +212,11 @@
             margin: 0.1rem;
             color: white;
             font-size: 0.4rem;
+            transition: all 0.3s;
         }
         .selected {
-            background:#e74c3c;
+            background:#c7000b;
+            transition: all 0.3s;
         }
     }
     #record-list {

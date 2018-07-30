@@ -7,6 +7,8 @@
         <!-- slides -->
         <swiper-slide v-for="(swiper,index) in swipers" :key="index"><img class="img" :src="swiper" alt=""></swiper-slide>
 
+        <swiper-slide><img class="img" src="/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg" alt=""></swiper-slide>
+        <swiper-slide><img @click="expertDetail()" class="img" src="/static/img/expert-click.jpg" alt=""></swiper-slide>
 
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>
@@ -129,6 +131,9 @@
       XTextarea
     },
     methods:{
+      expertDetail(){
+        this.$router.push({path:"/expertDetail", query:{}})
+      },
       personalBattle(userId){
         this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})
       },
@@ -155,7 +160,7 @@
           ...this.battleDetail,
           founder:123,
           duringTime:123,
-          // initialMoney:this.battleDetail.initialMoney*10000,
+          initialMoney:this.battleDetail.initialMoney*10000,
           expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
           duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
         }
@@ -200,7 +205,6 @@
         /*background-size: contain;*/
       }
     }
-
     #board{
       width: 100%;
       position: absolute;
