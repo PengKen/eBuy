@@ -73,8 +73,7 @@ const httpServer = (method = 'GET', url, data) => {
     method,
     baseURL: baseURL + url,
     timeout: 10000,
-    params:Object.assign(Public, data),
-    data:qs.stringify(Object.assign(Public, data)),
+    data,
     headers: {
       // 'X-Requested-With': 'XMLHttpRequest'
     }
