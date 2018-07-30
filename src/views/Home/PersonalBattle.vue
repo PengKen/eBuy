@@ -6,10 +6,10 @@
                 <img class="portrait" :src="portrait">
             </div>
             <div id="data">
-                <div id="name">{{name}}</div>
+                <div id="name">{{name}}<img class="medal" :src="honor.url"></div>
                 <span class="win-rate">胜率：{{winRate.toFixed(2)*100 + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
                 <span class="honor">{{honor.title}}</span>
-                <img class="medal" :src="honor.url">
+                
             </div>
         </div>
         <div id="filter">
@@ -145,6 +145,7 @@
         height: 100%;
         overflow: hidden;
         font-size: 0.4rem;
+        background: white;
     }
     .medal {
       width: 0.5rem;
@@ -155,11 +156,12 @@
         height: 10%;
         padding-top: 1.5rem;
         padding-bottom: 0.5rem;
-        background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%);
+        background-image: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
         box-shadow: 0 2px 5px #aaaaaa;
         #portrait, #data {
             display: inline-block;
             vertical-align: middle;
+            color: white;
         }
         .portrait {
             width: 1.5rem;
@@ -175,14 +177,16 @@
         #name {
             font-size: 0.5rem;
             font-weight: bold;
+            .medal {
+                padding: 0 0.2rem;
+            }
         }
         .honor {
-            color:#c7000b;
+            color:white;
             vertical-align: middle;
             // margin-right: 0.5rem;
         }
         .win-rate {
-            color:#2980b9;
             vertical-align: middle;
         }
 

@@ -11,7 +11,7 @@
       </div>
       <record-list id="record-list" 
         :records="records" 
-        :showBtn="active == 1 ? true : false" 
+        :showBtn="active == 1 || active == 3 ? true : false" 
         :showStamp="false">
       </record-list>
       <div class="battle-btn">
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import * as API from '@/api/hall'
   import ButtonBar from '@/components/ButtonBar'
   import RecordList from '@/components/RecordList'
   import { Tab, TabItem }  from 'vux'
@@ -43,6 +45,7 @@
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
                     inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    battleId:"1",
                     founderCardId:"",
                     inviteeCardId:"",
                     startTime:"2018-07-20",
@@ -52,7 +55,28 @@
                     inviteeBalance:"",
                     founderRate:1.1,
                     inviteeRate:1.2,
-                    focus:true
+                    isFocus:1
+                },
+                {
+                    founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
+                    inviteeName:"null",
+                    founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+                    inviteePortrait:"null",
+                    founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    inviteeHonor:{url:"null",title:"null"},
+                    battleId:"1",
+                    founderCardId:"",
+                    inviteeCardId:"null",
+                    startTime:"null",
+                    endTime:"null",
+                    duringTime:"3天",
+                    expireTime:"2018-08-02",
+                    initialMoney:"",
+                    founderBalance:"null",
+                    inviteeBalance:"null",
+                    founderRate:"null",
+                    inviteeRate:"null",
+                    isFocus:0
                 },
                 {
                     founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
@@ -61,16 +85,17 @@
                     inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
                     founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
                     inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+                    battleId:"1",
                     founderCardId:"",
                     inviteeCardId:"",
                     startTime:"2018-07-20",
-                    endTime:"2018-07-29",
+                    endTime:"2018-07-31",
                     initialMoney:"",
                     founderBalance:"",
                     inviteeBalance:"",
                     founderRate:1.1,
                     inviteeRate:1.2,
-                    focus:false
+                    isFocus:0
                 }
             ]
       }
@@ -88,7 +113,20 @@
       },
       onItemClick(item){
         this.active=item;
+        var state = (item == 1) ? 3 : ((item == 2) ? 4 : 1);
+        this.getBattleList(state, "111");
+      },
+      getBattleList(state, userId) {
+        API.getBattleList(state, userId).then(res=>{
+          this.records = res;
+          if(this.records.length>0) {
+              Vue.set(this.records[0],'collapsed',true);
+          }
+        })
       }
+    },
+    created() {
+      this.getBattleList(3, "111");
     }
   }
 </script>
@@ -96,14 +134,15 @@
 <style lang="less" scoped>
   #battle-hall{
     height: 100%;
+    background: white;
     .header{
       height: 15%;
-      background: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%);;
+      background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
       color: white;
 
     }
     #record-list {
-        padding: 0.3rem 0.3rem 1.5rem;
+        padding: 0.3rem 0.3rem 1.7rem;
         box-sizing: border-box;
         height: 13.5rem;
         overflow: scroll;
@@ -124,7 +163,7 @@
     }
     .battle-btn{
       position: absolute;
-      bottom:2rem;
+      bottom:1.7rem;
       left:0;
       right: 0;
       margin: 0 auto;
@@ -142,7 +181,7 @@
         position: absolute;
         top:0;
         left:0;
-        background-image: linear-gradient(-60deg, #93a5cf 0%, #e4efe9 100%);
+        background-image: linear-gradient(-60deg, #e97c33 0%, #ffd5a8 100%);
       }
       .battle{
         z-index: 1000;

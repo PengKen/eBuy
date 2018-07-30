@@ -6,8 +6,8 @@
             @click="spanItem(index)"
             :class="collapsedClass(index)">
               <div class="item-body">
-                <div v-if="showStamp && curTime > record.endTime" class="stamp">已结束</div>
-                <div v-if="showStamp && curTime <= record.endTime" class="stamp stamp-red">进行中</div>
+                <div v-if="showStamp && curTime > msToDate(record.endTime.time)" class="stamp">已结束</div>
+                <div v-if="showStamp && curTime <= msToDate(record.endTime.time)" class="stamp stamp-red">进行中</div>
                   <table>
                       <tr>
                           <td>
@@ -16,23 +16,24 @@
                               class="medal"
                               :src="record.founderHonor.url">
                               <div class="item-username"
-                              :class="[record.founderRate>=record.inviteeRate ? 'winner' : '']"
+                              :class="[record.inviteeName != 'null' && record.founderRate>=record.inviteeRate ? 'winner' : '']"
                               >{{record.founderName}}</div>
                           </td>
                           <td class="versus">VS</td>
 
                           <td>
                               <div class="item-username"
-                              :class="[record.inviteeRate>=record.founderRate ? 'winner' : '']"
-                              >{{record.inviteeName}}</div>
-                              <img class="medal" :src="record.inviteeHonor.url">
-                              <img class="avatar" :src="record.inviteePortrait">
+                              :class="[record.inviteeName != 'null' && record.inviteeRate>=record.founderRate ? 'winner' : '']"
+                              >{{record.inviteeName == 'null' ? '??' : record.inviteeName}}</div>
+                              <img class="medal" :src="record.inviteeHonor.url== 'null' ? '/static/icon-img/icons8-question-mark-filled-50.png' : record.inviteeHonor.url">
+                              <img class="avatar" 
+                              :src="record.inviteePortrait == 'null' ? '/static/icon-img/icons8-question-mark-64.png' : record.inviteePortrait">
                           </td>
                       </tr>
                       <tr>
                           <td>{{record.founderHonor.title}}</td>
                           <td>称号</td>
-                          <td>{{record.inviteeHonor.title}}</td>
+                          <td>{{record.inviteeHonor.title == 'null' ? '- -' : record.inviteeHonor.title}}</td>
                       </tr>
                       <tr>
                           <td>{{record.initialMoney}}</td>
@@ -40,36 +41,42 @@
                           <td>{{record.initialMoney}}</td>
                       </tr>
                       <tr>
-                          <td>{{record.founderBalance}}</td>
+                          <td>{{record.founderBalance == 'null' ? '- -' : record.founderBalance}}</td>
                           <td>
                             <span v-if="curTime < record.endTime">当前资金</span>
                             <span v-if="curTime > record.endTime">结束资金</span>
                           </td>
-                          <td>{{record.inviteeBalance}}</td>
+                          <td>{{record.inviteeBalance == 'null' ? '- -' : record.inviteeBalance}}</td>
                       </tr>
                       <tr>
-                          <td>{{record.founderRate}}</td>
+                          <td>{{record.founderRate == 'null' ? '- -' : record.founderRate}}</td>
                           <td>收益率</td>
-                          <td>{{record.inviteeRate}}</td>
+                          <td>{{record.inviteeRate == 'null' ? '- -' : record.inviteeRate}}</td>
                       </tr>
                   </table>
-                  <div class="time">
-                      <span>开始时间：{{record.startTime}}</span>
-                      <span>结束时间：{{record.endTime}}</span>
+                  <div class="time" v-if="record.inviteeName != 'null'">
+                      <span>开始时间：{{msToDate(record.startTime.time)}}</span>
+                      <span>结束时间：{{msToDate(record.endTime.time)}}</span>
                   </div>
-                  <div v-if="showBtn && curTime >= record.endTime">
-                    <!-- <div v-if="record.focus" class="focus" @click.stop="focus(false, index)">关注比赛进程</div>
-                    <div v-if="!record.focus" class="focus btn-grey" @click.stop="focus(true, index)">取消关注比赛进程</div> -->
-                    <div class="focus" :class="record.focus ? 'btn-grey' : ''" @click.stop="focus(!record.focus, index)">{{record.focus ? '已关注' : '关注比赛进程'}}</div>
+                  <div class="time" v-if="record.inviteeName == 'null'">
+                      <span>PK时长：{{record.duringTime.time / 86400000}}</span>
+                      <span>失效时间：{{msToDate(record.expireTime.time)}}</span>
                   </div>
+                  <div v-if="record.startTime != 'null' && showBtn && curTime <= msToDate(record.endTime.time)">
+                    <div class="focus" :class="record.isFocus ? 'btn-grey' : ''" @click.stop="focus(record.isFocus, index)">{{record.isFocus ? '已关注' : '关注比赛进程'}}</div>
+                  </div>
+                  <div class="battle-btn" 
+                  v-if="record.startTime == 'null'"
+                  @click.stop="acceptBattle(index)">应战</div>
               </div>
           </div>
       </div>
+      <div id="no-record" v-if="records.length == 0">----- 暂时没有记录哦 -----</div>
   </div>
 </template>
 
 <style lang="less">
-    #records {
+    #record-list {
         font-size: 0.4rem;
         .record-item {
           font-size: 0.4rem;
@@ -180,14 +187,15 @@
                 line-height: 1rem;
                 font-size: 0.35rem;
                 span {
-                    padding: 0 0.5rem;
+                    display: inline-block;
+                    width: 49%;
                 }
             }
             .focus {
               height: 1rem;
               line-height: 1rem;
               // border: 2px solid #c7000b;
-              background: #f77062;
+              background: #ffb86c;
               color: white;
               border-radius: 0.1rem;
               box-sizing: border-box;
@@ -197,6 +205,16 @@
               background: #bbbbbb;
               // color: #2c3e50;
               // transition: background-color 0.5s;
+            }
+            .battle-btn {
+              height: 1rem;
+              line-height: 1rem;
+              // border: 2px solid #c7000b;
+              background: #f77062;
+              color: white;
+              border-radius: 0.1rem;
+              box-sizing: border-box;
+              transition: background-color 0.5s;
             }
 
         }
@@ -213,7 +231,9 @@
 
 <script>
   import * as API from '@/api/home'
+  import * as APIHALL from '@/api/hall'
   import getNormalTime from '@/utils/timeFormat'
+  import * as DF from '@/utils/timeFormat'
   import Vue from 'vue'
   import { Toast } from 'vux'
 
@@ -247,18 +267,34 @@
             else
               Vue.set(this.records[index],'collapsed',false);
         },
-        focus(option, index) {
-          Vue.set(this.records[index],'focus',option);
-          var msg = option ? '关注成功' : '取消关注成功';
-          this.$vux.toast.text(msg, 'top')
+        focus(isFocus, index) {
+          if(isFocus == 0) { // 关注
+            var focusInfo = {userId: "111", battleId:this.records[index].battleId};
+                APIHALL.postInsertFocus(focusInfo).then(()=>{
+                Vue.set(this.records[index],'isFocus',1);
+                this.$vux.toast.text('关注成功', 'top')
+            })
+          }
+          else { // 取消关注
+                APIHALL.deleteFocus("111", this.records[index].battleId).then(()=>{
+                Vue.set(this.records[index],'isFocus',0);
+                this.$vux.toast.text('取消关注成功', 'top')
+            })
+          }
+        },
+        acceptBattle(index) {
+          this.$vux.toast.text('应战'+index, 'top')
         },
         collapsedClass: function(index){
           if(!this.records[index].collapsed)
             return ""
-          else if(this.showBtn && getNormalTime >= this.records[index].endTime)
+          else if(this.records[index].startTime == "null" || this.showBtn && getNormalTime <= this.msToDate(this.records[index].endTime.time))
             return "item-collapsed-long"
           else
             return "item-collapsed-short"
+        },
+        msToDate(ms) {
+          return DF.msToDate(ms);
         }
     },
     components: {
