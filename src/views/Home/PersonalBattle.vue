@@ -200,9 +200,11 @@
             margin: 0.1rem;
             color: white;
             font-size: 0.4rem;
+            transition: all 0.3s;
         }
         .selected {
             background:#c7000b;
+            transition: all 0.3s;
         }
     }
     #record-list {

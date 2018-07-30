@@ -58,6 +58,10 @@ export default {
         color: #c7000b;
         font-size: 0.6rem;
       }
+      h1:before, h1:after {
+        content: "◇";
+        margin: 0 0.2rem;
+      }
       .content {
         text-align: justify;
         color: #666666;
