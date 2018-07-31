@@ -50,6 +50,14 @@ export default new Router({
           meta:{
             index:1
           }
+        },
+        {
+          path: 'rule',
+          name: 'rule',
+          component: Rule,
+          meta:{
+            index:1
+          }
         }
 
       ]
@@ -83,21 +91,6 @@ export default new Router({
       name: 'personal',
       component: Home,
 
-    },
-    {
-      path: '/personalbattle',
-      name: 'personalBattle',
-      component: PersonalBattle,
-    },
-    {
-      path: '/expertDetail',
-      name: 'expertDetail',
-      component: expertDetail,
-    },
-    {
-      path: '/rule',
-      name: 'rule',
-      component: Rule,
     }
 
   ]
