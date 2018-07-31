@@ -105,8 +105,21 @@
     created() {
         this.userId = this.$route.query.userId;
         this.getUserRecords(this.userId, "all");
+        console.log("created")
+    },
+    watch:{
+      honor(newVal,oldVal){
+        if(newVal === 2)
+          this.honor = "吃鸡达人"
+        else if(newVal === 1)
+          this.honor = '迷你鸡王'
+        else this.honor = '初出茅庐'
+      }
     },
     methods:{
+        back() {
+            this.$router.go(-1);
+        },
         tapFilter(id) {
             for(let i=0; i<this.filterOp.length; i++) {
                 if(this.filterOp[i].id == id){
@@ -136,11 +149,13 @@
       RecordList,
       BackArrow
     },
+    destoryed () {
+      console.log("i am destory")
+    }
   }
 </script>
 
 <style lang='less' >
-    @var: 1rem;
     #personal-battle {
         height: 100%;
         overflow: hidden;
