@@ -5,7 +5,7 @@ import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
 import ExpertDetail from '@/views/Home/expertDetail'
-import BattleSetting from '@/views/BattleHall/battleSetting'
+import BattleSetting from '@/views/BattleHall/BattleSetting'
 Vue.use(Router)
 
 export default new Router({

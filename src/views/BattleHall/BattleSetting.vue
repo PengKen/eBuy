@@ -61,7 +61,6 @@ Vue.use(AlertPlugin)
     },
     components:{
       popup,
-      popup,
       Group,
       XButton,
       Datetime,

@@ -58,23 +58,26 @@ function errorState(response) {
 function successState(res) {
   //隐藏loading
   //统一判断后端返回的错误码
-  if(res.data.errCode == '000002'){
+  if (res.data.errCode == '000002') {
     Vue.prototype.$msg.alert.show({
       title: '提示',
-      content: res.data.errDesc||'网络异常',
-      onShow () {
+      content: res.data.errDesc || '网络异常',
+      onShow() {
       },
-      onHide () {
+      onHide() {
         console.log('确定')
       }
     })
-  }else if(res.data.errCode != '000002'&&res.data.errCode != '000000') {
+  } else if (res.data.errCode != '000002' && res.data.errCode != '000000') {
     Vue.prototype.$msg.alert.show({
       title: '提示',
-      content: res.data.errDesc||'网络异常',
-      onShow () {
+      content: res.data.errDesc || '网络异常',
+      onShow() {
 
-
+      }
+    })
+  }
+}
 const httpServer = (method = 'GET', url, data) => {
 
   let Public = { //公共参数
@@ -114,4 +117,4 @@ const httpServer = (method = 'GET', url, data) => {
   return promise
 }
 
-export default httpServer
+export default httpServer;
