@@ -4,6 +4,8 @@ import HomeIndex from '@/views/Home'
 import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
+
+import Rule from '@/views/Home/Rule'
 import ExpertDetail from '@/views/Home/expertDetail'
 import BattleSetting from '@/views/BattleHall/BattleSetting'
 Vue.use(Router)
@@ -45,6 +47,14 @@ export default new Router({
           path: 'expertDetail',
           name: 'expertDetail',
           component: ExpertDetail,
+          meta:{
+            index:1
+          }
+        },
+        {
+          path: 'rule',
+          name: 'rule',
+          component: Rule,
           meta:{
             index:1
           }
