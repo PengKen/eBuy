@@ -9,16 +9,17 @@
           </tab>
         </div>
       </div>
-      <record-list id="record-list" 
-        :records="records" 
-        :showBtn="active == 1 ? true : false" 
+      <record-list id="record-list"
+        :records="records"
+        :showBtn="active == 1 ? true : false"
         :showStamp="false">
       </record-list>
       <div class="battle-btn">
         <div class="battle" @click="battle">对战</div>
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
-        <div class="set-battle" :class="[out ? showBattle : '']" >摆擂台</div>
+        <div class="set-battle" :class="[out ? showBattle : '']" @click="setBattle">摆擂台</div>
       </div>
+      <battle-setting v-if="showBattleSetting" :showBattleSetting="showBattleSetting"></battle-setting>
       <button-bar class="button"></button-bar>
     </div>
 </template>
@@ -27,6 +28,7 @@
   import ButtonBar from '@/components/ButtonBar'
   import RecordList from '@/components/RecordList'
   import { Tab, TabItem }  from 'vux'
+  import BattleSetting from "./BattleSetting";
   export default {
     name: "battle-hall",
     data () {
@@ -35,7 +37,7 @@
         out: false,
         showInvite:"show-invite",
         showBattle:'show-battle',
-            records: [
+        records: [
                 {
                     founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
                     inviteeName:"userB",
@@ -72,10 +74,12 @@
                     inviteeRate:1.2,
                     focus:false
                 }
-            ]
+            ],
+        showBattleSetting:false
       }
     },
     components:{
+      BattleSetting,
       ButtonBar,
       Tab,
       TabItem,
@@ -88,6 +92,9 @@
       },
       onItemClick(item){
         this.active=item;
+      },
+      setBattle(){
+        this.showBattleSetting = true
       }
     }
   }
@@ -128,7 +135,7 @@
       left:0;
       right: 0;
       margin: 0 auto;
-      z-index: 999;
+      z-index: 6;
       .show-invite{
         transform: translateX(-2rem);
 
