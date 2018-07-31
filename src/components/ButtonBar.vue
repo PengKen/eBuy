@@ -8,21 +8,21 @@
         </li>
       </router-link>
 
-      <router-link :to="{ name: 'battle', params: {}}">
+      <router-link :to="{ name: 'Home', params: {}}">
         <li>
           <i class="icon iconfont icon-duizhanpingtai"></i>
           <div class="name">对战平台</div>
         </li>
       </router-link>
 
-      <router-link :to="{ name: 'BattleHall', params: {}}">
+      <router-link :to="{ path:'/battlehall', params: {}}">
         <li>
           <i class="icon iconfont icon-youxidating"></i>
           <div class="name">游戏大厅</div>
         </li>
       </router-link>
 
-      <router-link :to="{ name: 'personal', params: {}}">
+      <router-link :to="{ name: 'Home', params: {}}">
         <li>
           <i class="icon iconfont icon-profile"></i>
           <div class="name">我 的</div>

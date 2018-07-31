@@ -75,18 +75,8 @@ export default new Router({
       path: '/battle',
       name: 'perosonal',
       component: Home
-    },
-    {
-      path: '/battle',
-      name: 'personal',
-      component: Home,
-
-    },
-    {
-      path: '/personalbattle',
-      name: 'personalBattle',
-      component: PersonalBattle,
     }
+
 
   ]
 })

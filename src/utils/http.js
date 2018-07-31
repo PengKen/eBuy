@@ -91,7 +91,7 @@ const httpServer = (method = 'GET', url, data) => {
     data,
     // data:qs.stringify(data),
     headers: {
-      'X-Requested-With': 'XMLHttpRequest'
+      // 'X-Requested-With': 'XMLHttpRequest'
     }
   }
 
