@@ -5,7 +5,7 @@
       @someSwiperEvent=""
       >
         <!-- slides -->
-        <swiper-slide><img class="img" src="/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg" alt=""></swiper-slide>
+        <swiper-slide><img @click="rule()" class="img" src="/static/img/eBuyPoster.jpg" alt=""></swiper-slide>
         <swiper-slide><img @click="expertDetail()" class="img" src="/static/img/expert-click.jpg" alt=""></swiper-slide>
 
         <!-- Optional controls -->
@@ -129,6 +129,9 @@
     methods:{
       expertDetail(){
         this.$router.push({path:"/expertDetail", query:{}})
+      },
+      rule(){
+        this.$router.push({path:"/rule", query:{}})
       },
       personalBattle(userId){
         this.$router.push({path:"/PersonalBattle", query:{userId:userId}})
