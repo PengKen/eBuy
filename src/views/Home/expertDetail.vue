@@ -34,13 +34,12 @@ export default {
     position: relative;
     height: 100%;
     font-size: 0.4rem;
+    overflow: hidden;
     .img {
-      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 30%;
-      border-bottom: 0.2rem solid white;
       background: white;
       img {
         width: 100%;
@@ -51,9 +50,11 @@ export default {
     .article {
       padding: 0.3rem;
       list-style-type: none;
-      position: relative;
       z-index: -1;
       top: 30%;
+      height: 70%;
+      box-sizing: border-box;
+      overflow: scroll;
       h1 {
         color: #c7000b;
         font-size: 0.6rem;
