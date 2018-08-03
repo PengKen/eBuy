@@ -9,25 +9,24 @@
           </tab>
         </div>
       </div>
-      <record-list id="record-list"
+      <div class="records"><record-list id="record-list"
         :records="records"
-        :showBtn="active == 1 ? true : false"
+        :showBtn="active == 2 ? false : true"
         :showStamp="false">
-      </record-list>
+      </record-list></div>
       <div class="battle-btn">
         <div class="battle" @click="battle">对战</div>
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
         <div class="set-battle" :class="[out ? showBattle : '']" @click="setBattle">摆擂台</div>
       </div>
       <battle-setting v-if="showBattleSetting" :showBattleSetting="showBattleSetting"></battle-setting>
-      <button-bar class="button"></button-bar>
     </div>
 </template>
 
 <script>
+  import store from "@/store/index";
   import Vue from 'vue'
   import * as API from '@/api/hall'
-  import ButtonBar from '@/components/ButtonBar'
   import RecordList from '@/components/RecordList'
   import { Tab, TabItem }  from 'vux'
   import BattleSetting from "./BattleSetting";
@@ -105,7 +104,6 @@
     },
     components:{
       BattleSetting,
-      ButtonBar,
       Tab,
       TabItem,
       RecordList
@@ -118,7 +116,7 @@
       onItemClick(item){
         this.active=item;
         var state = (item == 1) ? 3 : ((item == 2) ? 4 : 1);
-        this.getBattleList(state, "111");
+        this.getBattleList(state, this.userId);
       },
       getBattleList(state, userId) {
         API.getBattleList(state, userId).then(res=>{
@@ -133,7 +131,8 @@
       }
     },
     created() {
-      this.getBattleList(3, "111");
+      this.userId = store.state.userId;
+      this.getBattleList(3, this.userId);
     }
   }
 </script>
@@ -148,7 +147,7 @@
       color: white;
 
     }
-    #record-list {
+    .records {
         padding: 0.3rem 0.3rem 1.7rem;
         box-sizing: border-box;
         height: 13.5rem;
@@ -193,12 +192,6 @@
       .battle{
         z-index: 1000;
       }
-      // .invite{
-      //   background: yellow;
-      // }
-      // .set-battle{
-      //   background: blue;
-      // }
     }
 
 

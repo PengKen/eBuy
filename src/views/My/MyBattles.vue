@@ -1,17 +1,7 @@
 <template>
-    <div id="personal-battle">
+    <div id="my-battles">
         <back-arrow></back-arrow>
-        <div id="user-info">
-            <div id="portrait">
-                <img class="portrait" :src="portrait">
-            </div>
-            <div id="data">
-                <div id="name">{{name}}<img class="medal" :src="honor.url"></div>
-                <span class="win-rate">胜率：{{(winRate*100).toFixed(2) + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
-                <span class="honor">{{honor.title}}</span>
-                
-            </div>
-        </div>
+        <h1>我的比赛</h1>
         <div id="filter">
             <span
                 v-for="option in filterOp"
@@ -20,27 +10,21 @@
                 :class="[option.active ? 'selected' : '']"
                 >{{option.content}}</span>
         </div>
-        <record-list id="record-list" :records="records" :showBtn=false></record-list>
+        <div class="records"><record-list id="record-list" :records="records" :showBtn=false></record-list></div>
     </div>
 </template>
 
 <script>
-  import * as API from '@/api/home'
+  import store from "@/store/index";
+  import * as API from '@/api/my'
   import RecordList from '@/components/RecordList'
   import BackArrow from '@/components/BackArrow'
   import Vue from 'vue'
   export default {
-    name: "personal-battle",
+    name: "myBattles",
     data() {
         return {
-            collapsed:{
-              height:'1.5rem'
-            },
-            userId: "1",
-            name: "投资家",
-            portrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-            honor: {url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-            winRate: 0.8,
+            userId: 111,
             selectTime: "all",
             filterOp: [
                 {
@@ -103,23 +87,11 @@
         }
     },
     created() {
-        this.userId = this.$route.query.userId;
+        this.userId = store.state.userId;
         this.getUserRecords(this.userId, "all");
         console.log("created")
     },
-    watch:{
-      honor(newVal,oldVal){
-        if(newVal === 2)
-          this.honor = "吃鸡达人"
-        else if(newVal === 1)
-          this.honor = '迷你鸡王'
-        else this.honor = '初出茅庐'
-      }
-    },
     methods:{
-        back() {
-            this.$router.go(-1);
-        },
         tapFilter(id) {
             for(let i=0; i<this.filterOp.length; i++) {
                 if(this.filterOp[i].id == id){
@@ -133,12 +105,7 @@
             this.getUserRecords(this.userId, this.selectTime)
         },
         getUserRecords(userId, selectTime) {
-          API.getPersonalBattle(userId, selectTime).then(res=>{
-            this.name = res.name;
-            this.portrait = res.portrait;
-            this.honor.url = res.honor.url;
-            this.honor.title = res.honor.title;
-            this.winRate = res.winRate;
+          API.getMyBattles(userId, selectTime).then(res=>{
             this.records = res.records;
             if(this.records.length>0) {
                 Vue.set(this.records[0],'collapsed',true);
@@ -157,14 +124,14 @@
 </script>
 
 <style lang='less' >
-    #personal-battle {
+    #my-battles {
         height: 100%;
         overflow: hidden;
         font-size: 0.4rem;
         background: white;
-        #record-list {
+        .records {
             padding: 0 0.3rem;
-            height: 12rem;
+            height: 14.4rem;
             overflow: scroll;
         }
     }
@@ -173,44 +140,10 @@
       height: 0.5rem;
       vertical-align: middle;
     }
-    #user-info {
-        height: 10%;
-        padding-top: 1.5rem;
-        padding-bottom: 0.5rem;
-        background-image: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
-        box-shadow: 0 2px 5px #aaaaaa;
-        #portrait, #data {
-            display: inline-block;
-            vertical-align: middle;
-            color: white;
-        }
-        .portrait {
-            width: 1.5rem;
-            height: 1.5rem;
-            margin-right: 0.5rem;
-            border-radius: 50%;
-            border: 0.05rem solid white;
-            overflow: hidden;
-        }
-        #data {
-            text-align: left;
-        }
-        #name {
-            font-size: 0.5rem;
-            font-weight: bold;
-            .medal {
-                padding: 0 0.2rem;
-            }
-        }
-        .honor {
-            color:white;
-            vertical-align: middle;
-            // margin-right: 0.5rem;
-        }
-        .win-rate {
-            vertical-align: middle;
-        }
-
+    h1 {
+        color: #c7000b;
+        margin-top: 0.5rem;
+        font-size: 0.5rem;
     }
     #filter {
         padding: 0.5rem 0;

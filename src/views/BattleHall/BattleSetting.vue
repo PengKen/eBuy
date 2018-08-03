@@ -18,13 +18,13 @@
           ></datetime >
 
 
-          <x-textarea
+          <!-- <x-textarea
             title="捎话"
             placeholder="呛他两句？"
             :show-counter="false"
             :rows="1"
             v-model="battleDetail.content"
-          ></x-textarea>
+          ></x-textarea> -->
           <button type="submit" class="comfirm-button" @click="postNewBattle">确定</button>
         </group>
 
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import store from "@/store/index";
 import popup from '@/components/popup'
 import getNormalTime from '@/utils/timeFormat'
 import Vue from 'vue'
@@ -46,6 +47,7 @@ Vue.use(AlertPlugin)
     name:'battle-setting',
     data () {
       return {
+        userId: 111,
         battleDetail:{
           duringTime:6,
           initialMoney:5,
@@ -73,6 +75,9 @@ Vue.use(AlertPlugin)
         default:false
       }
     },
+    created() {
+      this.userId = store.state.userId;
+    },
     methods:{
       hidePopUp(){
         this.showPopup = false
@@ -91,7 +96,9 @@ Vue.use(AlertPlugin)
         }
         const battleDetail = {
           ...this.battleDetail,
-          founder:123,
+          founder:this.userId,
+          invitee:'NumberFormatException',
+          content:'NumberFormatException',
           duringTime:123,
           initialMoney:this.battleDetail.initialMoney*10000,
           expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
@@ -100,11 +107,11 @@ Vue.use(AlertPlugin)
         API.postNewBattle(battleDetail).then(()=>{
           this.$vux.alert.show({
             title: '恭喜',
-            content: '战书已下达，请等待对方应战！',
+            content: '擂台已摆好，请等待应战！',
             onShow () {
             },
             onHide: ()=> {
-              this.showPopup = false
+              this.showBattleSetting = false
             }
           })
         })

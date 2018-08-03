@@ -6,7 +6,11 @@ const store = new Vuex.Store({
   modules:{
     boardList
 
+  },
+  state: {
+    userId: 777
   }
+  
 })
 
 export default  store
