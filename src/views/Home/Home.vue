@@ -31,12 +31,18 @@
       </ul>
     </div>
     <personal-battle
-      :curUser="userId"
+      :curUser="curUser"
       @notifyHome="personalBattle('')"
+
       :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
     ></personal-battle>
     <keep-alive>
-      <battle-setting :showBattleSetting.sync="showPopup"></battle-setting>
+      <battle-setting
+        :showBattleSetting.sync="showPopup"
+        situation="Home"
+        :curUser="curUser"
+
+      ></battle-setting>
     </keep-alive>
 
   </div>
@@ -63,6 +69,9 @@
       this.$store.dispatch('boardList/getBoardList').then( state => console.log(state));
       this.userId = store.state.userId;
     },
+    computed () {
+
+    },
     data() {
       return {
         userId: 111,
@@ -71,7 +80,7 @@
           process.env.STATIC_URL+'/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg'
         ],
         showPopup:false,
-        userId:'',
+        curUser:0,
         showPersonal:false,
         ulBoradStyle:{},//排行榜初始高度
         swiperOption: {
@@ -126,7 +135,7 @@
           });
         }
         else{
-          this.battleDetail['invitee'] = userId
+        this.curUser = userId
           this.showPopup = true
         }
 

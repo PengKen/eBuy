@@ -33,8 +33,8 @@
     name: "personal-battle",
     props:{
       curUser:{
-        type:String,
-        default:''
+        type:Number,
+        default:0
       }
     },
     data() {
@@ -109,17 +109,11 @@
         }
     },
     created() {
-
-        this.getUserRecords(this.curUser, "all");
-        console.log("created")
     },
     watch:{
-      honor(newVal,oldVal){
-        if(newVal === 2)
-          this.honor = "吃鸡达人"
-        else if(newVal === 1)
-          this.honor = '迷你鸡王'
-        else this.honor = '初出茅庐'
+      curUser(newVal){
+        if(newVal !== 0)
+          this.getUserRecords(this.curUser, "all");
       }
     },
     methods:{

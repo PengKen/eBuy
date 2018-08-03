@@ -8,9 +8,10 @@ const store = new Vuex.Store({
 
   },
   state: {
-    userId: 777
+    userId: 777,
+
   }
-  
+
 })
 
 export default  store

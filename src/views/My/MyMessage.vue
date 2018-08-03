@@ -4,7 +4,7 @@
 		<button-tab>
 			<button-tab-item  @on-item-click="clickTab(1)" selected>收到</button-tab-item>
 			<button-tab-item @on-item-click="clickTab(2)"><span class="vux-reddot-s">发出</span></button-tab-item>
-		</button-tab>		
+		</button-tab>
 		<div id="msg-list">
 			<div class="msg-item" v-for="(msg, index) in messages" @click="showDetail(index)">
 				<div class="head"><img :src="msg.portrait"/></div>
@@ -19,7 +19,7 @@
 			</div>
 			<divider v-if="messages.length == 0" >这里什么也没有，快去对战大厅看看吧</divider>
 		</div>
-		<popup class="popup" :isShow.sync="showPopup" @hidePopUp="hidePopUp" :showClose="false">
+		<popup class="popup" @notifySetting="hidePopUp" :isShow.sync="showPopup" @hidePopUp="hidePopUp" :showClose="false">
 			<div class="content" slot="content">
 				<h1>挑战书</h1>
 				<div>
@@ -47,12 +47,12 @@
 						<span>{{msToDate(msgDetail.expiredTime.time)}}</span>
 					</p>
 				</div>
-				<div class="btn accept-btn" 
+				<div class="btn accept-btn"
 				v-if="tab == 1 && msgDetail.ifAccepted == 0 && msgDetail.state != '已失效'"
 				@click="onAccept()">
 				 接受挑战
 				</div>
-				<div class="btn accepted-btn" 
+				<div class="btn accepted-btn"
 				v-if="tab == 1 && msgDetail.ifAccepted == 1 && msgDetail.state != '已失效'">
 				 已接受
 				</div>
@@ -63,7 +63,7 @@
 			</div>
 		</popup>
 	</div>
-	      
+
 </template>
 
 
@@ -83,114 +83,114 @@ export default {
       tab: 1,
       showPopup: false,
       messages: [
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 222,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 0
-        },
-        {
-          userId: 333,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        },
-        {
-          userId: 111,
-          name: "广州五部明星员工",
-          portrait: "/static/img/portrait.jpg",
-          content: "来呀，打我呀",
-          messageTime: { time: 86400000 },
-          initialMoney: "1000000",
-          duringTime: { time: 86400000 },
-          expiredTime: { time: 86400000 },
-          battleId: 124,
-          ifAccepted: 1
-        }
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 222,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 0
+        // },
+        // {
+        //   userId: 333,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // },
+        // {
+        //   userId: 111,
+        //   name: "广州五部明星员工",
+        //   portrait: "/static/img/portrait.jpg",
+        //   content: "来呀，打我呀",
+        //   messageTime: { time: 86400000 },
+        //   initialMoney: "1000000",
+        //   duringTime: { time: 86400000 },
+        //   expiredTime: { time: 86400000 },
+        //   battleId: 124,
+        //   ifAccepted: 1
+        // }
       ],
       msgDetail: {
         index: 0,
