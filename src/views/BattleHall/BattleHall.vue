@@ -137,20 +137,39 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   #battle-hall{
     height: 100%;
     background: white;
     .header{
-      height: 15%;
+      height: 1.3rem;
       background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
       color: white;
-
+      .button-tab {
+        .vux-tab-wrap {
+          .vux-tab-container {
+            .vux-tab {
+              background-color: transparent;
+              .vux-tab-item {
+                background: transparent;
+                color: white;
+              }
+              .vux-tab-ink-bar {
+                background-color: white;
+                padding: 0 1rem;
+                background-clip: content-box;
+              }
+            }
+          }
+         
+        }
+      }
+      
     }
     .records {
         padding: 0.3rem 0.3rem 1.7rem;
         box-sizing: border-box;
-        height: 13.5rem;
+        height: 15rem;
         overflow: scroll;
     }
     .battle-btn,.battle,.invite,.set-battle{
