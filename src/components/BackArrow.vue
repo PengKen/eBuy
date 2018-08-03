@@ -1,13 +1,27 @@
 <template>
-    <img class="back-arrow" src="/static/icon-img/icons8-back-26.png" @click="back()">
+    <img
+      class="back-arrow"
+      src="/static/icon-img/icons8-back-26.png"
+      @click="back()"
+    >
 </template>
 
 <script>
 export default {
     name: "back-arrow",
+    props:{
+      common:{
+        type:Boolean,
+        default:false
+      }
+    },
     methods: {
         back() {
+          if(!this.common){
             this.$router.go(-1);
+          }else{
+            this.$emit('selfHandle')
+          }
         }
     }
 }

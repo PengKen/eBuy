@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
   import ButtonBar from '@/components/ButtonBar'
 export default {
   name: 'App',

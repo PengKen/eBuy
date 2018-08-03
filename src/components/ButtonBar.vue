@@ -8,7 +8,7 @@
         </li>
       </router-link>
 
-      <router-link :to="{ name: 'Home', params: {}}">
+      <router-link :to="{ name: 'Battle', params: {}}">
         <li>
           <i class="icon iconfont icon-duizhanpingtai"></i>
           <div class="name">对战平台</div>

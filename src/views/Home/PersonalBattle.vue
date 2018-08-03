@@ -1,6 +1,6 @@
 <template>
     <div id="personal-battle">
-        <back-arrow></back-arrow>
+        <back-arrow :common="true" @selfHandle="back"></back-arrow>
         <div id="user-info">
             <div id="portrait">
                 <img class="portrait" :src="portrait">
@@ -9,7 +9,7 @@
                 <div id="name">{{name}}<img class="medal" :src="honor.url"></div>
                 <span class="win-rate">胜率：{{winRate.toFixed(2)*100 + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
                 <span class="honor">{{honor.title}}</span>
-                
+
             </div>
         </div>
         <div id="filter">
@@ -31,6 +31,12 @@
   import Vue from 'vue'
   export default {
     name: "personal-battle",
+    props:{
+      curUser:{
+        type:String,
+        default:''
+      }
+    },
     data() {
         return {
             collapsed:{
@@ -103,8 +109,8 @@
         }
     },
     created() {
-        this.userId = this.$route.query.userId;
-        this.getUserRecords(this.userId, "all");
+
+        this.getUserRecords(this.curUser, "all");
         console.log("created")
     },
     watch:{
@@ -118,7 +124,7 @@
     },
     methods:{
         back() {
-            this.$router.go(-1);
+            this.$emit('notifyHome','')//''空字符串表示false
         },
         tapFilter(id) {
             for(let i=0; i<this.filterOp.length; i++) {
@@ -130,7 +136,7 @@
                     this.filterOp[i].active = false;
             }
             this.records = [];
-            this.getUserRecords(this.userId, this.selectTime)
+            this.getUserRecords(this.curUser, this.selectTime)
         },
         getUserRecords(userId, selectTime) {
           API.getPersonalBattle(userId, selectTime).then(res=>{
@@ -155,12 +161,19 @@
   }
 </script>
 
-<style lang='less' >
+<style lang='less' scoped >
     #personal-battle {
         height: 100%;
         overflow: hidden;
         font-size: 0.4rem;
+        top:0;
+        z-index: 6;
         background: white;
+        position: fixed;
+        transform: rotateZ(90deg);
+        transform-origin: left bottom;
+        transition: transform 500ms;
+      width: 100%;
     }
     .medal {
       width: 0.5rem;

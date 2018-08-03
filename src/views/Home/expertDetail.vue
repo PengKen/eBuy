@@ -31,6 +31,7 @@ export default {
 
 <style lang="less" scoped>
   #expert-detail {
+    -webkit-overflow-scrolling:touch;
     position: relative;
     height: 100%;
     font-size: 0.4rem;

@@ -1,6 +1,12 @@
 <template>
   <div id="battle-setting">
-    <popup class="pupup" :isShow.sync="showBattleSetting" @hidePopUp="hidePopUp" :showClose="false">
+    <popup
+      class="pupup"
+      :isShow="showBattleSetting"
+      @hidePopUp="hidePopUp"
+      :showClose="false"
+      @notifySetting="hidePopUp"
+    >
       <div class="content" slot="content">
         <h2>擂台设置</h2>
         <group label-width="5em" label-margin-right="2em" label-align="center">
@@ -15,6 +21,7 @@
             format="YYYY-MM-DD HH"
             :min-hour="minHour"
             :start-date="battleDetail.currentTime"
+            :min-year="new Date().getFullYear()"
           ></datetime >
 
 
@@ -49,12 +56,11 @@ Vue.use(AlertPlugin)
         battleDetail:{
           duringTime:6,
           initialMoney:5,
-          invitee:'',
-          content:'',
-          expiredTime:''
+          invitee:null,
+          content:null,
+          expiredTime:'',
+          currentTime:getNormalTime,
         },
-        currentTim:getNormalTime,
-        showPopup:false,
         step:0.5,
         minHour: new Date().getHours(),
       }
@@ -75,7 +81,8 @@ Vue.use(AlertPlugin)
     },
     methods:{
       hidePopUp(){
-        this.showPopup = false
+        this.$emit('update:showBattleSetting',false)
+
       },
       postNewBattle(){
         if(!this.battleDetail.expiredTime){
@@ -92,7 +99,6 @@ Vue.use(AlertPlugin)
         const battleDetail = {
           ...this.battleDetail,
           founder:123,
-          duringTime:123,
           initialMoney:this.battleDetail.initialMoney*10000,
           expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
           duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
@@ -104,7 +110,7 @@ Vue.use(AlertPlugin)
             onShow () {
             },
             onHide: ()=> {
-              this.showPopup = false
+              this.showBattleSetting = false
             }
           })
         })

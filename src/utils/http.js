@@ -95,11 +95,11 @@ const httpServer = (method = 'GET', url, data) => {
     }
   }
 
-  if(method=='GET'){
-    delete httpDefaultOpts.data
-  }else{
-    delete httpDefaultOpts.params
-  }
+  // if(method=='GET'){
+  //   delete httpDefaultOpts.data
+  // }else{
+  //   delete httpDefaultOpts.params
+  // }
 
   let promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(

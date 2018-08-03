@@ -15,11 +15,14 @@
         :showStamp="false">
       </record-list>
       <div class="battle-btn">
-        <div class="battle" @click="battle">对战</div>
+        <div class="battle" @click.stop="battle">对战</div>
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
-        <div class="set-battle" :class="[out ? showBattle : '']" @click="setBattle">摆擂台</div>
+        <div class="set-battle" :class="[out ? showBattle : '']" @click.stop="setBattle">摆擂台</div>
       </div>
-      <battle-setting v-if="showBattleSetting" :showBattleSetting="showBattleSetting"></battle-setting>
+      <battle-setting
+        :showBattleSetting.sync="showBattleSetting"
+        @notifySetting="setBattle"
+      ></battle-setting>
       <button-bar class="button"></button-bar>
     </div>
 </template>
@@ -128,8 +131,11 @@
           }
         })
       },
-      setBattle(){
-        this.showBattleSetting = true
+      setBattle(msgFromSetting){
+        if(msgFromSetting)
+          this.showBattleSetting = true
+        else
+          this.showBattleSetting = msgFromSetting
       }
     },
     created() {

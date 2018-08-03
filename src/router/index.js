@@ -4,10 +4,10 @@ import HomeIndex from '@/views/Home'
 import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
-
 import Rule from '@/views/Home/Rule'
 import ExpertDetail from '@/views/Home/expertDetail'
 import BattleSetting from '@/views/BattleHall/BattleSetting'
+import KLine from '@/components/KLine'
 Vue.use(Router)
 
 export default new Router({
@@ -77,15 +77,11 @@ export default new Router({
     },
     {
       path: '/battle',
-      name: 'hall',
-      component: Home,
+      name: 'Battle',
+      component: KLine,
 
     },
-    {
-      path: '/battle',
-      name: 'perosonal',
-      component: Home
-    }
+
 
 
   ]
