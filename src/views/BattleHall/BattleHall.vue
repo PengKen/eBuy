@@ -9,11 +9,11 @@
           </tab>
         </div>
       </div>
-      <record-list id="record-list"
+      <div class="records"><record-list id="record-list"
         :records="records"
-        :showBtn="active == 1 ? true : false"
+        :showBtn="active == 2 ? false : true"
         :showStamp="false">
-      </record-list>
+      </record-list></div>
       <div class="battle-btn">
         <div class="battle" @click.stop="battle">对战</div>
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
@@ -28,9 +28,9 @@
 </template>
 
 <script>
+  import store from "@/store/index";
   import Vue from 'vue'
   import * as API from '@/api/hall'
-  import ButtonBar from '@/components/ButtonBar'
   import RecordList from '@/components/RecordList'
   import { Tab, TabItem }  from 'vux'
   import BattleSetting from "./BattleSetting";
@@ -108,7 +108,6 @@
     },
     components:{
       BattleSetting,
-      ButtonBar,
       Tab,
       TabItem,
       RecordList
@@ -121,7 +120,7 @@
       onItemClick(item){
         this.active=item;
         var state = (item == 1) ? 3 : ((item == 2) ? 4 : 1);
-        this.getBattleList(state, "111");
+        this.getBattleList(state, this.userId);
       },
       getBattleList(state, userId) {
         API.getBattleList(state, userId).then(res=>{
@@ -139,7 +138,8 @@
       }
     },
     created() {
-      this.getBattleList(3, "111");
+      this.userId = store.state.userId;
+      this.getBattleList(3, this.userId);
     }
   }
 </script>
@@ -149,15 +149,34 @@
     height: 100%;
     background: white;
     .header{
-      height: 15%;
+      height: 1.3rem;
       background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
       color: white;
+      .button-tab {
+        .vux-tab-wrap {
+          .vux-tab-container {
+            .vux-tab {
+              background-color: transparent;
+              .vux-tab-item {
+                background: transparent;
+                color: white;
+              }
+              .vux-tab-ink-bar {
+                background-color: white;
+                padding: 0 1rem;
+                background-clip: content-box;
+              }
+            }
+          }
+
+        }
+      }
 
     }
-    #record-list {
+    .records {
         padding: 0.3rem 0.3rem 1.7rem;
         box-sizing: border-box;
-        height: 13.5rem;
+        height: 15rem;
         overflow: scroll;
     }
     .battle-btn,.battle,.invite,.set-battle{

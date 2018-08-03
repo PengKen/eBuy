@@ -22,7 +22,7 @@
         </li>
       </router-link>
 
-      <router-link :to="{ name: 'Home', params: {}}">
+      <router-link :to="{ name: 'My', params: {}}">
         <li>
           <i class="icon iconfont icon-profile"></i>
           <div class="name">我 的</div>
@@ -52,7 +52,10 @@
       justify-content: space-around;
       align-items: center;
       color: black;
-
+      background: white;
+      border-top: 1px solid #f0f0f0;
+      z-index: 10000;
+      position: relative;
       li{
         font-size: 0.3rem;
         flex: 0 1 auto;

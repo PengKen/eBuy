@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import store from "@/store/index";
   import { mapState, mapActions,mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
   import 'swiper/dist/css/swiper.css'
@@ -59,10 +60,12 @@
   export default {
     name: "home",
     created(){
-      this.$store.dispatch('boardList/getBoardList').then( state => console.log(state))
+      this.$store.dispatch('boardList/getBoardList').then( state => console.log(state));
+      this.userId = store.state.userId;
     },
     data() {
       return {
+        userId: 111,
         swipers:[
           process.env.STATIC_URL+'/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg',
           process.env.STATIC_URL+'/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg'
@@ -102,12 +105,11 @@
       SearchBox
     },
     methods:{
-
       expertDetail(){
         this.$router.push({path:"/home/expertDetail", query:{}})
       },
       rule(){
-        this.$router.push({path:"/rule", query:{}})
+        this.$router.push({path:"/home/rule", query:{}})
       },
       personalBattle(userId){
         userId  ? this.showPersonal = true : this.showPersonal = false
@@ -115,7 +117,18 @@
         // this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})
       },
       challenge(userId){
-        this.showPopup = true
+        if(userId == this.userId) {
+          this.$vux.alert.show({
+            title: "提示",
+            content: "不可以挑战自己哦",
+            onShow() {},
+            onHide() {}
+          });
+        }
+        else{
+          this.battleDetail['invitee'] = userId
+          this.showPopup = true
+        }
 
       },
       hidePopUp(){
@@ -135,7 +148,7 @@
         }
         const battleDetail = {
           ...this.battleDetail,
-          founder:123,
+          founder:this.userId,
           duringTime:123,
           initialMoney:this.battleDetail.initialMoney*10000,
           expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
