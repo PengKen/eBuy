@@ -2,7 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
+
+    <!--
+
+      device-width(document.documentClientWidth)：设备逻辑像素大小 = 物理逻辑像素 / ( dpr * scale)
+
+    -->
+
+
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--document.documentElement.style.fontSize = document.documentElement.clientWidth / 6.4 + 'px';-->
+
+
+
+
     <link rel="stylesheet" href="/static/icon/iconfont.css">
 
     <title>e-buy</title>
@@ -20,7 +33,7 @@
 
     <script>
 
-
+      var normalHeight = screen.height
       /*在这里加个一个!(也可以是+、-等符号)相当于一个表达式，所以后面的函数会被立即执行，
         相比用(function(){})() 少了一个括号，更加直观
       */
@@ -129,6 +142,12 @@
         win.addEventListener("resize", function() {
           clearTimeout(timer);
           timer = setTimeout(setFontSize, 300);
+          if(docElem.clientHeight < normalHeight){
+            doc.getElementById('button-bar').style.position = 'static'
+          }else{
+            doc.getElementById('button-bar').style.position = 'absolute'
+          }
+
         }, false);
 
 

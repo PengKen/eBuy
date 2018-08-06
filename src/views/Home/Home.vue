@@ -122,7 +122,7 @@
       },
       personalBattle(userId){
         userId  ? this.showPersonal = true : this.showPersonal = false
-        this.userId = userId
+        this.curUser = userId
         // this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})
       },
       challenge(userId){

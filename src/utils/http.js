@@ -118,3 +118,4 @@ const httpServer = (method = 'GET', url, data) => {
 }
 
 export default httpServer;
+

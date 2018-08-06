@@ -8,11 +8,7 @@
   require("echarts/lib/chart/candlestick");
   import 'echarts/lib/chart/line'
   var echarts = require('echarts/lib/echarts');
-  // 引入柱状图
-  // require('echarts/lib/chart/bar');
-  // 引入提示框和标题组件
-  // require('echarts/lib/component/tooltip');
-  // require('echarts/lib/component/title');
+
   export default {
     name: "k-line",
     computed:{
@@ -42,7 +38,7 @@
           },
           xAxis: {
             type: 'category',
-            data: ['2013/1/24'],
+            data: data0.categoryData,
             scale: true,
             boundaryGap: false,
             axisLine: {onZero: false},
@@ -75,7 +71,7 @@
             {
               name: '日K',
               type: 'candlestick',
-              data: [[2320.26,2320.26,2287.26,2362.98]],
+              data: data0.values,
               itemStyle: {
                 normal: {
                   color: '#ec0000',
@@ -251,6 +247,6 @@
 <style scoped>
   #k-lines{
     width: 100%;
-    height: 200px;
+    height: 500px;
   }
 </style>
