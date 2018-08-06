@@ -14,12 +14,15 @@
         :showBtn="active == 2 ? false : true"
         :showStamp="false">
       </record-list></div>
-      <div class="battle-btn">
-        <div class="battle" @click="battle">对战</div>
+      <div class="battle-ball">
+        <div class="battle" @click.stop="battle">对战</div>
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
-        <div class="set-battle" :class="[out ? showBattle : '']" @click="setBattle">摆擂台</div>
+        <div class="set-battle" :class="[out ? showBattle : '']" @click.stop="setBattle">摆擂台</div>
       </div>
-      <battle-setting v-if="showBattleSetting" :showBattleSetting="showBattleSetting"></battle-setting>
+      <battle-setting
+        :showBattleSetting.sync="showBattleSetting"
+        @notifySetting="setBattle"
+      ></battle-setting>
     </div>
 </template>
 
@@ -126,8 +129,11 @@
           }
         })
       },
-      setBattle(){
-        this.showBattleSetting = true
+      setBattle(msgFromSetting){
+        if(msgFromSetting)
+          this.showBattleSetting = true
+        else
+          this.showBattleSetting = msgFromSetting
       }
     },
     created() {
@@ -137,7 +143,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" >
   #battle-hall{
     height: 100%;
     background: white;
@@ -149,7 +155,7 @@
         .vux-tab-wrap {
           .vux-tab-container {
             .vux-tab {
-              background-color: transparent;
+              background-color: transparent !important;
               .vux-tab-item {
                 background: transparent;
                 color: white;
@@ -161,10 +167,10 @@
               }
             }
           }
-         
+
         }
       }
-      
+
     }
     .records {
         padding: 0.3rem 0.3rem 1.7rem;
@@ -172,7 +178,7 @@
         height: 15rem;
         overflow: scroll;
     }
-    .battle-btn,.battle,.invite,.set-battle{
+    .battle-ball,.battle,.invite,.set-battle{
       position: relative;
       width: 1.5rem;
       height: 1.5rem;
@@ -186,7 +192,7 @@
       -moz-transition: all 0.3s ease-out;//gecko
       -webkit-transition: all 0.3s ease-out;//webkit
     }
-    .battle-btn{
+    .battle-ball{
       position: absolute;
       bottom:1.7rem;
       left:0;
@@ -211,6 +217,12 @@
       .battle{
         z-index: 1000;
       }
+      // .invite{
+      //   background: yellow;
+      // }
+      // .set-battle{
+      //   background: blue;
+      // }
     }
 
 

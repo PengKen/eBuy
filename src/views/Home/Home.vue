@@ -1,15 +1,13 @@
 <template>
   <div id="home">
+    <search-box></search-box>
     <div id="swiper">
       <swiper :options="swiperOption" ref="mySwiper"
       @someSwiperEvent=""
       >
         <!-- slides -->
-        <swiper-slide><img @click="rule()" class="img" src="/static/img/eBuyPoster.jpg" alt=""></swiper-slide>
-        <swiper-slide v-for="(swiper,index) in swipers" :key="index"><img class="img" :src="swiper" alt=""></swiper-slide>
-
-        <swiper-slide><img class="img" src="/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg" alt=""></swiper-slide>
-        <swiper-slide><img @click="expertDetail()" class="img" src="/static/img/expert-click.jpg" alt=""></swiper-slide>
+        <swiper-slide><img @click.self="rule" class="img" src="/static/img/eBuyPoster.jpg" alt=""></swiper-slide>
+        <swiper-slide><img @click.self="expertDetail" class="img" src="/static/img/expert-click.jpg" alt=""></swiper-slide>
 
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>
@@ -19,46 +17,32 @@
     <div id="board" ref="board">
         <h2>排行榜</h2>
       <ul ref="ulBorad" :style="ulBoradStyle" v-if="boardListUser">
-        <li  v-for="user in  boardListUser" @click="personalBattle(user.userId)">
-          <img :src="user.portrait" alt="">
-          <span>{{ user.name }}</span>
-          <span><em>胜率/</em>{{ user.winRate.toFixed(2)*100 + '%'}}</span>
+        <li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">
+        <!--<li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">-->
+        <!--<li  v-for="user in  boardListUser" @click="personalBattle(user.userId)">-->
+
+           <img :src="user.portrait" alt="">
+           <span>{{ user.name }}</span>
+           <span><em>胜率/</em>{{ user.winRate.toFixed(2)*100 + '%'}}</span>
+
+
           <button class="challenge" @click.stop="challenge(user.userId)">挑战</button>
         </li>
       </ul>
     </div>
+    <personal-battle
+      :curUser="curUser"
+      @notifyHome="personalBattle('')"
 
+      :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
+    ></personal-battle>
     <keep-alive>
-      <popup class="pupup" :isShow.sync="showPopup" @hidePopUp="hidePopUp" :showClose="false">
-          <div class="content" slot="content">
-            <h2>擂台设置</h2>
-            <group label-width="5em" label-margin-right="2em" label-align="center">
-              <x-number :fillable="true" :step="step" title="初始资金(万元)" align="center" v-model="battleDetail.initialMoney" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
-              <x-number :fillable="true" :step="step" title="PKS时长(天)" align="center" v-model="battleDetail.duringTime" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
-              <datetime
-                  :required="true"
-                  title="摆擂时长"
-                  placeholder="擂台失效时间"
-                  v-model="battleDetail.expiredTime"
-                  value-text-align="left"
-                  format="YYYY-MM-DD HH"
-                  :min-hour="minHour"
-                  :start-date="battleDetail.currentTime"
-              ></datetime >
+      <battle-setting
+        :showBattleSetting.sync="showPopup"
+        situation="Home"
+        :curUser="curUser"
 
-
-              <x-textarea
-                title="捎话"
-                placeholder="呛他两句？"
-                :show-counter="false"
-                :rows="1"
-                v-model="battleDetail.content"
-              ></x-textarea>
-              <button type="submit" class="comfirm-button" @click="postNewBattle">确定</button>
-            </group>
-
-          </div>
-      </popup>
+      ></battle-setting>
     </keep-alive>
 
   </div>
@@ -75,12 +59,18 @@
   import popup from '@/components/popup'
   import * as API from '@/api/home'
   import {  Group,  AlertPlugin, Datetime, XNumber,  XTextarea ,XButton } from 'vux'
+  import BattleSetting from '@/views/BattleHall/BattleSetting'
+  import PersonalBattle from '@/views/Home/PersonalBattle'
+  import SearchBox from '@/components/SearchBox'
   Vue.use(AlertPlugin)
   export default {
     name: "home",
     created(){
       this.$store.dispatch('boardList/getBoardList').then( state => console.log(state));
       this.userId = store.state.userId;
+    },
+    computed () {
+
     },
     data() {
       return {
@@ -89,17 +79,9 @@
           process.env.STATIC_URL+'/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg',
           process.env.STATIC_URL+'/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg'
         ],
-        battleDetail:{
-          duringTime:6,
-          initialMoney:5,
-          invitee:'',
-          content:'',
-          expiredTime:''
-        },
-        currentTim:getNormalTime,
         showPopup:false,
-        step:0.5,
-        minHour: new Date().getHours(),
+        curUser:0,
+        showPersonal:false,
         ulBoradStyle:{},//排行榜初始高度
         swiperOption: {
           // some swiper options/callbacks
@@ -127,12 +109,9 @@
     components:{
       swiper,
       swiperSlide,
-      popup,
-      Group,
-      XButton,
-      Datetime,
-      XNumber,
-      XTextarea
+      PersonalBattle,
+      BattleSetting,
+      SearchBox
     },
     methods:{
       expertDetail(){
@@ -142,7 +121,9 @@
         this.$router.push({path:"/home/rule", query:{}})
       },
       personalBattle(userId){
-        this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})
+        userId  ? this.showPersonal = true : this.showPersonal = false
+        this.curUser = userId
+        // this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})
       },
       challenge(userId){
         if(userId == this.userId) {
@@ -154,10 +135,10 @@
           });
         }
         else{
-          this.battleDetail['invitee'] = userId
+        this.curUser = userId
           this.showPopup = true
         }
-     
+
       },
       hidePopUp(){
         this.showPopup = false
@@ -212,6 +193,7 @@
   #home{
     position: relative;
     height: 100%;
+    overflow: hidden;
     #swiper{
       height: 30%;
       .swiper-container{
@@ -224,6 +206,7 @@
       }
     }
     #board{
+      -webkit-overflow-scrolling:touch;
       width: 100%;
       position: absolute;
       top:30%;
@@ -303,6 +286,14 @@
       }
 
 
+    }
+    .rotate-start{
+      transform: rotateZ(0deg);
+
+
+    }
+    .rotate-finish{
+      width: 100%;
     }
   }
 

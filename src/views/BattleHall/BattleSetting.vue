@@ -1,6 +1,12 @@
 <template>
   <div id="battle-setting">
-    <popup class="pupup" :isShow.sync="showBattleSetting" @hidePopUp="hidePopUp" :showClose="false">
+    <popup
+      class="pupup"
+      :isShow="showBattleSetting"
+      @hidePopUp="hidePopUp"
+      :showClose="false"
+      @notifySetting="hidePopUp"
+    >
       <div class="content" slot="content">
         <h2>擂台设置</h2>
         <group label-width="5em" label-margin-right="2em" label-align="center">
@@ -18,13 +24,14 @@
           ></datetime >
 
 
-          <!-- <x-textarea
+          <x-textarea
+            v-if="situation === 'Home'"
             title="捎话"
             placeholder="呛他两句？"
             :show-counter="false"
             :rows="1"
             v-model="battleDetail.content"
-          ></x-textarea> -->
+          ></x-textarea>
           <button type="submit" class="comfirm-button" @click="postNewBattle">确定</button>
         </group>
 
@@ -51,9 +58,12 @@ Vue.use(AlertPlugin)
         battleDetail:{
           duringTime:6,
           initialMoney:5,
-          invitee:'',
-          content:'',
-          expiredTime:''
+          content:null,
+          expiredTime:'',
+          currentTime:getNormalTime,
+          invitee:'NumberFormatException',
+          content:''
+
         },
         currentTim:getNormalTime,
         showPopup:false,
@@ -73,6 +83,14 @@ Vue.use(AlertPlugin)
       showBattleSetting:{
         type:Boolean,
         default:false
+      },
+      situation:{
+        default:'BattleHall',
+        type:String
+      },
+      curUser:{
+        type:Number,
+        default:0
       }
     },
     created() {
@@ -80,7 +98,8 @@ Vue.use(AlertPlugin)
     },
     methods:{
       hidePopUp(){
-        this.showPopup = false
+        this.$emit('update:showBattleSetting',false)
+
       },
       postNewBattle(){
         if(!this.battleDetail.expiredTime){
@@ -94,27 +113,51 @@ Vue.use(AlertPlugin)
           })
           return
         }
-        const battleDetail = {
-          ...this.battleDetail,
-          founder:this.userId,
-          invitee:'NumberFormatException',
-          content:'NumberFormatException',
-          duringTime:123,
-          initialMoney:this.battleDetail.initialMoney*10000,
-          expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
-          duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
-        }
-        API.postNewBattle(battleDetail).then(()=>{
-          this.$vux.alert.show({
-            title: '恭喜',
-            content: '擂台已摆好，请等待应战！',
-            onShow () {
-            },
-            onHide: ()=> {
-              this.showBattleSetting = false
-            }
+        let battleDetail = null
+        if(!(this.situation == 'Home')){
+           battleDetail = {
+            ...this.battleDetail,
+            founder:this.userId,
+            content:'NumberFormatException',
+            initialMoney:this.battleDetail.initialMoney*10000,
+            expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+            duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
+          }
+          API.postNewBattle(battleDetail).then(()=>{
+            this.$vux.alert.show({
+              title: '恭喜',
+              content: '战书已下达，请等待应战！',
+              onShow () {
+              },
+              onHide: ()=> {
+                this.$emit('update:showBattleSetting',false)
+              }
+            })
           })
-        })
+        }else {
+          battleDetail = {
+            ...this.battleDetail,
+            invitee:this.curUser,
+            founder:this.userId,
+            initialMoney:this.battleDetail.initialMoney*10000,
+            expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+            duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
+          }
+          API.postNewBattle(battleDetail).then(()=>{
+            this.$vux.alert.show({
+              title: '恭喜',
+              content: '擂台已摆好，请等待应战！',
+              onShow () {
+              },
+              onHide: ()=> {
+                this.$emit('update:showBattleSetting',false)
+              }
+            })
+          })
+        }
+
+
+
       }
     }
 

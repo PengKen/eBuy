@@ -29,7 +29,7 @@
                               :class="[record.inviteeName != 'null' && record.inviteeRate>=record.founderRate ? 'winner' : '']"
                               >{{!record.inviteeName ? '??' : record.inviteeName}}</div>
                               <img class="medal" :src="!record.inviteeHonor ? '/static/icon-img/icons8-question-mark-filled-50.png' : record.inviteeHonor.url">
-                              <img class="avatar" 
+                              <img class="avatar"
                               :src="!record.inviteePortrait ? '/static/icon-img/icons8-question-mark-64.png' : record.inviteePortrait">
                           </td>
                       </tr>
@@ -66,14 +66,14 @@
                       <span>失效时间：{{msToDate(record.expiredTime.time)}}</span>
                   </div>
                   <div v-if="showBtn">
-                    <div class="focus" 
+                    <div class="focus"
 										v-if="record.startTime && curTime <= msToDate(record.endTime.time)"
 										:class="record.isFocus==1 ? 'btn-grey' : ''" @click.stop="focus(record.isFocus, index)">{{record.isFocus==1 ? '已关注' : '关注比赛进程'}}</div>
-										<div class="battle-btn" 
+										<div class="battle-btn"
 										v-if="!record.startTime"
 										@click.stop="acceptBattle(index)">应战</div>
                   </div>
-                  
+
               </div>
           </div>
       </div>

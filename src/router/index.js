@@ -4,9 +4,6 @@ import HomeIndex from '@/views/Home'
 import Home from '@/views/Home/Home'
 import BattleHall from '@/views/BattleHall/BattleHall'
 import PersonalBattle from '@/views/Home/PersonalBattle'
-
-import Battle from '@/views/Battle/Battle'
-
 import Rule from '@/views/Home/Rule'
 import ExpertDetail from '@/views/Home/expertDetail'
 import BattleSetting from '@/views/BattleHall/BattleSetting'
@@ -16,6 +13,7 @@ import MyMessage from '@/views/My/MyMessage'
 import MyBattles from '@/views/My/MyBattles'
 import MyFocus from '@/views/My/MyFocus'
 import menu from '@/views/My/menu'
+// import KLine from '@/components/KLine'
 Vue.use(Router)
 
 export default new Router({
@@ -86,7 +84,7 @@ export default new Router({
     {
       path: '/battle',
       name: 'Battle',
-      component: Battle,
+      // component: KLine,
 
     },
     {
@@ -104,21 +102,21 @@ export default new Router({
           meta: {index: 1}
         },
         {
-          
+
           path: 'menu',
           name: 'menu',
           component : menu,
           meta: {index: 0}
         },
         {
-          
+
           path: 'battles',
           name: 'MyBattles',
           component : MyBattles,
           meta: {index: 1}
         },
         {
-          
+
           path: 'focus',
           name: 'MyFocus',
           component : MyFocus,
@@ -126,6 +124,8 @@ export default new Router({
         }
       ]
     }
+
+
 
   ]
 })

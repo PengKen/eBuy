@@ -1,6 +1,6 @@
 <template>
   <div id="popup">
-    <popup class="content" v-model="isShow" width="90%" position="top" height="75%" @on-hide="handleHide">
+    <popup class="content" v-model="value" width="90%" position="top" height="75%" @on-hide="handleHide">
       <slot  name="content"></slot>
       <div style="width: 100%"></div>
       <div v-if="showClose" class="close" @click="handleHide">
@@ -65,6 +65,11 @@
         value:false
       }
     },
+    watch:{
+      isShow(newVal){
+        this.value = newVal
+      }
+    },
     components:{
       Popup,
 
@@ -72,8 +77,8 @@
 
     methods:{
       handleHide(){
-        this.value = false
-        this.$emit('update:isShow',false)
+        this.$emit('notifySetting',false)
+
       }
     }
 

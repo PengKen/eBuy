@@ -15,7 +15,7 @@
         </li>
       </router-link>
 
-      <router-link :to="{ name: 'BattleHall', params: {}}">
+      <router-link :to="{ path:'/battlehall', params: {}}">
         <li>
           <i class="icon iconfont icon-youxidating"></i>
           <div class="name">游戏大厅</div>
