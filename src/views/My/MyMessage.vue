@@ -304,7 +304,7 @@ export default {
   font-size: 0.4rem;
   .vux-button-group {
     width: 60%;
-    height: 10%;
+    // height: 10%;
     margin: 0.5rem auto;
     a {
       background: #eeeeee;

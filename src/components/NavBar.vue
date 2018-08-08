@@ -30,6 +30,7 @@ export default {
 	height: 1.5rem;
 	background: wheat;
 	position: fixed;
+	top: 0;
 	width: 100%;
 	border-bottom: 1px solid #eeeeee;
 	.title {
