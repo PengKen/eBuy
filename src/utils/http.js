@@ -17,7 +17,7 @@ axios.interceptors.request.use(config => {
       text: 'Loading'
     })
   }
-  
+
   return config
 }, error => {
   return Promise.reject(error)
@@ -81,7 +81,7 @@ function successState(res) {
     })
   }
 }
-const httpServer = (method = 'GET', url, data, noShowLoading) => {
+const httpServer = (method = 'GET', url, data = {} ,noShowLoading) => {
 
   let Public = { //公共参数
     'srAppid': ""
@@ -99,11 +99,11 @@ const httpServer = (method = 'GET', url, data, noShowLoading) => {
     noShowLoading: noShowLoading || false
   }
 
-  // if(method=='GET'){
-  //   delete httpDefaultOpts.data
-  // }else{
-  //   delete httpDefaultOpts.params
-  // }
+  if(method=='GET'){
+    delete httpDefaultOpts.data
+  }else{
+    delete httpDefaultOpts.params
+  }
 
   let promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(
@@ -122,4 +122,3 @@ const httpServer = (method = 'GET', url, data, noShowLoading) => {
 }
 
 export default httpServer;
-

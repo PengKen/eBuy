@@ -32,7 +32,7 @@ export default {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	border-bottom: 1px solid #eeeeee;
+	// border-bottom: 1px solid #eeeeee;
 	.title {
 		line-height: 0.7rem;
 		position: relative;

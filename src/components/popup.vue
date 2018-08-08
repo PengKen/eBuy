@@ -1,6 +1,6 @@
 <template>
   <div id="popup">
-    <popup class="content" v-model="value" width="90%" position="top" height="75%" @on-hide="handleHide">
+    <popup class="content" v-model="status" width="90%" position="top" height="75%" @on-hide="handleHide">
       <slot  name="content"></slot>
       <div style="width: 100%"></div>
       <div v-if="showClose" class="close" @click="handleHide">
@@ -42,6 +42,7 @@
 </style>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { Popup } from 'vux'
   export default {
     name:'popupTop',
@@ -60,26 +61,34 @@
       }
 
     },
-    data(){
+    data () {
       return {
-        value:false
-      }
-    },
-    watch:{
-      isShow(newVal){
-        this.value = newVal
+        status:this.isShowPopup
       }
     },
     components:{
       Popup,
 
     },
-
+    watch:{
+      isShowPopup (newVal) {
+        this.status = newVal
+      },
+      status (newVal){
+        this.$store.dispatch('setShowPopup',newVal)
+      }
+    },
     methods:{
       handleHide(){
         this.$emit('notifySetting',false)
 
       }
+    },
+    computed:{
+      ...mapGetters([
+        'isShowPopup'
+      ])
+
     }
 
   }

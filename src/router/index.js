@@ -13,7 +13,7 @@ import MyMessage from '@/views/My/MyMessage'
 import MyBattles from '@/views/My/MyBattles'
 import MyFocus from '@/views/My/MyFocus'
 import menu from '@/views/My/menu'
-// import KLine from '@/components/KLine'
+import KLine from '@/components/KLine'
 import BattleIndex from '@/views/Battle/Index'
 import Battle from '@/views/Battle/Battle'
 import ProductDetail from '@/views/Battle/ProductDetail'
@@ -105,7 +105,6 @@ export default new Router({
         },
       ]
     },
-
     {
       path: '/my',
       name: 'My',
@@ -143,8 +142,6 @@ export default new Router({
         }
       ]
     }
-
-
 
   ]
 })

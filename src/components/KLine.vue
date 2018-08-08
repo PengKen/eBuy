@@ -15,6 +15,12 @@
 
 
     },
+    beforeCreate(){
+      console.log("before")
+    },
+    destroyed(){
+      // console.log(this.option)
+    },
     data() {
       return {
         option: {
@@ -199,6 +205,10 @@
         }
 
       }
+    },
+
+    created(){
+      console.log("created")
     },
 
     mounted() {

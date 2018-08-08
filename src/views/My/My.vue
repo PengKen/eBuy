@@ -8,7 +8,7 @@
 export default {
     name: "my",
     data() {
-        return {          
+        return {
         }
     }
 }

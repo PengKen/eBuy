@@ -82,9 +82,13 @@ export default {
 	.detail {
 		margin-top: 1.5rem;
 		padding: 0.3rem;
+		// background: #ee3333;
+		background: #44bb66;
+		color: white;
 		.name {
 			text-align: left;
 			font-size: 0.5rem;
+			padding: 0.2rem 0.5rem;
 		}
 		.num {
 			display: flex;
@@ -93,6 +97,7 @@ export default {
 				padding: 0 0.2rem
 			}
 			.left {
+				flex: 4;
 				.price {
 					font-size: 0.8rem;
 				}
@@ -107,11 +112,13 @@ export default {
 				}
 			}
 			.right {
+				flex: 6;
 				display: flex;
 				flex-wrap: wrap;
+				justify-content: space-between;
 				.item {
 					flex: 1;
-					padding: 0.1rem 0.5rem;
+					padding: 0.1rem 0rem 0.1rem 0.5rem;
 					.title {
 						font-size: 0.3rem;
 					}

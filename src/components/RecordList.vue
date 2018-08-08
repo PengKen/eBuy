@@ -257,6 +257,10 @@ export default {
     showBtn: {
       type: Boolean,
       default: true
+    },
+    curUser:{
+      type: Number,
+      default:0
     }
 	},
 	data() {
@@ -265,7 +269,7 @@ export default {
 		}
 	},
   created() {
-		this.userId = store.state.userId;
+
 	},
   computed: {
     curTime() {
@@ -281,21 +285,21 @@ export default {
     focus(isFocus, index) {
       if (isFocus == 0) {
         // 关注
-        var focusInfo = { userId: this.userId, battleId: this.records[index].battleId };
+        var focusInfo = { userId: this.curUser, battleId: this.records[index].battleId };
         APIHALL.postInsertFocus(focusInfo).then(() => {
           Vue.set(this.records[index], "isFocus", 1);
           this.$vux.toast.text("关注成功", "top");
         });
       } else {
         // 取消关注
-        APIHALL.deleteFocus(this.userId, this.records[index].battleId).then(() => {
+        APIHALL.deleteFocus(this.curUser, this.records[index].battleId).then(() => {
           Vue.set(this.records[index], "isFocus", 0);
           this.$vux.toast.text("取消关注成功", "top");
         });
       }
     },
     acceptBattle(index) {
-      if (this.records[index].founderId == this.userId) {
+      if (this.records[index].founderId == this.curUser) {
         this.$vux.alert.show({
           title: "失败",
           content: "这是您自己摆的擂台哦",
@@ -304,7 +308,7 @@ export default {
         });
       } else {
         var battleDetail = {
-          invitee: this.userId,
+          invitee: this.curUser,
           battleId: this.records[index].battleId
         };
         APIMY.postStartBattle(battleDetail).then(res => {

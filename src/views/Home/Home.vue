@@ -24,24 +24,19 @@
            <img :src="user.portrait" alt="">
            <span>{{ user.name }}</span>
            <span><em>胜率/</em>{{ user.winRate.toFixed(2)*100 + '%'}}</span>
-
-
-          <button class="challenge" @click.stop="challenge(user.userId)">挑战</button>
+           <button class="challenge" @click.stop="challenge(user.userId)">挑战</button>
         </li>
       </ul>
     </div>
     <personal-battle
       :curUser="curUser"
-      @notifyHome="personalBattle('')"
 
       :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
     ></personal-battle>
     <keep-alive>
       <battle-setting
-        :showBattleSetting.sync="showPopup"
         situation="Home"
         :curUser="curUser"
-
       ></battle-setting>
     </keep-alive>
 
@@ -51,7 +46,7 @@
 
 <script>
   import store from "@/store/index";
-  import { mapState, mapActions,mapGetters } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import getNormalTime from '@/utils/timeFormat'
   import 'swiper/dist/css/swiper.css'
   import Vue from 'vue'
@@ -67,14 +62,15 @@
     name: "home",
     created(){
       this.$store.dispatch('boardList/getBoardList').then( state => console.log(state));
-      this.userId = store.state.userId;
-    },
-    computed () {
 
+    },
+    computed : {
+        ...mapGetters([
+          'userId'
+      ])
     },
     data() {
       return {
-        userId: 111,
         swipers:[
           process.env.STATIC_URL+'/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg',
           process.env.STATIC_URL+'/static/img/6d21c5fa5f66f8f31469320ec1123458.jpeg'
@@ -136,12 +132,12 @@
         }
         else{
         this.curUser = userId
-          this.showPopup = true
+          this.$store.dispatch('setShowPopup',true)
         }
 
       },
       hidePopUp(){
-        this.showPopup = false
+        this.$store.dispatch('setShowPopup',false)
       },
       postNewBattle(){
         if(!this.battleDetail.expiredTime){
@@ -182,7 +178,8 @@
         return  this.getNormalTime+" " + this.minHour;
       },
       ...mapGetters({
-                 boardListUser: 'boardList/allBoardList'
+                 boardListUser: 'boardList/allBoardList',
+                  userId:'userId'
   })
     }
   }

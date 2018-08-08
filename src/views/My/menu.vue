@@ -2,13 +2,13 @@
   <div id="my">
     <div id="user-info">
       <div id="portrait">
-        <img class="portrait" :src="portrait">
+        <img class="portrait" :src="userInfo.portrait">
       </div>
       <div id="data">
-        <div id="name">{{name}}<img class="medal" :src="honor.url"></div>
-        <span class="win-rate">胜率：{{(winRate*100).toFixed(2) + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
-        <span class="honor">{{honor.title}}</span>
-          
+        <div id="name">{{userInfo.name}}<img class="medal" :src="honor.url"></div>
+        <span class="win-rate">胜率：{{(userInfo.winRate*100).toFixed(2) + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
+        <span class="honor">{{userInfo.honor.title}}</span>
+
       </div>
     </div>
     <div id="menu">
@@ -35,13 +35,14 @@
         </div>
       </router-link>
       </div>
-    </div>        
+    </div>
   </div>
 </template>
 
 <script>
 import store from "@/store/index";
 import * as API from "@/api/home";
+import { mapGetters } from 'vuex'
 export default {
   name: "my",
   data() {
@@ -53,16 +54,12 @@ export default {
       winRate: 0.8
     };
   },
-  created() {
-    this.userId = store.state.userId;
-    API.getPersonalBattle(this.userId, 'all').then(res=>{
-      this.name = res.name;
-      this.portrait = res.portrait;
-      this.honor.url = res.honor.url;
-      this.honor.title = res.honor.title;
-      this.winRate = res.winRate;
-    })   
+  computed:{
+    ...mapGetters([
+      'userInfo'
+    ])
   }
+
 };
 </script>
 

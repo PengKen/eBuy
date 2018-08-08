@@ -9,6 +9,7 @@
 <script>
 export default {
     name: "back-arrow",
+
     props:{
       common:{
         type:Boolean,
@@ -30,7 +31,7 @@ export default {
         getSrc(color) {
           if(color == 'red')
             return '/static/icon-img/icons8-back-26.png'
-          else 
+          else
             return '/static/icon-img/icons8-back-26-white.png'
         }
     }
