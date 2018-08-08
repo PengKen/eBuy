@@ -46,6 +46,7 @@ import popup from '@/components/popup'
 import getNormalTime from '@/utils/timeFormat'
 import Vue from 'vue'
 import {  Group,  AlertPlugin, Datetime, XNumber,  XTextarea ,XButton } from 'vux'
+import { mapGetters } from 'vuex'
 
 import * as API from '@/api/home'
 Vue.use(AlertPlugin)
@@ -53,7 +54,6 @@ Vue.use(AlertPlugin)
     name:'battle-setting',
     data () {
       return {
-        userId: 111,
         battleDetail:{
           duringTime:6,
           initialMoney:5,
@@ -78,6 +78,11 @@ Vue.use(AlertPlugin)
       XNumber,
       XTextarea
     },
+    computed:{
+      ...mapGetters([
+        'userId'
+      ])
+    },
     props:{
       situation:{
         default:'BattleHall',
@@ -89,7 +94,6 @@ Vue.use(AlertPlugin)
       }
     },
     created() {
-      this.userId = store.state.userId;
     },
     methods:{
       postNewBattle(){
@@ -105,7 +109,7 @@ Vue.use(AlertPlugin)
           return
         }
         let battleDetail = null
-        if(!(this.situation == 'Home')){
+        if(this.situation !== 'Home'){
            battleDetail = {
             ...this.battleDetail,
             founder:this.userId,
@@ -117,7 +121,7 @@ Vue.use(AlertPlugin)
           API.postNewBattle(battleDetail).then(()=>{
             this.$vux.alert.show({
               title: '恭喜',
-              content: '战书已下达，请等待应战！',
+              content: '擂台已摆好，请等待应战！',
               onShow () {
               },
               onHide: ()=> {
@@ -131,13 +135,15 @@ Vue.use(AlertPlugin)
             invitee:this.curUser,
             founder:this.userId,
             initialMoney:this.battleDetail.initialMoney*10000,
-            expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+            // expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+            expiredTime: new Date().getTime() + 20 * 1000,
             duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
           }
+
           API.postNewBattle(battleDetail).then(()=>{
             this.$vux.alert.show({
               title: '恭喜',
-              content: '擂台已摆好，请等待应战！',
+              content: '战书已下达，请等待应战！',
               onShow () {
               },
               onHide: ()=> {
