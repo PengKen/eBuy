@@ -14,6 +14,9 @@ import MyBattles from '@/views/My/MyBattles'
 import MyFocus from '@/views/My/MyFocus'
 import menu from '@/views/My/menu'
 // import KLine from '@/components/KLine'
+import BattleIndex from '@/views/Battle/Index'
+import Battle from '@/views/Battle/Battle'
+import ProductDetail from '@/views/Battle/ProductDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -83,10 +86,26 @@ export default new Router({
     },
     {
       path: '/battle',
-      name: 'Battle',
-      // component: KLine,
-
+      name: 'BattleIndex',
+      component: BattleIndex,
+      redirect: '/battle/battle',
+      meta: {index: 0},
+      children: [
+        {
+          path: 'battle',
+          name: 'Battle',
+          component: Battle,
+          meta: {index: 0}
+        },
+        {
+          path: 'productdetail',
+          name: 'ProductDetail',
+          component: ProductDetail,
+          meta: {index: 1}
+        },
+      ]
     },
+
     {
       path: '/my',
       name: 'My',

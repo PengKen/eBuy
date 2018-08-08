@@ -12,9 +12,12 @@ const defaultToastMsg = {
   time:3000
 }
 axios.interceptors.request.use(config => {
-  Vue.$vux.loading.show({
-    text: 'Loading'
-  })
+  if(!config.noShowLoading){
+    Vue.$vux.loading.show({
+      text: 'Loading'
+    })
+  }
+  
   return config
 }, error => {
   return Promise.reject(error)
@@ -78,7 +81,7 @@ function successState(res) {
     })
   }
 }
-const httpServer = (method = 'GET', url, data) => {
+const httpServer = (method = 'GET', url, data, noShowLoading) => {
 
   let Public = { //公共参数
     'srAppid': ""
@@ -92,7 +95,8 @@ const httpServer = (method = 'GET', url, data) => {
     // data:qs.stringify(data),
     headers: {
       // 'X-Requested-With': 'XMLHttpRequest'
-    }
+    },
+    noShowLoading: noShowLoading || false
   }
 
   // if(method=='GET'){

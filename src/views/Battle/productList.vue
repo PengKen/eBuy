@@ -5,10 +5,14 @@
 			<span class="flex-3">银行买入价</span>
 			<span class="flex-3">银行卖出价</span>
 		</div>
-		<div class="product" v-for="product in products">
+		<div class="product" v-for="(product, index) in products" @click="toProduct(index)">
 			<span class="name">{{product.name}}</span>
-			<span class="price red">{{product.priceIn}}</span>
-			<span class="price green">{{product.priceOut}}</span>
+			<span class="price" 
+			:class="product.bankbuyp >= product.openbankbuyp ? 'red' : 'green'">
+			{{(parseFloat(product.bankbuyp)).toFixed(4)}}</span>
+			<span class="price"
+			:class="product.banksellp >= product.openbanksellp ? 'red' : 'green'">
+			{{(parseFloat(product.banksellp)).toFixed(4)}}</span>
 		</div>
   </div>
 </template>
@@ -24,7 +28,12 @@ export default {
   data() {
     return {
     };
-  }
+	},
+	methods: {
+		toProduct(index) {
+			this.$router.push({ name:'ProductDetail' , params:{productDetail:this.products[index]}})
+		}
+	}
 };
 </script>
 
@@ -69,9 +78,11 @@ export default {
 		}
 		.red {
 			background: #ee3333;
+			// color: #ee3333;
 		}
 		.green {
 			background: #44bb66;
+			// color: #44bb66;
 		}
 	}
 	.product:active {

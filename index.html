@@ -17,9 +17,10 @@
 
 
     <link rel="stylesheet" href="/static/icon/iconfont.css">
-
+    <script src="/static/socket.io.js"></script>
     <title>e-buy</title>
     <script>
+
       fetch("http://localhost:3000/api/v1/eBuy/boardList")
         .then(res => {
           return res.json()
