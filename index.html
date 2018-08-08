@@ -2,14 +2,6 @@
 <html>
   <head>
     <meta charset="utf-8">
-
-    <!--
-
-      device-width(document.documentClientWidth)：设备逻辑像素大小 = 物理逻辑像素 / ( dpr * scale)
-
-    -->
-
-
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--document.documentElement.style.fontSize = document.documentElement.clientWidth / 6.4 + 'px';-->
 
@@ -142,12 +134,6 @@
         win.addEventListener("resize", function() {
           clearTimeout(timer);
           timer = setTimeout(setFontSize, 300);
-          if(docElem.clientHeight < normalHeight){
-            doc.getElementById('button-bar').style.position = 'static'
-          }else{
-            doc.getElementById('button-bar').style.position = 'absolute'
-          }
-
         }, false);
 
 

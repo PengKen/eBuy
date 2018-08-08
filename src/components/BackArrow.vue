@@ -1,7 +1,7 @@
 <template>
     <img
       class="back-arrow"
-      src="/static/icon-img/icons8-back-26.png"
+      :src="getSrc(color)"
       @click="back()"
     >
 </template>
@@ -9,10 +9,15 @@
 <script>
 export default {
     name: "back-arrow",
+
     props:{
       common:{
         type:Boolean,
         default:false
+      },
+      color: {
+        type: String,
+        default: 'red'
       }
     },
     methods: {
@@ -22,6 +27,13 @@ export default {
           }else{
             this.$emit('selfHandle')
           }
+
+        },
+        getSrc(color) {
+          if(color == 'red')
+            return '/static/icon-img/icons8-back-26.png'
+          else
+            return '/static/icon-img/icons8-back-26-white.png'
         }
     }
 }
@@ -32,8 +44,8 @@ export default {
         width: 0.7rem;
         height: 0.7rem;
         position: fixed;
-        left:0.5rem;
-        top:0.5rem;
+        left:0.4rem;
+        top:0.4rem;
         z-index: 100;
     }
 </style>

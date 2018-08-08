@@ -210,6 +210,7 @@
     created(){
       console.log("created")
     },
+
     mounted() {
       this.$nextTick(()=>{
         var dom = document.getElementById("k-lines");

@@ -6,6 +6,7 @@ import boardList from './modules/boardList'
 const store = new Vuex.Store({
   modules:{
     boardList
+
   },
   state: {
     userInfo:{

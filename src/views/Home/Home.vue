@@ -30,7 +30,6 @@
     </div>
     <personal-battle
       :curUser="curUser"
-      @notifyHome="personalBattle(0)"
 
       :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
     ></personal-battle>

@@ -44,7 +44,10 @@
 
 <style scoped lang="less">
   #button-bar{
-
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     .wrapper{
       width: 100%;
       height: 1.5rem;

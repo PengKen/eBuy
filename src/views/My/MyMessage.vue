@@ -80,7 +80,6 @@ export default {
   name: "myMessage",
   data() {
     return {
-
       tab: 1,
       showPopup: false,
       messages: [

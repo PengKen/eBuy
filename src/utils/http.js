@@ -26,7 +26,6 @@ const baseURL = process.env.API_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 /* 设置拦截 */
 axios.interceptors.response.use(response => {
-
   Vue.$vux.loading.hide()
   return response
 }, error => {
@@ -100,11 +99,11 @@ const httpServer = (method = 'GET', url, data = {} ,noShowLoading) => {
     noShowLoading: noShowLoading || false
   }
 
-  // if(method=='GET'){
-  //   delete httpDefaultOpts.data
-  // }else{
-  //   delete httpDefaultOpts.params
-  // }
+  if(method=='GET'){
+    delete httpDefaultOpts.data
+  }else{
+    delete httpDefaultOpts.params
+  }
 
   let promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(
@@ -123,4 +122,3 @@ const httpServer = (method = 'GET', url, data = {} ,noShowLoading) => {
 }
 
 export default httpServer;
-

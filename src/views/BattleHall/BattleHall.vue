@@ -212,12 +212,6 @@
       .battle{
         z-index: 1000;
       }
-      // .invite{
-      //   background: yellow;
-      // }
-      // .set-battle{
-      //   background: blue;
-      // }
     }
 
 
