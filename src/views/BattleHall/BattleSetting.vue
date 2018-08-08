@@ -2,10 +2,9 @@
   <div id="battle-setting">
     <popup
       class="pupup"
-      :isShow="showBattleSetting"
-      @hidePopUp="hidePopUp"
+
       :showClose="false"
-      @notifySetting="hidePopUp"
+
     >
       <div class="content" slot="content">
         <h2>擂台设置</h2>
@@ -80,10 +79,6 @@ Vue.use(AlertPlugin)
       XTextarea
     },
     props:{
-      showBattleSetting:{
-        type:Boolean,
-        default:false
-      },
       situation:{
         default:'BattleHall',
         type:String
@@ -97,10 +92,6 @@ Vue.use(AlertPlugin)
       this.userId = store.state.userId;
     },
     methods:{
-      hidePopUp(){
-        this.$emit('update:showBattleSetting',false)
-
-      },
       postNewBattle(){
         if(!this.battleDetail.expiredTime){
           this.$vux.alert.show({
@@ -130,7 +121,7 @@ Vue.use(AlertPlugin)
               onShow () {
               },
               onHide: ()=> {
-                this.$emit('update:showBattleSetting',false)
+                this.$store.dispatch('setShowPopup',false)
               }
             })
           })
@@ -150,7 +141,7 @@ Vue.use(AlertPlugin)
               onShow () {
               },
               onHide: ()=> {
-                this.$emit('update:showBattleSetting',false)
+                this.$store.dispatch('setShowPopup',false)
               }
             })
           })

@@ -19,7 +19,7 @@
 			</div>
 			<divider v-if="messages.length == 0" >这里什么也没有，快去对战大厅看看吧</divider>
 		</div>
-		<popup class="popup" @notifySetting="hidePopUp" :isShow.sync="showPopup" @hidePopUp="hidePopUp" :showClose="false">
+		<popup class="popup" >
 			<div class="content" slot="content">
 				<h1>挑战书</h1>
 				<div>
@@ -72,6 +72,7 @@ import store from "@/store/index";
 import * as API from "@/api/my";
 import BackArrow from "@/components/BackArrow";
 import { ButtonTab, ButtonTabItem, Divider, Alert } from "vux";
+import { mapGetters } from 'vuex'
 import popup from "@/components/popup";
 import getNormalTime from "@/utils/timeFormat";
 import * as DF from "@/utils/timeFormat";
@@ -79,7 +80,7 @@ export default {
   name: "myMessage",
   data() {
     return {
-			userId: 111,
+
       tab: 1,
       showPopup: false,
       messages: [
@@ -218,10 +219,10 @@ export default {
   },
   methods: {
     hidePopUp() {
-      this.showPopup = false;
+      this.$store.dispatch('setShowPopup',false)
     },
     showDetail(index) {
-      this.showPopup = true;
+      this.$store.dispatch('setShowPopup',true)
       this.msgDetail = this.messages[index];
       this.msgDetail.state = this.getState(index);
       this.msgDetail.index = index;
@@ -260,7 +261,7 @@ export default {
               content: "您已接受挑战，开始比赛吧",
               onShow() {},
               onHide: () => {
-                this.showPopup = false;
+                this.$store.dispatch('setShowPopup',false)
               }
             });
             break;
@@ -270,7 +271,7 @@ export default {
               content: "您有未完成的比赛，晚点再来吧",
               onShow() {},
               onHide: () => {
-                this.showPopup = false;
+                this.$store.dispatch('setShowPopup',false)
               }
             });
             break;
@@ -280,7 +281,7 @@ export default {
               content: "对方正在比赛中，晚点再来吧",
               onShow() {},
               onHide: () => {
-                this.showPopup = false;
+                this.$store.dispatch('setShowPopup',false)
               }
             });
             break;
@@ -289,10 +290,15 @@ export default {
     }
   },
   created() {
-		this.userId = store.state.userId;
+
     API.getReceivedMsg(this.userId).then(res => {
       this.messages = res;
     });
+  },
+  computed:{
+    ...mapGetters([
+      'userId'
+    ])
   }
 };
 </script>

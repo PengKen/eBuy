@@ -1,14 +1,14 @@
 <template>
-    <div id="personal-battle">
+    <div id="personal-battle" v-if="curUserInfo != null">
         <back-arrow :common="true" @selfHandle="back"></back-arrow>
         <div id="user-info">
             <div id="portrait">
-                <img class="portrait" :src="portrait">
+                <img class="portrait" :src="curUserInfo.portrait">
             </div>
             <div id="data">
-                <div id="name">{{name}}<img class="medal" :src="honor.url"></div>
-                <span class="win-rate">胜率：{{(winRate*100).toFixed(2) + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
-                <span class="honor">{{honor.title}}</span>
+                <div id="name">{{curUserInfo.name}}<img class="medal" :src="curUserInfo.honor.url"></div>
+                <span class="win-rate">胜率：{{(curUserInfo.winRate*100).toFixed(2) + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
+                <span class="honor">{{userInfo.honor.title}}</span>
 
             </div>
         </div>
@@ -20,7 +20,12 @@
                 :class="[option.active ? 'selected' : '']"
                 >{{option.content}}</span>
         </div>
-        <record-list id="record-list" :records="records" :showBtn=false></record-list>
+        <record-list
+          id="record-list"
+          :records="records"
+          :showBtn=false>
+          :curUser="curUser"
+        </record-list>
     </div>
 </template>
 
@@ -29,6 +34,7 @@
   import RecordList from '@/components/RecordList'
   import BackArrow from '@/components/BackArrow'
   import Vue from 'vue'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   export default {
     name: "personal-battle",
     props:{
@@ -39,6 +45,7 @@
     },
     data() {
         return {
+            curUserInfo:null,//选择查看的当前用户
             collapsed:{
               height:'1.5rem'
             },
@@ -132,14 +139,15 @@
             this.records = [];
             this.getUserRecords(this.curUser, this.selectTime)
         },
-        getUserRecords(userId, selectTime) {
-          API.getPersonalBattle(userId, selectTime).then(res=>{
-            this.name = res.name;
-            this.portrait = res.portrait;
-            this.honor.url = res.honor.url;
-            this.honor.title = res.honor.title;
-            this.winRate = res.winRate;
-            this.records = res.records;
+        async getUserRecords(userId, selectTime) {
+
+         this.curUserInfo = await API.getUserInfo(userId)
+          /*
+              获取某个人的战绩
+          */
+          API.getPersonalBattle(userId, selectTime).then(records=>{
+
+            this.records = records
             if(this.records.length>0) {
                 Vue.set(this.records[0],'collapsed',true);
             }
@@ -150,8 +158,10 @@
       RecordList,
       BackArrow
     },
-    destoryed () {
-      console.log("i am destory")
+    computed:{
+      ...mapGetters([
+        'userInfo'
+      ])
     }
   }
 </script>

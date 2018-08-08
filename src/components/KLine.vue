@@ -15,6 +15,12 @@
 
 
     },
+    beforeCreate(){
+      console.log("before")
+    },
+    destroyed(){
+      // console.log(this.option)
+    },
     data() {
       return {
         option: {
@@ -201,6 +207,9 @@
       }
     },
 
+    created(){
+      console.log("created")
+    },
     mounted() {
       this.$nextTick(()=>{
         var dom = document.getElementById("k-lines");

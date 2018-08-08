@@ -19,10 +19,7 @@
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
         <div class="set-battle" :class="[out ? showBattle : '']" @click.stop="setBattle">摆擂台</div>
       </div>
-      <battle-setting
-        :showBattleSetting.sync="showBattleSetting"
-        @notifySetting="setBattle"
-      ></battle-setting>
+      <battle-setting></battle-setting>
     </div>
 </template>
 
@@ -130,10 +127,8 @@
         })
       },
       setBattle(msgFromSetting){
-        if(msgFromSetting)
-          this.showBattleSetting = true
-        else
-          this.showBattleSetting = msgFromSetting
+        this.$store.dispatch('setShowPopup',true)
+
       }
     },
     created() {
