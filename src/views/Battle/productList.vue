@@ -26,69 +26,71 @@ export default {
     }
   },
   data() {
-    return {
-    };
-	},
-	methods: {
-		toProduct(index) {
-			this.$router.push({ name:'ProductDetail' , params:{productDetail:this.products[index]}})
-		}
-	}
+    return {};
+  },
+  methods: {
+    toProduct(index) {
+      this.$router.push({
+        path: "/battle/productdetail",
+        query: { obj: this.products[index].obj }
+      });
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
 #product-list {
-	font-size: 0.4rem;
-	background: white;
-	position: relative;
-	.title {
-		display: flex;
-		padding: 0.3rem;
-		align-items: center;
-		background: #eeeeee;
-		font-size: 0.35rem;
-		color: #888888;
-		.flex-4 {
-			flex: 4;
-			text-align: left;
-		}
-		.flex-3 {
-			flex: 3;
-		}
-	}
-	.product{
-		display: flex;
-		align-items: center;
-		padding: 0.3rem;
-		border-bottom: 1px solid #eeeeee;
-		background: white;
-		.name {
-			flex: 4;
-			text-align: left;
-			white-space: nowrap;
-			overflow: hidden;
-		}
-		.price {
-			flex: 3;	
-			color: white;
-			margin-left: 0.2rem;
-			padding: 0.1rem 0;
-			box-sizing: border-box;
-		}
-		.red {
-			background: #ee3333;
-			// color: #ee3333;
-		}
-		.green {
-			background: #44bb66;
-			// color: #44bb66;
-		}
-	}
-	.product:active {
-		background: #f9f9f9;
-		transition: all 0.2s;
-	}
+  font-size: 0.4rem;
+  background: white;
+  position: relative;
+  .title {
+    display: flex;
+    padding: 0.3rem;
+    align-items: center;
+    background: #eeeeee;
+    font-size: 0.35rem;
+    color: #888888;
+    .flex-4 {
+      flex: 4;
+      text-align: left;
+    }
+    .flex-3 {
+      flex: 3;
+    }
+  }
+  .product {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    border-bottom: 1px solid #eeeeee;
+    background: white;
+    .name {
+      flex: 4;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .price {
+      flex: 3;
+      color: white;
+      margin-left: 0.2rem;
+      padding: 0.1rem 0;
+      box-sizing: border-box;
+    }
+    .red {
+      background: #ee3333;
+      // color: #ee3333;
+    }
+    .green {
+      background: #44bb66;
+      // color: #44bb66;
+    }
+  }
+  .product:active {
+    background: #f9f9f9;
+    transition: all 0.2s;
+  }
 }
 </style>
 
