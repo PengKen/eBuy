@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="battle-index">
   <router-view/></div>
 </template>
 
@@ -14,5 +14,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.battle-index {
+    height: 100%;
+}
 </style>
 

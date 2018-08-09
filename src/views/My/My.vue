@@ -1,6 +1,6 @@
 <template>
-<div>
-  <router-view/>
+<div class="my">
+  <router-view></router-view>
 </div>
 </template>
 
@@ -15,5 +15,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.my {
+    height: 100%;
+}
 </style>
 

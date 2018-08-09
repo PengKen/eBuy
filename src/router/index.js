@@ -14,10 +14,10 @@ import MyBattles from '@/views/My/MyBattles'
 import MyFocus from '@/views/My/MyFocus'
 import menu from '@/views/My/menu'
 import KLine from '@/components/KLine'
-// import KLine from '@/components/KLine'
 import BattleIndex from '@/views/Battle/Index'
 import Battle from '@/views/Battle/Battle'
 import ProductDetail from '@/views/Battle/ProductDetail'
+import Transaction from '@/views/Battle/transaction'
 Vue.use(Router)
 
 export default new Router({
@@ -102,7 +102,13 @@ export default new Router({
           path: 'productdetail',
           name: 'ProductDetail',
           component: ProductDetail,
-          meta: {index: 1}
+          meta: {index: 1},
+        },
+        {
+          path: 'transaction',
+          name: 'transaction',
+          component: Transaction,
+          meta: {index: 2}
         },
       ]
     },

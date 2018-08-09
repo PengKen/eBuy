@@ -27,7 +27,6 @@ export default {
           }else{
             this.$emit('selfHandle')
           }
-
         },
         getSrc(color) {
           if(color == 'red')

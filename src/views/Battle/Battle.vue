@@ -24,6 +24,7 @@
             </div>
             <div class="hold" @click="toHold(battleDetail.founderId)">持仓情况</div>
           </div>
+          <div class="vs">VS</div>
           <div class="user">
             <div><img class="portrait" :src="battleDetail.inviteePortrait"/></div>
             <div class="name">{{battleDetail.inviteeName}}</div>
@@ -72,7 +73,12 @@
     .user-wrapper {
       display: flex;
       padding: 0.2rem;
+      align-items: center;
       // background: #f9f9f9;
+      .vs {
+        font-weight: bold;
+        color: #c7000b;
+      }
       .user {
         flex: 1;
         overflow: hidden;
