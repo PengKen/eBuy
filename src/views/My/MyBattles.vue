@@ -20,11 +20,12 @@
   import RecordList from '@/components/RecordList'
   import BackArrow from '@/components/BackArrow'
   import Vue from 'vue'
+  import { mapGetters } from 'vuex'
   export default {
     name: "myBattles",
     data() {
         return {
-            userId: 111,
+
             selectTime: "all",
             filterOp: [
                 {
@@ -87,7 +88,7 @@
         }
     },
     created() {
-        this.userId = store.state.userId;
+
         this.getUserRecords(this.userId, "all");
         console.log("created")
     },
@@ -117,8 +118,10 @@
       RecordList,
       BackArrow
     },
-    destoryed () {
-      console.log("i am destory")
+    computed:{
+      ...mapGetters([
+        'userId'
+      ])
     }
   }
 </script>

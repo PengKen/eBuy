@@ -27,7 +27,7 @@ function createConnect() {
       if()
     }
     webSocket.onopen = function () {
-      webSocket.send('/User')
+      login();
       Vue.$vux.loading.hide()
     }
   }
@@ -35,5 +35,20 @@ function createConnect() {
 }
 
 function login() {
-  webSocket.send('/User/login?User=asdfdsf&pwd')
+  webSocket.send('/User/login?User=asdfdsf&pwd=pwa&termtypoe=html5')
+}
+
+
+function hearbeat() {
+  /*
+    接收到消息后要发送消息，避免服务端主动断开连接
+   */
+  webSocket.send("/heartbeat/ans?time=2018")
+}
+
+function dynamic(obj){
+  /*
+      获取某样产品的dont
+   */
+  webSocket.send('/gwsvr/interest?market=G1&obj=1300')
 }

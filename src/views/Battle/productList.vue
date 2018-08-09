@@ -7,7 +7,7 @@
 		</div>
 		<div class="product" v-for="(product, index) in products" @click="toProduct(index)">
 			<span class="name">{{product.name}}</span>
-			<span class="price" 
+			<span class="price"
 			:class="product.bankbuyp >= product.openbankbuyp ? 'red' : 'green'">
 			{{(parseFloat(product.bankbuyp)).toFixed(4)}}</span>
 			<span class="price"
@@ -42,6 +42,7 @@ export default {
 	font-size: 0.4rem;
 	background: white;
 	position: relative;
+  font-weight: 500;
 	.title {
 		display: flex;
 		padding: 0.3rem;
@@ -70,7 +71,7 @@ export default {
 			overflow: hidden;
 		}
 		.price {
-			flex: 3;	
+			flex: 3;
 			color: white;
 			margin-left: 0.2rem;
 			padding: 0.1rem 0;

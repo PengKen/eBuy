@@ -245,7 +245,7 @@ export default {
       else return "待接受";
     },
     msToDate(ms) {
-      return DF.msToDate(ms);
+      return DF.msToDate(ms) ;
     },
     onAccept() {
       console.log("accept challenge" + this.msgDetail.battleId);
@@ -289,7 +289,6 @@ export default {
     }
   },
   created() {
-
     API.getReceivedMsg(this.userId).then(res => {
       this.messages = res;
     });

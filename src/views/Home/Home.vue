@@ -30,7 +30,7 @@
     </div>
     <personal-battle
       :curUser="curUser"
-
+      @notifyHome="personalBattle(false)"
       :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
     ></personal-battle>
     <keep-alive>
@@ -117,9 +117,7 @@
         this.$router.push({path:"/home/rule", query:{}})
       },
       personalBattle(userId){
-        userId  ? this.showPersonal = true : this.showPersonal = false
-        this.curUser = userId
-        // this.$router.push({ path: "/home/personalbattle" , query:{userId:userId}})
+        userId  ? (this.showPersonal = true,this.curUser = userId) : this.showPersonal = false
       },
       challenge(userId){
         if(userId == this.userId) {

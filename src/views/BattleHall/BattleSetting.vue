@@ -135,8 +135,7 @@ Vue.use(AlertPlugin)
             invitee:this.curUser,
             founder:this.userId,
             initialMoney:this.battleDetail.initialMoney*10000,
-            // expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
-            expiredTime: new Date().getTime() + 20 * 1000,
+            expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
             duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
           }
 

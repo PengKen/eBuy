@@ -48,7 +48,7 @@
   .no-battle {
     background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
     color: white;
-    padding: 0.2rem; 
+    padding: 0.2rem;
   }
   .current {
     .count-down-wrapper {
@@ -128,15 +128,16 @@ import ProductList from './ProductList'
 import * as DF from "@/utils/timeFormat";
 import TimeCount from '@/components/timeCountDown'
 import { setInterval, clearInterval } from 'timers';
+import { mapGetters } from 'vuex'
 export default {
   name: "battle",
   components: {
     ProductList,
     TimeCount
-  },  
+  },
   data() {
     return {
-      userId: store.state.userId,
+
       // userId: 555,
       curTime: new Date().getTime(),
       battleDetail: {
@@ -213,36 +214,43 @@ export default {
         }else{
           this.battleDetail.played = res.played
         }
-        
+
       })
     },
     toHold(userId) {
       console.log("持仓："+userId);
     }
   },
+  computed:{
+    ...mapGetters([
+      'userId'
+    ])
+  },
   mounted() {
     // this.refresh()
-    
+
   },
   beforeDestroy() {
     clearInterval(this.intervalId)
   },
   created() {
     this.getCurrentBattle(this.userId);
-    // var socket = io('http://192.168.8.100:3000');
-    // socket.on('connect', (msg)=> {
-    //   socket.on('message', (msg)=> {
-    //     try {
-    //       console.log(msg)
-    //       this.products = JSON.parse(msg.productDetail)
-          
-    //     } catch (error) {
-    //       console.log("parse error")
-    //     }
-        
-        
+    const io = require('socket.io-client')
+    var socket = io('http://localhost:3000');
+    socket.on('connect', (msg)=> {
+      socket.on('message', (msg)=> {
+        try {
+          console.log(msg)
+          this.products = JSON.parse(msg.productDetail)
+
+        } catch (error) {
+          console.log("parse error")
+        }
+
+
     //   })
     // })
-  }
+  })
+  })}
 };
 </script>
