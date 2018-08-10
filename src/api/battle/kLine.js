@@ -10,10 +10,10 @@ const defaultToastMsg = {
   time:3000
 }
 var webSocket = null
-function createConnect() {
+function createConnect(getKLineData) {
   try{
      webSocket = new webSocket(process.env.WEBSOCKET)
-    Vue.$vux.loading.show({
+     Vue.$vux.loading.show({
       text: '正在加载'
     })
     webSocket.onerror = function (event) {
@@ -24,12 +24,18 @@ function createConnect() {
       })
     }
     webSocket.onmessage = function (event) {
-      if()
+      getKLineData(event.data)
+      hearbeat()
     }
     webSocket.onopen = function () {
       login();
       Vue.$vux.loading.hide()
     }
+  }catch(err){
+    Vue.$vux.toast.show({
+      ...defaultToastMsg,
+      text:'拉取数据失败～'
+    })
   }
 
 }
@@ -46,9 +52,13 @@ function hearbeat() {
   webSocket.send("/heartbeat/ans?time=2018")
 }
 
-function dynamic(obj){
+function dynamicData(obj,getKLineData){
+  createConnect(getKLineData)
+
   /*
-      获取某样产品的dont
+      获取某样产品的日K线
    */
-  webSocket.send('/gwsvr/interest?market=G1&obj=1300')
+  webSocket.send('/gwsvr/kline?market=G1&obj=' + obj +  '&kltype=day')
 }
+
+export  default  dynamicData

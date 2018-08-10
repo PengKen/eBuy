@@ -14,11 +14,11 @@ import * as API from "@/api/my";
 import RecordList from "@/components/RecordList";
 import BackArrow from "@/components/BackArrow";
 import Vue from "vue";
+import { mapGetters } from 'vuex'
 export default {
   name: "myFocus",
   data() {
     return {
-      userId: "222",
       records: [
         {
           founderName: "我是长长的用户名hhhhhhhhhhhhhhhhhh",
@@ -64,9 +64,7 @@ export default {
     };
   },
   created() {
-		this.userId = store.state.userId;
     this.getMyFocus(this.userId);
-		console.log("created");
   },
   methods: {
     getMyFocus(userId) {
@@ -85,8 +83,10 @@ export default {
     RecordList,
     BackArrow
   },
-  destoryed() {
-    console.log("i am destory");
+  computed:{
+    ...mapGetters([
+      'userId'
+    ])
   }
 };
 </script>

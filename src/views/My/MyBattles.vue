@@ -15,7 +15,6 @@
 </template>
 
 <script>
-  import store from "@/store/index";
   import * as API from '@/api/my'
   import RecordList from '@/components/RecordList'
   import BackArrow from '@/components/BackArrow'
@@ -90,7 +89,6 @@
     created() {
 
         this.getUserRecords(this.userId, "all");
-        console.log("created")
     },
     methods:{
         tapFilter(id) {
@@ -107,7 +105,7 @@
         },
         getUserRecords(userId, selectTime) {
           API.getMyBattles(userId, selectTime).then(res=>{
-            this.records = res.records;
+            this.records = res;
             if(this.records.length>0) {
                 Vue.set(this.records[0],'collapsed',true);
             }

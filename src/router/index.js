@@ -95,7 +95,7 @@ export default new Router({
         {
           path: 'battle',
           name: 'Battle',
-          component: KLine,
+          component: Battle,
           meta: {index: 0}
         },
         {

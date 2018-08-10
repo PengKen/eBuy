@@ -15,10 +15,7 @@
     data() {
       return {
         option: {
-          title: {
-            text: '上证指数',
-            left: 0
-          },
+
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -247,7 +244,7 @@
 <style lang="less" scoped>
   #k-lines{
     width: 100%;
-    height: 500px;
+    height: 100%;
     tspan{
       font-size: 0;
     }

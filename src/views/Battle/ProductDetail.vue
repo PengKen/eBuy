@@ -1,6 +1,6 @@
 <template>
 	<div id="product-detail">
-		<nav-bar :color="'red'" :title="'产品详情'"></nav-bar> 
+		<nav-bar :color="'red'" :title="'产品详情'"></nav-bar>
 		<div class="detail">
 			<div class="name">{{productDetail.name}}</div>
 			<div class="num">
@@ -9,18 +9,18 @@
 					<div class="change">
 						<div class="item">
 							<div class="title">涨跌值</div>
-							<div class="number" :class="change >= 0 ? 'color-red' : 'color-green'" >{{change}}</div>		
+							<div class="number" :class="change >= 0 ? 'color-red' : 'color-green'" >{{change}}</div>
 						</div>
 						<div class="item">
 							<div class="title">涨跌幅</div>
-							<div class="number" :class="change >= 0 ? 'color-red' : 'color-green'" >{{changepct}}</div>		
+							<div class="number" :class="change >= 0 ? 'color-red' : 'color-green'" >{{changepct}}</div>
 						</div>
 					</div>
 				</div>
 				<div class="right">
 					<div class="item">
 						<div class="title">银行买入价</div>
-						<div class="number">{{(productDetail.bankbuyp).toFixed(2)}}</div>		
+						<div class="number">{{(productDetail.bankbuyp).toFixed(2)}}</div>
 					</div>
 					<div class="item">
 						<div class="title">银行卖出价</div>
@@ -37,7 +37,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="kline">k线图</div>
+		<div class="kline">
+      <K-line></K-line>
+    </div>
 		<div class="operation">
 			<div class="btn" @click="transaction(0)">买入</div>
 			<div class="btn" @click="transaction(1)">卖出</div>
@@ -47,6 +49,7 @@
 
 <script>
 import NavBar from '@/components/NavBar'
+import KLine from '@/components/KLine'
 export default {
 	name: 'product-detail',
 	data() {
@@ -79,7 +82,8 @@ export default {
 		}
 	},
 	components: {
-		NavBar
+		NavBar,
+    KLine
 	},
 	methods: {
 		transaction(op) {

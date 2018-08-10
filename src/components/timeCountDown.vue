@@ -6,7 +6,7 @@
 			<span class="num">{{min}}</span><span>分</span>
 			<span class="num">{{sec}}</span><span>秒</span>
 		</div>
-	</div>
+
 </template>
 
 <script>

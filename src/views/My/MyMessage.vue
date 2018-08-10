@@ -40,7 +40,7 @@
 					</p>
 					<p class="detail">
 						<span class="title">PK时长</span>
-						<span>{{msgDetail.duringTime.time / 86400000}}天</span>
+						<span>{{msgDetail.duringTime.time / 1000 / 60}}分钟</span>
 					</p>
 					<p class="detail">
 						<span class="title">失效时间</span>
@@ -249,7 +249,7 @@ export default {
     },
     onAccept() {
       console.log("accept challenge" + this.msgDetail.battleId);
-      var battleDetail = { invitee: "111", battleId: this.msgDetail.battleId };
+      var battleDetail = { invitee: this.userId, battleId: this.msgDetail.battleId };
       API.postStartBattle(battleDetail).then(res => {
         switch (res.userState) {
           case 0: //成功
