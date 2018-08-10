@@ -7,7 +7,7 @@
 		</div>
 		<div class="product" v-for="(product, index) in products" @click="toProduct(index)">
 			<span class="name">{{product.name}}</span>
-			<span class="price" 
+			<span class="price"
 			:class="product.bankbuyp >= product.openbankbuyp ? 'red' : 'green'">
 			{{(parseFloat(product.bankbuyp)).toFixed(4)}}</span>
 			<span class="price"

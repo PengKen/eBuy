@@ -10,7 +10,7 @@
         <h2>擂台设置</h2>
         <group label-width="5em" label-margin-right="2em" label-align="center">
           <x-number :fillable="true" :step="step" title="初始资金(万元)" align="center" v-model="battleDetail.initialMoney" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
-          <x-number :fillable="true" :step="step" title="PKS时长(天)" align="center" v-model="battleDetail.duringTime" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
+          <x-number :fillable="true" :step="step" title="PKS时长(分钟)" align="center" v-model="battleDetail.duringTime" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
           <datetime
             :required="true"
             title="摆擂时长"
@@ -116,7 +116,7 @@ Vue.use(AlertPlugin)
             content:'NumberFormatException',
             initialMoney:this.battleDetail.initialMoney*10000,
             expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
-            duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
+            duringTime:this.battleDetail.duringTime * 1000 * 60 //一天为86400000毫秒
           }
           API.postNewBattle(battleDetail).then(()=>{
             this.$vux.alert.show({
@@ -135,9 +135,8 @@ Vue.use(AlertPlugin)
             invitee:this.curUser,
             founder:this.userId,
             initialMoney:this.battleDetail.initialMoney*10000,
-            // expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
-            expiredTime: new Date().getTime() + 20 * 1000,
-            duringTime:this.battleDetail.duringTime * 86400000 //一天为86400000毫秒
+            expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),
+            duringTime:this.battleDetail.duringTime * 1000 * 60 //一天为86400000毫秒
           }
 
           API.postNewBattle(battleDetail).then(()=>{

@@ -243,7 +243,7 @@ import getNormalTime from "@/utils/timeFormat";
 import * as DF from "@/utils/timeFormat";
 import Vue from "vue";
 import { Toast, Divider } from "vux";
-
+import { mapGetters } from 'vuex'
 export default {
   name: "record-list",
   props: {
@@ -257,15 +257,11 @@ export default {
     showBtn: {
       type: Boolean,
       default: true
-    },
-    curUser:{
-      type: Number,
-      default:0
     }
 	},
 	data() {
 		return {
-			userId:111
+
 		}
 	},
   created() {
@@ -274,7 +270,10 @@ export default {
   computed: {
     curTime() {
       return getNormalTime;
-    }
+    },
+    ...mapGetters([
+      'userId'
+    ])
   },
   methods: {
     spanItem(index) {
@@ -285,14 +284,14 @@ export default {
     focus(isFocus, index) {
       if (isFocus == 0) {
         // 关注
-        var focusInfo = { userId: this.curUser, battleId: this.records[index].battleId };
+        var focusInfo = { userId: this.userId, battleId: this.records[index].battleId };
         APIHALL.postInsertFocus(focusInfo).then(() => {
           Vue.set(this.records[index], "isFocus", 1);
           this.$vux.toast.text("关注成功", "top");
         });
       } else {
         // 取消关注
-        APIHALL.deleteFocus(this.curUser, this.records[index].battleId).then(() => {
+        APIHALL.deleteFocus(this.userId, this.records[index].battleId).then(() => {
           Vue.set(this.records[index], "isFocus", 0);
           this.$vux.toast.text("取消关注成功", "top");
         });

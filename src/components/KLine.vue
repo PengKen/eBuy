@@ -5,34 +5,23 @@
 <script>
   import data0 from './data'
   console.log(data0)
-  require("echarts/lib/chart/candlestick");
-  import 'echarts/lib/chart/line'
-  var echarts = require('echarts/lib/echarts');
+    require("echarts/lib/chart/candlestick");
+    import 'echarts/lib/chart/line'
 
+  var echarts = require('echarts');
   export default {
     name: "k-line",
-    computed:{
 
-
-    },
-    beforeCreate(){
-      console.log("before")
-    },
-    destroyed(){
-      // console.log(this.option)
-    },
     data() {
       return {
         option: {
-          title: {
-            text: '上证指数',
-            left: 0
-          },
+
           tooltip: {
             trigger: 'axis',
             axisPointer: {
               type: 'cross'
-            }
+            },
+            show:true
           },
           legend: {
             data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
@@ -207,14 +196,12 @@
       }
     },
 
-    created(){
-      console.log("created")
-    },
+
 
     mounted() {
       this.$nextTick(()=>{
         var dom = document.getElementById("k-lines");
-        var myChart = echarts.init(dom, 'light', {renderer: 'svg'})
+        var myChart = echarts.init(dom, 'light')
         console.log(this.option)
         myChart.setOption(this.option,true);
       })
@@ -254,9 +241,12 @@
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   #k-lines{
     width: 100%;
-    height: 500px;
+    height: 100%;
+    tspan{
+      font-size: 0;
+    }
   }
 </style>

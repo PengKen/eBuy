@@ -9,11 +9,16 @@
           </tab>
         </div>
       </div>
-      <div class="records"><record-list id="record-list"
-        :records="records"
-        :showBtn="active == 2 ? false : true"
-        :showStamp="false">
-      </record-list></div>
+      <div class="records">
+        <record-list
+          id="record-list"
+          :records="records"
+          :showBtn="active == 2 ? false : true"
+          :showStamp="false"
+
+
+        >
+        </record-list></div>
       <div class="battle-ball">
         <div class="battle" @click.stop="battle">对战</div>
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
@@ -30,6 +35,7 @@
   import RecordList from '@/components/RecordList'
   import { Tab, TabItem }  from 'vux'
   import BattleSetting from "./BattleSetting";
+  import { mapGetters } from 'vuex'
   export default {
     name: "battle-hall",
     data () {
@@ -109,6 +115,11 @@
       RecordList
 
     },
+    computed:{
+      ...mapGetters([
+        'userId'
+      ])
+    },
     methods:{
       battle(){
         this.out ? this.out = false : this.out = true
@@ -119,6 +130,9 @@
         this.getBattleList(state, this.userId);
       },
       getBattleList(state, userId) {
+        /*
+            state: 3 正在进行 4 已结束 1 等待应战 2 过期
+         */
         API.getBattleList(state, userId).then(res=>{
           this.records = res;
           if(this.records.length>0) {
@@ -132,7 +146,7 @@
       }
     },
     created() {
-      this.userId = store.state.userId;
+
       this.getBattleList(3, this.userId);
     }
   }

@@ -40,7 +40,7 @@
 					</p>
 					<p class="detail">
 						<span class="title">PK时长</span>
-						<span>{{msgDetail.duringTime.time / 86400000}}天</span>
+						<span>{{msgDetail.duringTime.time / 1000 / 60}}分钟</span>
 					</p>
 					<p class="detail">
 						<span class="title">失效时间</span>
@@ -245,11 +245,11 @@ export default {
       else return "待接受";
     },
     msToDate(ms) {
-      return DF.msToDate(ms);
+      return DF.msToDate(ms) ;
     },
     onAccept() {
       console.log("accept challenge" + this.msgDetail.battleId);
-      var battleDetail = { invitee: "111", battleId: this.msgDetail.battleId };
+      var battleDetail = { invitee: this.userId, battleId: this.msgDetail.battleId };
       API.postStartBattle(battleDetail).then(res => {
         switch (res.userState) {
           case 0: //成功
@@ -289,7 +289,6 @@ export default {
     }
   },
   created() {
-
     API.getReceivedMsg(this.userId).then(res => {
       this.messages = res;
     });
