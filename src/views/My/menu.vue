@@ -67,6 +67,7 @@ export default {
 #my {
   font-size: 0.4rem;
   height: 100%;
+  background: white;
   // background: #f0f0f0;
   #user-info {
     height: 10%;

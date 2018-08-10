@@ -1,7 +1,7 @@
 <template>
   <div id="rule">
-    <back-arrow></back-arrow>
-    <div class="img"><img src="/src/views/Home/img/eBuyPoster.jpg" alt=""></div>
+    <nav-bar :title="'活动规则'"></nav-bar>
+    <div class="img"><img src="/static/img/eBuyPoster.jpg" alt=""></div>
     <div class="article">
       <h1>活动规则</h1>
       <div class="content">
@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import BackArrow from '@/components/BackArrow'
+import NavBar from '@/components/NavBar'
 export default {
   name: "rule",
   components: {
-    BackArrow
+    NavBar
   }
 };
 </script>
@@ -28,9 +28,9 @@ export default {
 <style lang="less" scoped>
   #rule {
     position: relative;
-    height: 100%;
+    // height: 100%;
     font-size: 0.4rem;
-    overflow: hidden;
+    // overflow: hidden;
     background: white;
     .img {
       top: 0;
@@ -38,6 +38,7 @@ export default {
       width: 100%;
       height: 30%;
       background: white;
+      padding-top: 1.5rem;
       img {
         width: 100%;
         height: 100%;

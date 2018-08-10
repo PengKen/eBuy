@@ -205,7 +205,7 @@ export default {
 			border-bottom: 1px solid #eeeeee;
 			text-align: left;
 			.name {
-				font-size: 0.4rem;
+				font-size: 0.5rem;
 				
 			}
 			.p {

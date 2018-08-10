@@ -154,12 +154,15 @@
 
 <style lang="less" >
   #battle-hall{
-    height: 100%;
+    min-height: 100%;
     background: white;
     .header{
       height: 1.3rem;
       background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
       color: white;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
       .button-tab {
         .vux-tab-wrap {
           .vux-tab-container {
@@ -182,10 +185,11 @@
 
     }
     .records {
-        padding: 0.3rem 0.3rem 1.7rem;
+        padding: 0.3rem 0.3rem 3.2rem;
+        padding-top: 1.6rem;
         box-sizing: border-box;
-        height: 15rem;
-        overflow: scroll;
+        // height: 15rem;
+        // overflow: scroll;
     }
     .battle-ball,.battle,.invite,.set-battle{
       position: relative;
@@ -202,7 +206,7 @@
       -webkit-transition: all 0.3s ease-out;//webkit
     }
     .battle-ball{
-      position: absolute;
+      position: fixed;
       bottom:1.7rem;
       left:0;
       right: 0;
