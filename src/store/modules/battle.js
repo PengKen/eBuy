@@ -1,5 +1,5 @@
-import * as API from '@/api/home'
-import timeFormat from '@/utils/'
+
+import timeFormat from '@/utils/timeFormat'
 // initial state
 // shape: [{ id, quantity }]
 const state = {

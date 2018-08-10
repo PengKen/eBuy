@@ -13,7 +13,7 @@
           </div>
           <div class="init">初始资金：{{battleDetail.initialMoney}}元</div>
         </div>
-        
+
         <div class="user-wrapper">
           <div class="refresh" @click="clickFresh()" :style="flag ? 'color: #666' : ''" >刷新</div>
           <div class="user">
@@ -51,7 +51,10 @@
           </div>
         </div>
       </div>
-      <product-list id="product-list" :products="products"></product-list>
+      <keep-alive>
+        <product-list id="product-list" :products="products"></product-list>
+      </keep-alive>
+
     </div>
 </template>
 
@@ -122,7 +125,7 @@
           span {
             vertical-align: middle;
           }
-        }    
+        }
         .name {
           font-size: 0.5rem;
           white-space: nowrap;

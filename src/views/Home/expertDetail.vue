@@ -1,7 +1,7 @@
 <template>
   <div id="expert-detail">
     <back-arrow></back-arrow>
-    <div class="img"><img src="/static/img/expert.jpg" alt=""></div>
+    <div class="img"><img src="/src/views/Home/img/expert.jpg" alt=""></div>
     <div class="article">
       <h1>专家为您讲解股票交易</h1>
       <div class="content">

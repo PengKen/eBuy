@@ -1,7 +1,7 @@
 <template>
   <div id="rule">
     <back-arrow></back-arrow>
-    <div class="img"><img src="/static/img/eBuyPoster.jpg" alt=""></div>
+    <div class="img"><img src="/src/views/Home/img/eBuyPoster.jpg" alt=""></div>
     <div class="article">
       <h1>活动规则</h1>
       <div class="content">

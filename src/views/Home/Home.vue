@@ -6,8 +6,8 @@
       @someSwiperEvent=""
       >
         <!-- slides -->
-        <swiper-slide><img @click.self="rule" class="img" src="/static/img/eBuyPoster.jpg" alt=""></swiper-slide>
-        <swiper-slide><img @click.self="expertDetail" class="img" src="/static/img/expert-click.jpg" alt=""></swiper-slide>
+        <swiper-slide><img @click.self="rule" class="img" :src="require('./img/eBuyPoster.jpg')" alt=""></swiper-slide>
+        <swiper-slide><img @click.self="expertDetail" class="img" :src="require('./img/expert-click.jpg')" alt=""></swiper-slide>
 
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>

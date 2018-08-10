@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import * as API from '@/api/home'
 Vue.use(Vuex)
 import boardList from './modules/boardList'
-import battle from './module/battle'
+import battle from './modules/battle'
 const store = new Vuex.Store({
   modules:{
     boardList,
