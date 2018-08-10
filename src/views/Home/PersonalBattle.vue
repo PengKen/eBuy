@@ -1,6 +1,6 @@
 <template>
     <div id="personal-battle" v-if="curUserInfo != null">
-        <back-arrow :common="true" @selfHandle="back"></back-arrow>
+        <back-arrow :common="true" @selfHandle="back" :color="'white'"></back-arrow>
         <div id="user-info">
             <div id="portrait">
                 <img class="portrait" :src="curUserInfo.portrait">

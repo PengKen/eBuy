@@ -32,6 +32,7 @@ export default {
 	position: fixed;
 	top: 0;
 	width: 100%;
+	z-index: 1000;
 	// border-bottom: 1px solid #eeeeee;
 	.title {
 		line-height: 0.7rem;

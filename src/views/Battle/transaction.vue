@@ -5,7 +5,7 @@
 			<div class="top">
 				<div class="name">{{productDetail.productName}}</div>
 				<div class="p">
-					<span class="price">{{operation == 0 ? productDetail.bankSellp : productDetail.bankBuyp}}</span>
+					<span class="price">{{operation == 0 ? (productDetail.bankSellp).toFixed(4) : (productDetail.bankBuyp).toFixed(4)}}</span>
 					<span class="time">{{curTime}}</span>
 				</div>
 			</div>
@@ -74,6 +74,9 @@ export default {
 		this.operation = this.$route.params.operation
 		this.productDetail.productId = this.$route.params.productId
 		this.getProductAccount()
+		API.getProductDetail(this.productDetail.productId).then(res=>{
+				this.productDetail = res;
+    })
 	},
 	computed: {
 		...mapGetters([
@@ -83,7 +86,7 @@ export default {
 			return dateFormat(new Date(), 'HH:mm:ss');
 		},
 		mostAmount: function() {
-			return (this.accountInfo.balance / this.productDetail.bankSellp).toFixed(0)
+			return Math.floor(this.accountInfo.balance / this.productDetail.bankSellp)
 		},
 		value: function() {
 			if(this.operation == 0) { //buy
@@ -115,7 +118,7 @@ export default {
 						onHide() {}
 					});
 				}else {
-					this.postBuyProduct()
+					this.postSellProduct()
 				}
 			}
 		},
@@ -133,11 +136,15 @@ export default {
 			};
 			API.postSellProduct(transactionInfo).then(res=>{
 				if(res.code == 0) { //success
+					var that = this
 					this.$vux.alert.show({
 						title: "成功",
 						content: "交易成功",
 						onShow() {},
-						onHide() {this.$router.go(-1);}
+						onHide() {
+							console.log(that.$router)
+							that.$router.go(-1);
+						}
 					});
 				}else {
 					this.$vux.alert.show({
@@ -158,11 +165,15 @@ export default {
 			};
 			API.postBuyProduct(transactionInfo).then(res=>{
 				if(res.code == 0) { //success
+					var that = this
 					this.$vux.alert.show({
 						title: "成功",
 						content: "交易成功",
 						onShow() {},
-						onHide() {this.$router.go(-1);}
+						onHide() {
+							console.log(that.$router)
+							that.$router.go(-1);
+						}
 					});
 				}else {
 					this.$vux.alert.show({

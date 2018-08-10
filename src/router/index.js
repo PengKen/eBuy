@@ -18,6 +18,7 @@ import BattleIndex from '@/views/Battle/Index'
 import Battle from '@/views/Battle/Battle'
 import ProductDetail from '@/views/Battle/ProductDetail'
 import Transaction from '@/views/Battle/transaction'
+import AccountInfo from '@/views/Battle/AccountInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -102,6 +103,12 @@ export default new Router({
           path: 'productdetail',
           name: 'ProductDetail',
           component: ProductDetail,
+          meta: {index: 1},
+        },
+        {
+          path: 'accountinfo',
+          name: 'AccountInfo',
+          component: AccountInfo,
           meta: {index: 1},
         },
         {

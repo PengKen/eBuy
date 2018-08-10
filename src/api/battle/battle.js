@@ -19,4 +19,7 @@ function postSellProduct(transactionInfo) {
     return httpServer('Post','/api/v1/eBuy/sellProduct', transactionInfo);
 }
 
-export {getCurrentBattle, getProductDetail, getProductAccount, postBuyProduct, postSellProduct}
+function getUserAccount(userId) {
+    return httpServer('Get','/api/v1/eBuy/myAccounts/' + userId);
+}
+export {getCurrentBattle, getProductDetail, getProductAccount, postBuyProduct, postSellProduct, getUserAccount}

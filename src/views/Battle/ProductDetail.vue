@@ -165,8 +165,8 @@ export default {
 				flex-wrap: wrap;
 				justify-content: space-between;
 				.item {
-					flex: 1;
-					padding: 0.1rem 0rem 0.1rem 0.5rem;
+					width: 50%;
+					padding: 0.1rem 0;
 					.title {
 						font-size: 0.3rem;
 						color:#888888;
@@ -177,7 +177,7 @@ export default {
 	}
 	.kline {
 		height: 7rem;
-		background: #eeeeee;
+		// background: #eeeeee;
 		line-height: 7rem;
 	}
 	.operation {
