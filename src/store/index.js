@@ -53,7 +53,9 @@ const store = new Vuex.Store({
     userInfo: state => {
       return state.userInfo
     },
-
+    challengeState: state => {
+      return state.userInfo.challengeState
+    }
 
   }
 
