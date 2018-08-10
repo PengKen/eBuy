@@ -10,7 +10,9 @@ const defaultToastMsg = {
   time:3000
 }
 var webSocket = null
-function createConnect(getKLineData) {
+var getKlineData = null
+
+function createConnect() {
   try{
      webSocket = new webSocket(process.env.WEBSOCKET)
      Vue.$vux.loading.show({
@@ -24,9 +26,11 @@ function createConnect(getKLineData) {
       })
     }
     webSocket.onmessage = function (event) {
-      getKLineData(event.data)
-      hearbeat()
-    }
+       if(event.data.indexof('heartbeat') === -1){
+         getKlineData(event.data.result.datas)
+       }
+       hearbeat()
+     }
     webSocket.onopen = function () {
       login();
       Vue.$vux.loading.hide()
@@ -53,12 +57,11 @@ function hearbeat() {
 }
 
 function dynamicData(obj,getKLineData){
-  createConnect(getKLineData)
-
+  this.getKLineData = getKLineData
   /*
       获取某样产品的日K线
    */
   webSocket.send('/gwsvr/kline?market=G1&obj=' + obj +  '&kltype=day')
 }
 
-export  default  dynamicData
+export { dynamicData, createConnect}

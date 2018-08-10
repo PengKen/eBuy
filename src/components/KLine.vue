@@ -3,15 +3,19 @@
 </template>
 
 <script>
-  import data0 from './data'
-  console.log(data0)
+  import { mapGetters } from 'vuex'
     require("echarts/lib/chart/candlestick");
     import 'echarts/lib/chart/line'
 
   var echarts = require('echarts');
   export default {
     name: "k-line",
-
+    computed:{
+      ...mapGetters({
+       values: 'battle/KLineData',
+        categoryData: 'battle/KLineTime'
+      })
+    },
     data() {
       return {
         option: {
@@ -24,7 +28,7 @@
             show:true
           },
           legend: {
-            data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+            data: ['日K']
           },
           grid: {
             left: '10%',
@@ -33,7 +37,7 @@
           },
           xAxis: {
             type: 'category',
-            data: data0.categoryData,
+            data: this.categoryData,
             scale: true,
             boundaryGap: false,
             axisLine: {onZero: false},
@@ -66,7 +70,7 @@
             {
               name: '日K',
               type: 'candlestick',
-              data: data0.values,
+              data: this.values,
               itemStyle: {
                 normal: {
                   color: '#ec0000',
@@ -152,43 +156,7 @@
                   }
                 ]
               }
-            },
-            {
-              name: 'MA5',
-              type: 'line',
-              data: this.calculateMA(5),
-              smooth: true,
-              lineStyle: {
-                normal: {opacity: 0.5}
-              }
-            },
-            {
-              name: 'MA10',
-              type: 'line',
-              data: this.calculateMA(10),
-              smooth: true,
-              lineStyle: {
-                normal: {opacity: 0.5}
-              }
-            },
-            {
-              name: 'MA20',
-              type: 'line',
-              data: this.calculateMA(20),
-              smooth: true,
-              lineStyle: {
-                normal: {opacity: 0.5}
-              }
-            },
-            {
-              name: 'MA30',
-              type: 'line',
-              data: this.calculateMA(30),
-              smooth: true,
-              lineStyle: {
-                normal: {opacity: 0.5}
-              }
-            },
+            }
 
           ]
         }
@@ -209,34 +177,7 @@
 
     },
     methods: {
-      splitData(rawData) {
-
-        var categoryData = [];
-        var values = []
-        for (var i = 0; i < rawData.length; i++) {
-          categoryData.push(rawData[i].splice(0, 1)[0]);
-          values.push(rawData[i])
-        }
-        return {
-          categoryData: categoryData,
-          values: values
-        };
-      },
-      calculateMA(dayCount) {
-        var result = [];
-        for (var i = 0, len = data0.values.length; i < len; i++) {
-          if (i < dayCount) {
-            result.push('-');
-            continue;
-          }
-          var sum = 0;
-          for (var j = 0; j < dayCount; j++) {
-            sum += data0.values[i - j][1];
-          }
-          result.push(sum / dayCount);
-        }
-        return result;
-      }
+     
     }
   }
 </script>
