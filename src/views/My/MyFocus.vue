@@ -1,7 +1,6 @@
 <template>
     <div id="my-focus">
-        <back-arrow></back-arrow>
-        <h1>我的关注</h1>
+        <nav-bar :title="'我的关注'"></nav-bar>
 				<div class="records">
         	<record-list id="record-list" :records="records" :showBtn=true :showStamp=true></record-list>
 				</div>
@@ -12,7 +11,7 @@
 import store from "@/store/index";
 import * as API from "@/api/my";
 import RecordList from "@/components/RecordList";
-import BackArrow from "@/components/BackArrow";
+import NavBar from "@/components/NavBar";
 import Vue from "vue";
 import { mapGetters } from 'vuex'
 export default {
@@ -81,7 +80,7 @@ export default {
   },
   components: {
     RecordList,
-    BackArrow
+    NavBar
   },
   computed:{
     ...mapGetters([
@@ -93,15 +92,11 @@ export default {
 
 <style lang='less' >
 #my-focus {
-  height: 100%;
-  overflow: hidden;
   font-size: 0.4rem;
 	background: white;
 	.records {
-		margin-top: 0.5rem;
 		padding: 0 0.3rem;
-		height: 15.9rem;
-		overflow: scroll;
+		padding-top: 2rem;
 	}
 }
 .medal {

@@ -44,22 +44,22 @@
                           <td>{{record.initialMoney}}</td>
                       </tr>
                       <tr>
-                          <td>{{!record.founderBalance ? '- -' : record.founderBalance}}</td>
+                          <td>{{record.founderBalance == undefined ? '- -' : record.founderBalance}}</td>
                           <td>
                             <span v-if="curTime < record.endTime || !record.endTime">当前资金</span>
                             <span v-if="curTime > record.endTime">结束资金</span>
                           </td>
-                          <td>{{!record.inviteeBalance ? '- -' : record.inviteeBalance}}</td>
+                          <td>{{record.inviteeBalance == undefined? '- -' : record.inviteeBalance}}</td>
                       </tr>
                       <tr>
-                          <td>{{!record.founderRate ? '- -' : record.founderRate}}</td>
+                          <td>{{record.founderRate == undefined ? '- -' : (record.founderRate*100).toFixed(2)}}%</td>
                           <td>收益率</td>
-                          <td>{{!record.inviteeRate ? '- -' : record.inviteeRate}}</td>
+                          <td>{{record.inviteeRate == undefined ? '- -' : (record.inviteeRate*100).toFixed(2)}}%</td>
                       </tr>
                   </table>
                   <div class="time" v-if="record.startTime">
-                      <span>开始时间：{{!record.startTime ? '- -' : msToDate(record.startTime.time)}}</span>
-                      <span>结束时间：{{!record.endTime ? '- -' : msToDate(record.endTime.time)}}</span>
+                      <span>开始：{{!record.startTime ? '- -' : msToDate(record.startTime.time)}}</span>
+                      <span>结束：{{!record.endTime ? '- -' : msToDate(record.endTime.time)}}</span>
                   </div>
                   <div class="time" v-if="!record.startTime">
                       <span>PK时长：{{record.duringTime.time / 86400000}}天</span>
@@ -194,7 +194,8 @@
       font-size: 0.35rem;
       span {
         display: inline-block;
-        width: 49%;
+        // width: 49%;
+        padding: 0 0.3rem;
       }
     }
     .focus {

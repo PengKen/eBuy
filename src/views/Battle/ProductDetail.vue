@@ -2,7 +2,7 @@
 	<div id="product-detail">
 		<nav-bar :color="'red'" :title="'产品详情'"></nav-bar>
 		<div class="detail">
-			<div class="name">{{productDetail.name}}</div>
+			<div class="name">{{productDetail.productName}}</div>
 			<div class="num">
 				<div class="left">
 					<div class="price" :class="change >= 0 ? 'color-red' : 'color-green'" >{{price}}</div>
@@ -20,11 +20,11 @@
 				<div class="right">
 					<div class="item">
 						<div class="title">银行买入价</div>
-						<div class="number">{{(productDetail.bankbuyp).toFixed(2)}}</div>
+						<div class="number">{{(productDetail.bankBuyp).toFixed(2)}}</div>		
 					</div>
 					<div class="item">
 						<div class="title">银行卖出价</div>
-						<div class="number">{{(productDetail.banksellp).toFixed(2)}}</div>
+						<div class="number">{{(productDetail.bankSellp).toFixed(2)}}</div>
 					</div>
 					<div class="item">
 						<div class="title">今开价</div>
@@ -32,7 +32,7 @@
 					</div>
 					<div class="item">
 						<div class="title">昨收价</div>
-						<div class="number">{{openprice}}</div>
+						<div class="number">{{closeprice}}</div>
 					</div>
 				</div>
 			</div>
@@ -49,30 +49,41 @@
 
 <script>
 import NavBar from '@/components/NavBar'
+import * as API from '@/api/battle/battle'
+import { mapGetters } from 'vuex'
 import KLine from '@/components/KLine'
 export default {
 	name: 'product-detail',
 	data() {
 		return {
 			productDetail: {
-				obj:1,
-				name:'白金啊啊啊啊啊啊啊啊啊啊',
-				bankbuyp:200.8927,
-				banksellp:203.2198,
-				openbankbuyp:200.8922,
-				openbanksellp:203.8922,
+				productId:1,
+				productName:'白金啊啊啊啊啊啊啊啊啊啊',
+				bankBuyp:200.8927,
+				bankSellp:203.2198,
+				startSell:200.8922,
+				startBuy:203.8922,
+				endSell:200.8922,
+				endBuy:203.8922,
 			},
 		}
 	},
 	created() {
-		this.productDetail.obj = this.$route.query.obj
+		this.productDetail.productId = this.$route.query.obj
+		this.getDetail(this.$route.query.obj)
 	},
 	computed: {
+		...mapGetters([
+      'challengeState'
+    ]),
 		price: function() {
-			return ((this.productDetail.banksellp + this.productDetail.bankbuyp) / 2).toFixed(2)
+			return ((this.productDetail.bankSellp + this.productDetail.bankBuyp) / 2).toFixed(2)
 		},
 		openprice: function() {
-			return ((this.productDetail.openbanksellp + this.productDetail.openbankbuyp) / 2).toFixed(2)
+			return ((this.productDetail.startSell + this.productDetail.startBuy) / 2).toFixed(2)
+		},
+		closeprice: function() {
+			return ((this.productDetail.endSell + this.productDetail.endBuy) / 2).toFixed(2)
 		},
 		change: function() {
 			return (this.price - this.openprice).toFixed(2)
@@ -88,7 +99,22 @@ export default {
 	methods: {
 		transaction(op) {
 			// op: 0-buy, 1-sell
-			this.$router.push({ name:'transaction' , params:{productDetail:this.productDetail, operation: op}})
+			if(this.challengeState == 2) {
+				this.$router.push({ name:'transaction' , params:{productId:this.productDetail.productId, operation: op}})
+			}else {
+				this.$vux.alert.show({
+					title: "失败",
+					content: "您当前没有正在进行的比赛",
+					onShow() {},
+					onHide() {}
+				});
+			}
+			
+		},
+		getDetail(productId) {
+      API.getProductDetail(productId).then(res=>{
+				this.productDetail = res;
+      })
 		}
 	}
 }
@@ -139,8 +165,8 @@ export default {
 				flex-wrap: wrap;
 				justify-content: space-between;
 				.item {
-					flex: 1;
-					padding: 0.1rem 0rem 0.1rem 0.5rem;
+					width: 50%;
+					padding: 0.1rem 0;
 					.title {
 						font-size: 0.3rem;
 						color:#888888;
@@ -151,16 +177,12 @@ export default {
 	}
 	.kline {
 		height: 7rem;
-		background: #eeeeee;
+		// background: #eeeeee;
 		line-height: 7rem;
 	}
 	.operation {
 		display: flex;
-		box-sizing: border-box;
-		position: fixed;
-		bottom: 0.5rem;
-		left: 0;
-		right: 0;
+		margin: 1rem auto;
 		justify-content: center;
 		// border: 1px solid blue;
 		.btn {
@@ -168,10 +190,11 @@ export default {
 			height: 1rem;
 			line-height: 1rem;
 			margin: 0 0.5rem;
-			// background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
-			border-radius: 0.2rem;
-			border: 1px solid #c0000b;
-			color: #c0000b;
+			background: #c0000b;
+			color: white;
+			border-radius: 0.1rem;
+			// border: 1px solid #c0000b;
+			// color: #c0000b;
 			// border: 1px solid blue;
 		}
 	}

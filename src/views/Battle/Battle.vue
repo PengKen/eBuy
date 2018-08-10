@@ -1,38 +1,53 @@
 <template>
     <div id="battle">
       <div v-if="battleDetail.played == 0" class="no-battle">您还没有参加过比赛，快去大厅看看吧</div>
-      <div class="current">
-        <div v-if="battleDetail.played == 1" class="count-down-wrapper">
+      <div class="current" v-if="battleDetail.played == 1">
+        <div class="count-down-wrapper">
           <div>{{battleDetail.endTime.time > new Date().getTime() ? '距离比赛结束还有' : '本场比赛已结束'}}</div>
           <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
         </div>
         <div class="battle-info">
           <div class="time">
-            <span>开始时间：{{msToDate(battleDetail.startTime.time)}}</span>
-            <span>结束时间：{{msToDate(battleDetail.endTime.time)}}</span>
+            <span>开始：{{msToDate(battleDetail.startTime.time)}}</span>
+            <span>结束：{{msToDate(battleDetail.endTime.time)}}</span>
           </div>
           <div class="init">初始资金：{{battleDetail.initialMoney}}元</div>
         </div>
-        <div class="refresh" @click="clickFresh()">刷新</div>
+        
         <div class="user-wrapper">
+          <div class="refresh" @click="clickFresh()" :style="flag ? 'color: #666' : ''" >刷新</div>
           <div class="user">
             <div><img class="portrait" :src="battleDetail.founderPortrait"/></div>
             <div class="name">{{battleDetail.founderName}}</div>
-            <div class="balance">总资产：{{(battleDetail.founderAllMoney).toFixed(2)}}</div>
+            <div class="honor">
+              <img class="medal" :src="battleDetail.founderHonor.url"/>
+              <span>{{battleDetail.founderHonor.title}}</span>
+            </div>
+            <div class="all-money">总资产：{{(battleDetail.founderAllMoney).toFixed(2)}}</div>
             <div class="rate" >收益率：
             <span :class="battleDetail.founderRate>=0 ? 'red-font' : 'green-font'">{{(battleDetail.founderRate*100).toFixed(2)}}%</span>
             </div>
-            <div class="hold" @click="toHold(battleDetail.founderId)">持仓情况</div>
+            <div class="balance" >余额：
+            <span>{{battleDetail.founderBalance.toFixed(2)}}</span>
+            </div>
+            <div class="hold" @click="toHold(1)">持仓情况</div>
           </div>
           <div class="vs">VS</div>
           <div class="user">
             <div><img class="portrait" :src="battleDetail.inviteePortrait"/></div>
             <div class="name">{{battleDetail.inviteeName}}</div>
-            <div class="balance">总资产：{{(battleDetail.inviteeAllMoney).toFixed(2)}}</div>
+            <div class="honor">
+              <span>{{battleDetail.inviteeHonor.title}}</span>
+              <img class="medal" :src="battleDetail.inviteeHonor.url"/>
+            </div>
+            <div class="all-money">总资产：{{(battleDetail.inviteeAllMoney).toFixed(2)}}</div>
             <div class="rate">收益率：
             <span :class="battleDetail.inviteeRate>=0 ? 'red-font' : 'green-font'">{{(battleDetail.inviteeRate*100).toFixed(2)}}%</span>
             </div>
-            <div class="hold" @click="toHold(battleDetail.inviteeId)">持仓情况</div>
+            <div class="balance" >余额：
+            <span>{{battleDetail.inviteeBalance.toFixed(2)}}</span>
+            </div>
+            <div class="hold" @click="toHold(2)">持仓情况</div>
           </div>
         </div>
       </div>
@@ -73,11 +88,15 @@
     .user-wrapper {
       display: flex;
       padding: 0.2rem;
-      align-items: center;
+      // align-items: center;
       // background: #f9f9f9;
       .vs {
+        font-size: 1rem;
         font-weight: bold;
         color: #c7000b;
+        margin: 0 -0.5rem;
+        z-index: 10;
+        line-height: 2.5rem;
       }
       .user {
         flex: 1;
@@ -86,18 +105,30 @@
         padding: 0.3rem;
         // border: 1px solid #eeeeee;
         border-radius: 0.2rem;
-        background: #f5f5f5;
+        // background: #f5f5f5;
         .portrait {
           width: 1.5rem;
           height: 1.5rem;
           border-radius: 50%;
-          border: 1px solid #bbbbbb;
+          border: 0.1rem solid #ee3333;
         }
-        .name {
-          font-size: 0.45rem;
+        .honor {
           padding-bottom: 0.2rem;
+          .medal {
+            width: 0.5rem;
+            height: 0.5rem;
+            vertical-align: middle;
+          }
+          span {
+            vertical-align: middle;
+          }
+        }    
+        .name {
+          font-size: 0.5rem;
           white-space: nowrap;
           overflow: hidden;
+          width: 7em;
+          margin: 0 auto;
         }
         .red-font {
           color: #ee3333
@@ -117,6 +148,8 @@
       width: 3em;
       margin: 0 0.3rem 0 auto;
       color: #bbbbbb;
+      position: absolute;
+      right: 0;
     }
   }
 
@@ -162,6 +195,8 @@ export default {
         inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
         founderAllMoney:123123,
         inviteeAllMoney:312321,
+        founderBalance:123123,
+        inviteeBalance:32321,
         founderRate:0.1122,
         inviteeRate:0.2321,
       },
@@ -218,13 +253,17 @@ export default {
         if(res.played == 1) {
           this.battleDetail = res;
         }else{
-          this.battleDetail.played = res.played
+          this.battleDetail.played = 0
         }
 
       })
     },
-    toHold(userId) {
-      console.log("持仓："+userId);
+    toHold(user) {
+      // console.log("持仓："+userId);
+
+      var userId = user==1 ? this.battleDetail.founderId : this.battleDetail.inviteeId
+      var name = user==1 ? this.battleDetail.founderName : this.battleDetail.inviteeName
+      this.$router.push({ path:'/battle/accountinfo' , query:{userId: userId, name: name}})
     }
   },
   computed:{
@@ -233,7 +272,7 @@ export default {
     ])
   },
   mounted() {
-    // this.refresh()
+    this.refresh()
 
   },
   beforeDestroy() {
@@ -242,21 +281,17 @@ export default {
   created() {
     this.getCurrentBattle(this.userId);
     const io = require('socket.io-client')
-    var socket = io('http://localhost:3000');
+    var socket = io('http://192.168.43.118:3000');
     socket.on('connect', (msg)=> {
       socket.on('message', (msg)=> {
         try {
           console.log(msg)
           this.products = JSON.parse(msg.productDetail)
-
         } catch (error) {
           console.log("parse error")
         }
-
-
-    //   })
-    // })
-  })
-  })}
+      })
+    })
+  }
 };
 </script>

@@ -1,7 +1,6 @@
 <template>
     <div id="my-battles">
-        <back-arrow></back-arrow>
-        <h1>我的比赛</h1>
+        <nav-bar :title="'我的比赛'"></nav-bar>
         <div id="filter">
             <span
                 v-for="option in filterOp"
@@ -17,7 +16,7 @@
 <script>
   import * as API from '@/api/my'
   import RecordList from '@/components/RecordList'
-  import BackArrow from '@/components/BackArrow'
+  import NavBar from '@/components/NavBar'
   import Vue from 'vue'
   import { mapGetters } from 'vuex'
   export default {
@@ -114,7 +113,7 @@
     },
     components:{
       RecordList,
-      BackArrow
+      NavBar
     },
     computed:{
       ...mapGetters([
@@ -126,14 +125,10 @@
 
 <style lang='less' >
     #my-battles {
-        height: 100%;
-        overflow: hidden;
         font-size: 0.4rem;
         background: white;
         .records {
             padding: 0 0.3rem;
-            height: 14.4rem;
-            overflow: scroll;
         }
     }
     .medal {
@@ -148,7 +143,9 @@
     }
     #filter {
         padding: 0.5rem 0;
+        padding-top: 2rem;
         height: 5%;
+        background: white;
         .filter-button {
             display: inline-block;
             width: 20%;
