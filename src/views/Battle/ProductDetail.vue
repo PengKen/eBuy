@@ -27,11 +27,11 @@
 						<div class="number">{{(productDetail.bankSellp).toFixed(2)}}</div>
 					</div>
 					<div class="item">
-						<div class="title">今开价</div>
+						<div class="title">今日开盘价</div>
 						<div class="number">{{openprice}}</div>
 					</div>
 					<div class="item">
-						<div class="title">昨收价</div>
+						<div class="title">昨日收盘价</div>
 						<div class="number">{{closeprice}}</div>
 					</div>
 				</div>

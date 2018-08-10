@@ -10,10 +10,10 @@
 							<span class="title">账户余额</span>
 							<span class="num">{{accountInfo.balance}}</span>
 						</p>
-						<p class="rate">
+						<!-- <p class="rate">
 							<span class="title">收益率</span>
 							<span class="num">{{(accountInfo.rate*100).toFixed(2)}}%</span>
-						</p>
+						</p> -->
 					</div>
 				</div>
 				<div class="table">

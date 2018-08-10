@@ -14,6 +14,7 @@
 			:class="product.banksellp >= product.openbanksellp ? 'red' : 'green'">
 			{{(parseFloat(product.banksellp)).toFixed(4)}}</span>
 		</div>
+		<div v-if="products.length == 0" class="no-record">加载中</div>
   </div>
 </template>
 

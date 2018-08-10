@@ -1,6 +1,6 @@
 <template>
   <div id="expert-detail">
-    <back-arrow></back-arrow>
+    <nav-bar :title="'专家指导'"></nav-bar>
     <div class="img"><img src="/static/img/expert.jpg" alt=""></div>
     <div class="article">
       <h1>专家为您讲解股票交易</h1>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import BackArrow from '@/components/BackArrow'
+import NavBar from '@/components/NavBar'
 export default {
   name: "expert-detail",
   components: {
-    BackArrow
+    NavBar
   }
 };
 </script>
@@ -33,9 +33,9 @@ export default {
   #expert-detail {
     -webkit-overflow-scrolling:touch;
     position: relative;
-    height: 100%;
+    // height: 100%;
     font-size: 0.4rem;
-    overflow: hidden;
+    // overflow: hidden;
     .img {
       top: 0;
       left: 0;
@@ -45,6 +45,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        padding-top: 1.5rem;
         // object-fit: cover;
       }
     }
@@ -53,9 +54,9 @@ export default {
       list-style-type: none;
       z-index: -1;
       top: 30%;
-      height: 70%;
+      // height: 70%;
       box-sizing: border-box;
-      overflow: scroll;
+      // overflow: scroll;
       h1 {
         color: #c7000b;
         font-size: 0.6rem;

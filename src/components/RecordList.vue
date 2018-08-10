@@ -62,7 +62,7 @@
                       <span>结束：{{!record.endTime ? '- -' : msToDate(record.endTime.time)}}</span>
                   </div>
                   <div class="time" v-if="!record.startTime">
-                      <span>PK时长：{{record.duringTime.time / 86400000}}天</span>
+                      <span>PK时长：{{record.duringTime.time / 1000 / 60}}分钟</span>
                       <span>失效时间：{{msToDate(record.expiredTime.time)}}</span>
                   </div>
                   <div v-if="showBtn">
@@ -172,7 +172,7 @@
       td {
         text-align: center;
         position: relative;
-        z-index: 2;
+        // z-index: 2;
       }
       td:first-child,
       td:nth-child(3) {
@@ -308,7 +308,7 @@ export default {
         });
       } else {
         var battleDetail = {
-          invitee: this.curUser,
+          invitee: this.userId,
           battleId: this.records[index].battleId
         };
         APIMY.postStartBattle(battleDetail).then(res => {

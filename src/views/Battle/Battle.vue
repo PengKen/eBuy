@@ -61,6 +61,7 @@
   // overflow: hidden;
   padding-bottom: 1.5rem;
   font-size: 0.4rem;
+  background: #f9f9f9;
   .no-battle {
     background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
     color: white;
@@ -200,32 +201,7 @@ export default {
         founderRate:0.1122,
         inviteeRate:0.2321,
       },
-      products:[
-        {
-          obj:1,
-          name:'白金啊啊啊啊啊啊啊啊啊啊',
-          bankbuyp:200.8927,
-          banksellp:203.2198,
-          openbankbuyp:200.8922,
-          openbanksellp:203.8922,
-        },
-        {
-          obj:2,
-          name:'美元账户黄金',
-          bankbuyp:200.8927,
-          banksellp:203.2198,
-          openbankbuyp:200.8933,
-          openbanksellp:203.0567,
-        },
-        {
-          obj:3,
-          name:'人民币账户白金',
-          bankbuyp:200.8927,
-          banksellp:203.2198,
-          openbankbuyp:200.8922,
-          openbanksellp:203.8922,
-        },
-      ],
+      products:[],
       intervalId:0,
       flag: true,
       flagId:0
