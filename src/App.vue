@@ -15,6 +15,7 @@
 <script>
   import Vue from 'vue'
   import ButtonBar from '@/components/ButtonBar'
+  import { createConnect } from '@/api/battle/Kline'
   import  { ConfirmPlugin } from 'vux'
   Vue.use(ConfirmPlugin)
 export default {
@@ -27,6 +28,7 @@ export default {
 
   },
   created () {
+    createConnect() //建立K线websocket连接
     // prompt形式调用
     this.$vux.confirm.prompt('UserId', {
       onCancel () {},
@@ -35,11 +37,6 @@ export default {
       }
     })
 
-// 设置输入值
-    //this.$vux.confirm.setInputValue('value') // 注意需要在 onShow 事件中执行
-
-// 获取显示状态
-    //this.$vux.confirm.isVisible() // v2.9.1 支持
 
   },
   components:{

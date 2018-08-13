@@ -26,7 +26,7 @@ function createConnect() {
       })
     }
     webSocket.onmessage = function (event) {
-       if(event.data.indexof('heartbeat') === -1){
+       if(event.data.indexOf('heartbeat') === -1){
          getKlineData(event.data.result.datas)
        }
        hearbeat()
@@ -64,4 +64,4 @@ function dynamicData(obj,getKLineData){
   webSocket.send('/gwsvr/kline?market=G1&obj=' + obj +  '&kltype=day')
 }
 
-export { dynamicData, createConnect}
+export { dynamicData, createConnect }

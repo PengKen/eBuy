@@ -33,7 +33,7 @@ const getters = {
 // actions
 const actions = {
   setKLineData({ commit, state }, KLineData) {
-      commit('setBoardList',  KLineData )
+      commit('setKLineData',  KLineData )
       return state
   }
 

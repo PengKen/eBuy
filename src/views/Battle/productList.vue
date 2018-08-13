@@ -14,7 +14,7 @@
 			:class="product.banksellp >= product.openbanksellp ? 'red' : 'green'">
 			{{(parseFloat(product.banksellp)).toFixed(4)}}</span>
 		</div>
-    <load-more :show-loading="showLoading" tip="正在加载"></load-more>
+    <load-more v-if="showLoading" tip="正在加载"></load-more>
   </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
   },
   data() {
     return {
-      showLoading:false
+      showLoading:false,
+      products:[]
     };
   },
   created(){

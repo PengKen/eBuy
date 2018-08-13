@@ -17,7 +17,7 @@
     <div id="board" ref="board">
         <h2>排行榜</h2>
       <ul ref="ulBorad" :style="ulBoradStyle" v-if="boardListUser">
-        <li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">
+        <li :key="index" v-for="(user,index) in  boardListUser" @click.self="personalBattle(user.userId)">
         <!--<li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">-->
         <!--<li  v-for="user in  boardListUser" @click="personalBattle(user.userId)">-->
 
@@ -36,7 +36,7 @@
     <keep-alive>
       <battle-setting
         situation="Home"
-        :curUser="curUser"
+        :challengeUser="challengeUser"
       ></battle-setting>
     </keep-alive>
 
@@ -77,6 +77,7 @@
         ],
         showPopup:false,
         curUser:0,
+        challengeUser:0,
         showPersonal:false,
         ulBoradStyle:{},//排行榜初始高度
         swiperOption: {
@@ -120,6 +121,7 @@
         userId  ? (this.showPersonal = true,this.curUser = userId) : this.showPersonal = false
       },
       challenge(userId){
+
         if(userId == this.userId) {
           this.$vux.alert.show({
             title: "提示",
@@ -129,7 +131,7 @@
           });
         }
         else{
-        this.curUser = userId
+        this.challengeUser = userId
           this.$store.dispatch('setShowPopup',true)
         }
 

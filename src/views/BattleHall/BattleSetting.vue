@@ -88,7 +88,7 @@ Vue.use(AlertPlugin)
         default:'BattleHall',
         type:String
       },
-      curUser:{
+      challengeUser:{
         type:Number,
         default:0
       }
