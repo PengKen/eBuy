@@ -239,7 +239,7 @@ export default {
       }
     },
     getState(index) {
-      if (this.msToDate(this.messages[index].expiredTime.time) < getNormalTime)
+      if (this.msToDate(this.messages[index].expiredTime.time) < new Date().getTime())
         return "已失效";
       else if (this.messages[index].ifAccepted == 1) return "已接受";
       else return "待接受";

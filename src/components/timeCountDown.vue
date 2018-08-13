@@ -62,10 +62,14 @@ export default {
 
 <style lang="less" scoped>
 	#cnt-down {
+		line-height: 0.7rem;
 		.num {
 			font-size: 0.6rem;
 			vertical-align: middle;
 			padding: 0 0.2rem;
+			display: inline-block;
+			width: 1em;
+			text-align: right
 		}
 	}
 </style>

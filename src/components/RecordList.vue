@@ -46,8 +46,8 @@
                       <tr>
                           <td>{{record.founderBalance == undefined ? '- -' : record.founderBalance}}</td>
                           <td>
-                            <span v-if="curTime < record.endTime || !record.endTime">当前资金</span>
-                            <span v-if="curTime > record.endTime">结束资金</span>
+                            <span v-if="curTime < record.endTime.time || !record.endTime">当前资金</span>
+                            <span v-if="curTime > record.endTime.time">结束资金</span>
                           </td>
                           <td>{{record.inviteeBalance == undefined? '- -' : record.inviteeBalance}}</td>
                       </tr>
@@ -67,7 +67,7 @@
                   </div>
                   <div v-if="showBtn">
                     <div class="focus"
-										v-if="record.startTime && curTime <= msToDate(record.endTime.time)"
+										v-if="record.startTime && curTime <= record.endTime.time"
 										:class="record.isFocus==1 ? 'btn-grey' : ''" @click.stop="focus(record.isFocus, index)">{{record.isFocus==1 ? '已关注' : '关注比赛进程'}}</div>
 										<div class="battle-btn"
 										v-if="!record.startTime"
@@ -270,7 +270,7 @@ export default {
 	},
   computed: {
     curTime() {
-      return getNormalTime;
+      return new Date().getTime();
     },
     ...mapGetters([
       'userId'
@@ -299,7 +299,7 @@ export default {
       }
     },
     acceptBattle(index) {
-      if (this.records[index].founderId == this.curUser) {
+      if (this.records[index].founderId == this.userId) {
         this.$vux.alert.show({
           title: "失败",
           content: "这是您自己摆的擂台哦",
@@ -351,9 +351,7 @@ export default {
     collapsedClass: function(index) {
       if (!this.records[index].collapsed) return "";
       else if (
-        this.showBtn &&
-        (!this.records[index].startTime ||
-          getNormalTime <= this.msToDate(this.records[index].endTime.time))
+        this.showBtn 
       )
         return "item-collapsed-long";
       else return "item-collapsed-short";

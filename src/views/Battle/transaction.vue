@@ -70,6 +70,7 @@ export default {
 			},
 			input: 1,
 			countTime: 20,
+			timerId: 0
 		}
 	},
 	created() {
@@ -201,14 +202,17 @@ export default {
 		}
 	},
 	mounted() {
-		let id = setInterval(()=>{
+		this.timerId = setInterval(()=>{
 			this.countTime --
 			if(this.countTime == 0) {
-				clearInterval(id)
+				clearInterval(this.timerId)
 				this.timeUp()
 			}
 		}, 1000)
 	},
+	beforeDestroy() {
+		clearInterval(timerId)
+	}
 }
 </script>
 

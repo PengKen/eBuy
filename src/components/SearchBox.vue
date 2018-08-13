@@ -4,6 +4,7 @@
         placeholder="搜索用户"
 
         :results="results"
+        @search-bg-color="'red'"
       ></search>
     </div>
 </template>

@@ -12,8 +12,8 @@ function postStartBattle(BattleDetail) {
     return httpServer('POST','/api/v1/eBuy/startBattle/', BattleDetail)
 }
 
-function getMyBattles(userId, selectTime) {
-    return httpServer('GET','/api/v1/eBuy/myBattles/'+userId+'?selectTime='+selectTime)
+function getMyBattles(userId, state) {
+    return httpServer('GET','/api/v1/eBuy/myBattles/'+userId+'?state='+state)
 }
 
 function getMyFocus(userId) {
