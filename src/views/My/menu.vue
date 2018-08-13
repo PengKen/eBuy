@@ -15,21 +15,21 @@
       <div class="list">
       <router-link :to="{ name: 'MyBattles', params: {}}">
         <div class="list-item">
-          <img class="item-head" src="/static/icon-img/clock.png"/>
+          <div class="item-head"><img src="/static/icon-img/clock.png"/></div>
           <span class="item-body">我的比赛</span>
           <img class="item-foot" src="/static/icon-img/icons8-chevron-right-26.png"/>
         </div>
       </router-link>
       <router-link :to="{ name: 'MyMessage', params: {}}">
         <div class="list-item">
-          <img class="item-head" src="/static/icon-img/message.png"/>
+          <div class="item-head"><img src="/static/icon-img/message.png"/></div>
           <span class="item-body">我的消息</span>
           <img class="item-foot" src="/static/icon-img/icons8-chevron-right-26.png"/>
         </div>
       </router-link>
       <router-link :to="{ name: 'MyFocus', params: {}}">
         <div class="list-item">
-          <img class="item-head" src="/static/icon-img/star.png"/>
+          <div class="item-head"><img src="/static/icon-img/star.png"/></div>
           <span class="item-body">我的关注</span>
           <img class="item-foot" src="/static/icon-img/icons8-chevron-right-26.png"/>
         </div>
@@ -139,6 +139,10 @@ export default {
         .item-body {
           flex: 8;
           color: #666666;
+        }
+        img {
+          width: 1rem;
+          height: 1rem;
         }
       }
       .list-item:active {

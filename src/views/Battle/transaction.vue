@@ -32,6 +32,7 @@
 					<cell title="市值" :value="value"></cell> 
 				</group>
 			</div>
+			<div class="count">请在<span class="time">{{countTime}}</span>秒内完成交易</div>
 			<div class="btn" @click="submit()">确认</div>
 		</div>
 	</div>
@@ -68,6 +69,7 @@ export default {
 				amount: 1000,
 			},
 			input: 1,
+			countTime: 20,
 		}
 	},
 	created() {
@@ -184,8 +186,29 @@ export default {
 					});
 				}
       })
+		},
+		timeUp() {
+			var that = this
+			this.$vux.alert.show({
+				title: "提示",
+				content: "页面失效，请重新操作",
+				onShow() {},
+				onHide() {
+					console.log(that.$router)
+					that.$router.go(-1);
+				}
+			});
 		}
-	}
+	},
+	mounted() {
+		let id = setInterval(()=>{
+			this.countTime --
+			if(this.countTime == 0) {
+				clearInterval(id)
+				this.timeUp()
+			}
+		}, 1000)
+	},
 }
 </script>
 
@@ -221,10 +244,21 @@ export default {
 				}	
 			}
 		}
+		.count {
+			text-align: center;
+			margin: 0.5rem auto;
+			.time {
+				color: #c0000b;
+				font-weight: bold;
+				display: inline-block;
+				width: 2em;
+			}
+		}
 		.btn {
 			text-align: center;
 			width: 80%;
-			margin: 1rem auto;
+			margin: 0 auto;
+			margin-bottom: 1rem;
 			padding: 0.2rem;
 			background: #c0000b;
 			color: white;

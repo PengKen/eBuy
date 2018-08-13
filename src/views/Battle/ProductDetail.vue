@@ -20,11 +20,11 @@
 				<div class="right">
 					<div class="item">
 						<div class="title">银行买入价</div>
-						<div class="number">{{(productDetail.bankBuyp).toFixed(2)}}</div>
+						<div class="number">{{(productDetail.bankBuyp).toFixed(4)}}</div>
 					</div>
 					<div class="item">
 						<div class="title">银行卖出价</div>
-						<div class="number">{{(productDetail.bankSellp).toFixed(2)}}</div>
+						<div class="number">{{(productDetail.bankSellp).toFixed(4)}}</div>
 					</div>
 					<div class="item">
 						<div class="title">今日开盘价</div>
@@ -71,22 +71,21 @@ export default {
 	},
 	created() {
 		this.productDetail.productId = this.$route.query.obj //k线产品ID
-    dynamicData(this.productDetail.productId,this.getKLineData)
-
-		this.getDetail(this.$route.query.obj)
+        dynamicData(this.productDetail.productId,this.getKLineData)
+        this.getDetail(this.$route.query.obj)
 	},
 	computed: {
 		...mapGetters([
       'challengeState'
     ]),
 		price: function() {
-			return ((this.productDetail.bankSellp + this.productDetail.bankBuyp) / 2).toFixed(2)
+			return ((this.productDetail.bankSellp + this.productDetail.bankBuyp) / 2).toFixed(4)
 		},
 		openprice: function() {
-			return ((this.productDetail.startSell + this.productDetail.startBuy) / 2).toFixed(2)
+			return ((this.productDetail.startSell + this.productDetail.startBuy) / 2).toFixed(4)
 		},
 		closeprice: function() {
-			return ((this.productDetail.endSell + this.productDetail.endBuy) / 2).toFixed(2)
+			return ((this.productDetail.endSell + this.productDetail.endBuy) / 2).toFixed(4)
 		},
 		change: function() {
 			return (this.price - this.openprice).toFixed(2)
@@ -141,7 +140,7 @@ export default {
 		.name {
 			text-align: left;
 			font-size: 0.5rem;
-			padding: 0.2rem 0.5rem;
+			padding: 0.2rem 0.3rem;
 		}
 		.num {
 			display: flex;

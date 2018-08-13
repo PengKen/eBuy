@@ -23,7 +23,7 @@
               <img class="medal" :src="battleDetail.founderHonor.url"/>
               <span>{{battleDetail.founderHonor.title}}</span>
             </div>
-            <div class="all-money">总资产：{{(battleDetail.founderAllMoney).toFixed(2)}}</div>
+            <div class="all-money" :class="battleDetail.founderRate>=0 ? 'red-font' : 'green-font'">￥<countup :start-val="battleDetail.initialMoney" :end-val="battleDetail.founderAllMoney" :duration="2" :decimals="2" ></countup></div>
             <div class="rate" >收益率：
             <span :class="battleDetail.founderRate>=0 ? 'red-font' : 'green-font'">{{(battleDetail.founderRate*100).toFixed(2)}}%</span>
             </div>
@@ -40,7 +40,9 @@
               <span>{{battleDetail.inviteeHonor.title}}</span>
               <img class="medal" :src="battleDetail.inviteeHonor.url"/>
             </div>
-            <div class="all-money">总资产：{{(battleDetail.inviteeAllMoney).toFixed(2)}}</div>
+            <div class="all-money" :class="battleDetail.inviteeRate>=0 ? 'red-font' : 'green-font'">￥<countup :start-val="battleDetail.initialMoney" :end-val="battleDetail.inviteeAllMoney" :duration="2" :decimals="2" ></countup>
+            </div>
+            
             <div class="rate">收益率：
             <span :class="battleDetail.inviteeRate>=0 ? 'red-font' : 'green-font'">{{(battleDetail.inviteeRate*100).toFixed(2)}}%</span>
             </div>
@@ -67,6 +69,7 @@
   padding-bottom: 1.5rem;
   font-size: 0.4rem;
   background: #f9f9f9;
+  min-height: 100%;
   .no-battle {
     background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
     color: white;
@@ -147,6 +150,11 @@
           text-decoration: underline;
           font-size: 0.35rem;
         }
+        .all-money {
+          font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+          font-size: 0.6rem;
+          // color: #ee3333;
+        }
       }
     }
     .refresh {
@@ -174,11 +182,13 @@ import * as DF from "@/utils/timeFormat";
 import TimeCount from '@/components/timeCountDown'
 import { setInterval, clearInterval } from 'timers';
 import { mapGetters } from 'vuex'
+import { Countup } from 'vux'
 export default {
   name: "battle",
   components: {
     ProductList,
-    TimeCount
+    TimeCount,
+    Countup
   },
   data() {
     return {
@@ -186,25 +196,25 @@ export default {
       // userId: 555,
       curTime: new Date().getTime(),
       battleDetail: {
-        played:1,
-        battleId:0,
-        startTime: {time:86400000},
-        endTime: {time:86400000},
-        initialMoney: 100000,
-        founderId:111,
-        inviteeId:222,
-        founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
-        inviteeName:"userB",
-        founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-        inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-        founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-        inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-        founderAllMoney:123123,
-        inviteeAllMoney:312321,
-        founderBalance:123123,
-        inviteeBalance:32321,
-        founderRate:0.1122,
-        inviteeRate:0.2321,
+        // played:1,
+        // battleId:0,
+        // startTime: {time:86400000},
+        // endTime: {time:86400000},
+        // initialMoney: 100000,
+        // founderId:111,
+        // inviteeId:222,
+        // founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
+        // inviteeName:"userB",
+        // founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+        // inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+        // founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+        // inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+        // founderAllMoney:1,
+        // inviteeAllMoney:1,
+        // founderBalance:123123,
+        // inviteeBalance:32321,
+        // founderRate:0.1122,
+        // inviteeRate:0.2321,
       },
       products:[],
       intervalId:0,
@@ -253,7 +263,9 @@ export default {
     ])
   },
   mounted() {
-    this.refresh()
+    if(this.battleDetail.played == 1 && this.battleDetail.endTime.time > new Date().getTime())
+      this.refresh()
+    else this.flag = false
 
   },
   beforeDestroy() {

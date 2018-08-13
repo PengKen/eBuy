@@ -309,7 +309,7 @@ export default {
   .vux-button-group {
     width: 60%;
     // height: 10%;
-    margin: 0.5rem auto;
+    margin: 0.4rem auto;
     a {
       background: #eeeeee;
     }

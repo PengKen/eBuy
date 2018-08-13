@@ -122,16 +122,13 @@ export default {
 				overflow: hidden;
 				text-align: left;
 				font-size: 0.5rem;
-				.title {
-					font-size: 0.35rem;
-					color: #c0000b;
-					margin-right: 0.3rem;
-				}
+				vertical-align: middle;
 			}
 			.data {
 				text-align: right;
 				color: #888;
 				font-size: 0.45rem;
+				vertical-align: middle;
 				.num {
 					width: 4em;
 					display: inline-block

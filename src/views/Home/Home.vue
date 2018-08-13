@@ -291,7 +291,7 @@
     }
     .rotate-finish{
       width: 100%;
-    }
+    }    
   }
 
 
