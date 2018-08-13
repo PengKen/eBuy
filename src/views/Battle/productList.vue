@@ -14,20 +14,37 @@
 			:class="product.banksellp >= product.openbanksellp ? 'red' : 'green'">
 			{{(parseFloat(product.banksellp)).toFixed(4)}}</span>
 		</div>
-		<div v-if="products.length == 0" class="no-record">加载中</div>
+    <load-more :show-loading="showLoading" tip="正在加载"></load-more>
   </div>
 </template>
 
 <script>
+  import { LoadMore } from 'vux'
 export default {
   name: "product-list",
-  props: {
-    products: {
-      type: Array
-    }
+  components: {
+    LoadMore
   },
   data() {
-    return {};
+    return {
+      showLoading:false
+    };
+  },
+  created(){
+    this.showLoading = true
+    const io = require('socket.io-client')
+    var socket = io('http://192.168.43.118:3000');
+    socket.on('connect', (msg)=> {
+      socket.on('message', (msg)=> {
+        this.showLoading = false
+        try {
+          console.log(msg)
+          this.products = JSON.parse(msg.productDetail)
+        } catch (error) {
+          console.log("parse error")
+        }
+      })
+    })
   },
   methods: {
     toProduct(index) {

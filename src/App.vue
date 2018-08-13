@@ -1,8 +1,11 @@
 <template>
   <div id="app">
+    <keep-alive include="BattleIndex">
       <router-view/>
+    </keep-alive>
+
     <transition name="silde-hide">
-      <button-bar v-if="isShow" class="button"></button-bar>
+      <button-bar v-show="isShow" class="button"></button-bar>
     </transition>
 
 
@@ -84,7 +87,6 @@ html,body{
     will-change: transform;
     /*will-change 会随过渡结束后整个类被移除的时候而被解绑，避免了过多cpu的浪费*/
     transition: all 500ms;
-    position: absolute !important;
   }
   .silde-hide-enter {
     opacity: 0; //页面刚进来的时候，由0变成1
@@ -96,7 +98,7 @@ html,body{
     transform: translate3d( 0,1.5rem, 0);
   }
   .slide-hide-enter-to{
-    transform: translate3d(0,-1.5rem);
+    transform: translate3d(0,-1.5rem,0);
   }
 
   .silde-hide-leave-to {

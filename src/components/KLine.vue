@@ -170,7 +170,6 @@
       this.$nextTick(()=>{
         var dom = document.getElementById("k-lines");
         var myChart = echarts.init(dom, 'light')
-        console.log(this.option)
         myChart.setOption(this.option,true);
       })
 

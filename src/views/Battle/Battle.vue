@@ -51,9 +51,11 @@
           </div>
         </div>
       </div>
-      <keep-alive>
-        <product-list id="product-list" :products="products"></product-list>
-      </keep-alive>
+
+       <product-list id="product-list"></product-list>
+
+
+
 
     </div>
 </template>
@@ -259,18 +261,7 @@ export default {
   },
   created() {
     this.getCurrentBattle(this.userId);
-    const io = require('socket.io-client')
-    var socket = io('http://192.168.43.118:3000');
-    socket.on('connect', (msg)=> {
-      socket.on('message', (msg)=> {
-        try {
-          console.log(msg)
-          this.products = JSON.parse(msg.productDetail)
-        } catch (error) {
-          console.log("parse error")
-        }
-      })
-    })
+
   }
 };
 </script>
