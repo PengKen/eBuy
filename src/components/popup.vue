@@ -1,10 +1,16 @@
 <template>
   <div id="popup">
-    <popup class="content" v-model="status" width="90%" position="top" height="75%" @on-hide="handleHide">
+    <popup
+      class="content"
+      v-model="status"
+      width="90%" position="top"
+      height="75%"
+      :hide-on-blur="false"
+      @on-hide="handleHide">
       <slot  name="content"></slot>
       <div style="width: 100%"></div>
-      <div v-if="showClose" class="close" @click="handleHide">
-        <i class="icon iconfont icon-close"></i>
+      <div  class="close" @click="handleHide">
+        <i class="icon iconfont icon-close1"></i>
       </div>
 
     </popup>
@@ -14,6 +20,10 @@
 
 <style lang="less" scoped>
   #popup{
+    .vux-popup-dialog{
+      overflow-y: unset;
+
+    }
     .vux-popup-top{
       width: 90%;
       margin:auto;
@@ -30,8 +40,16 @@
       justify-content: center;
 
       .close{
+        width: 20px;
+        /* height: 20px; */
+        position: absolute;
+        right: -4px;
+        top: -15px;
+        /* font-size: 10px; */
+        /* z-index: 10000000000; */
         i{
-          font-size: 1.3rem !important;
+          font-size: 20px;
+          color: #5a5656;
         }
 
       }
@@ -80,7 +98,7 @@
     },
     methods:{
       handleHide(){
-        this.$emit('notifySetting',false)
+        this.$store.dispatch('setShowPopup',false)
 
       }
     },

@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive include="BattleIndex">
+      <router-view/>
+    </keep-alive>
+
     <transition name="silde-hide">
-      <button-bar v-if="isShow" class="button"></button-bar>
+      <button-bar v-show="isShow" class="button"></button-bar>
     </transition>
 
 
@@ -12,6 +15,7 @@
 <script>
   import Vue from 'vue'
   import ButtonBar from '@/components/ButtonBar'
+  import { createConnect } from '@/api/battle/Kline'
   import  { ConfirmPlugin } from 'vux'
   Vue.use(ConfirmPlugin)
 export default {
@@ -24,6 +28,7 @@ export default {
 
   },
   created () {
+    createConnect() //建立K线websocket连接
     // prompt形式调用
     this.$vux.confirm.prompt('UserId', {
       onCancel () {},
@@ -32,11 +37,6 @@ export default {
       }
     })
 
-// 设置输入值
-    //this.$vux.confirm.setInputValue('value') // 注意需要在 onShow 事件中执行
-
-// 获取显示状态
-    //this.$vux.confirm.isVisible() // v2.9.1 支持
 
   },
   components:{
@@ -84,7 +84,6 @@ html,body{
     will-change: transform;
     /*will-change 会随过渡结束后整个类被移除的时候而被解绑，避免了过多cpu的浪费*/
     transition: all 500ms;
-    position: absolute !important;
   }
   .silde-hide-enter {
     opacity: 0; //页面刚进来的时候，由0变成1
@@ -96,7 +95,7 @@ html,body{
     transform: translate3d( 0,1.5rem, 0);
   }
   .slide-hide-enter-to{
-    transform: translate3d(0,-1.5rem);
+    transform: translate3d(0,-1.5rem,0);
   }
 
   .silde-hide-leave-to {

@@ -59,7 +59,7 @@ Vue.use(AlertPlugin)
           initialMoney:5,
           content:null,
           expiredTime:'',
-          currentTime:getNormalTime,
+          currentTime:getNormalTime(),
           invitee:'NumberFormatException',
           content:''
 
@@ -88,7 +88,7 @@ Vue.use(AlertPlugin)
         default:'BattleHall',
         type:String
       },
-      curUser:{
+      challengeUser:{
         type:Number,
         default:0
       }

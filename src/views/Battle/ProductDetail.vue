@@ -20,7 +20,7 @@
 				<div class="right">
 					<div class="item">
 						<div class="title">银行买入价</div>
-						<div class="number">{{(productDetail.bankBuyp).toFixed(4)}}</div>		
+						<div class="number">{{(productDetail.bankBuyp).toFixed(4)}}</div>
 					</div>
 					<div class="item">
 						<div class="title">银行卖出价</div>
@@ -52,6 +52,7 @@ import NavBar from '@/components/NavBar'
 import * as API from '@/api/battle/battle'
 import { mapGetters } from 'vuex'
 import KLine from '@/components/KLine'
+import { dynamicData } from '@/api/battle/kLine'
 export default {
 	name: 'product-detail',
 	data() {
@@ -69,8 +70,9 @@ export default {
 		}
 	},
 	created() {
-		this.productDetail.productId = this.$route.query.obj
-		this.getDetail(this.$route.query.obj)
+		this.productDetail.productId = this.$route.query.obj //k线产品ID
+        dynamicData(this.productDetail.productId,this.getKLineData)
+        this.getDetail(this.$route.query.obj)
 	},
 	computed: {
 		...mapGetters([
@@ -97,6 +99,9 @@ export default {
     KLine
 	},
 	methods: {
+    getKLineData(KlineRawdata){
+      this.$store.dispatch('battle/setKLineData',KlineRawdata).then(res=>{})
+    },
 		transaction(op) {
 			// op: 0-buy, 1-sell
 			if(this.challengeState == 2) {
@@ -109,7 +114,7 @@ export default {
 					onHide() {}
 				});
 			}
-			
+
 		},
 		getDetail(productId) {
       API.getProductDetail(productId).then(res=>{

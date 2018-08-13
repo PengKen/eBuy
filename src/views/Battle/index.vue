@@ -1,13 +1,19 @@
 <template>
 <div class="battle-index">
-  <router-view/></div>
+  <keep-alive include="battle">
+    <router-view/>
+  </keep-alive>
+
+
+
+</div>
 </template>
 
 <script>
 export default {
-    name: "index",
+    name: "BattleIndex",
     data() {
-        return {          
+        return {
         }
     }
 }

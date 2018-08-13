@@ -13,7 +13,7 @@
           </div>
           <div class="init">初始资金：{{battleDetail.initialMoney}}元</div>
         </div>
-        
+
         <div class="user-wrapper">
           <div class="refresh" @click="clickFresh()" :style="flag ? 'color: #666' : ''" >刷新</div>
           <div class="user">
@@ -53,7 +53,12 @@
           </div>
         </div>
       </div>
-      <product-list id="product-list" :products="products"></product-list>
+
+       <product-list id="product-list"></product-list>
+
+
+
+
     </div>
 </template>
 
@@ -126,7 +131,7 @@
           span {
             vertical-align: middle;
           }
-        }    
+        }
         .name {
           font-size: 0.5rem;
           white-space: nowrap;
@@ -268,18 +273,7 @@ export default {
   },
   created() {
     this.getCurrentBattle(this.userId);
-    const io = require('socket.io-client')
-    var socket = io('http://192.168.43.118:3000');
-    socket.on('connect', (msg)=> {
-      socket.on('message', (msg)=> {
-        try {
-          console.log(msg)
-          this.products = JSON.parse(msg.productDetail)
-        } catch (error) {
-          console.log("parse error")
-        }
-      })
-    })
+
   }
 };
 </script>
