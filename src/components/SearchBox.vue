@@ -24,11 +24,9 @@
 </script>
 
 <style scoped lang="less">
-  #search-box{
     .vux-search-box {
       .weui-search-bar{
         background-color: linear-gradient(120deg, #f77062 0%, #c7000b 100%) !important;
-      }
     }
 
   // .weui-search-bar__label{

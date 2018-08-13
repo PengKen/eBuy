@@ -92,6 +92,9 @@ export default {
     background: #f9f9f9;
     transition: all 0.2s;
   }
+  .no-record {
+    padding: 0.3rem;
+  }
 }
 </style>
 
