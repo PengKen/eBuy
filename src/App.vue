@@ -1,8 +1,6 @@
 <template>
   <div id="app">
       <router-view/>
-
-
     <transition name="silde-hide">
       <button-bar v-if="isShow" class="button"></button-bar>
     </transition>

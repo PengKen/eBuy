@@ -1,7 +1,7 @@
 <template>
   <div id="rule">
     <nav-bar :title="'活动规则'"></nav-bar>
-    <div class="img"><img src="/static/img/eBuyPoster.jpg" alt=""></div>
+    <div class="img"><img :src="require('./img/eBuyPoster.jpg')" alt=""></div>
     <div class="article">
       <h1>活动规则</h1>
       <div class="content">

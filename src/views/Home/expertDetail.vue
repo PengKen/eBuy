@@ -1,7 +1,7 @@
 <template>
   <div id="expert-detail">
     <nav-bar :title="'专家指导'"></nav-bar>
-    <div class="img"><img src="/static/img/expert.jpg" alt=""></div>
+    <div class="img"><img :src="require('./img/expert.jpg')" alt=""></div>
     <div class="article">
       <h1>专家为您讲解股票交易</h1>
       <div class="content">
