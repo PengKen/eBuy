@@ -115,7 +115,7 @@ export default new Router({
           path: 'transaction',
           name: 'transaction',
           component: Transaction,
-          meta: {index: 2}
+          meta: {index: 1}
         },
       ]
     },

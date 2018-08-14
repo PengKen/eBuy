@@ -55,7 +55,7 @@ export default {
   },
   watch: {
     $route (to, from, next) {
-      if (to.meta.index > from.meta.index) {
+      if (to.meta.index >= from.meta.index && to.meta.index > 0) {
         // 设置动画名称
           this.isShow = false
       } else {
