@@ -71,7 +71,12 @@ export default {
 	},
 	created() {
 		this.productDetail.productId = this.$route.query.obj //k线产品ID
-        dynamicData(this.productDetail.productId,this.getKLineData)
+    try{
+      dynamicData(this.productDetail.productId,this.getKLineData)
+    }catch(e){
+
+    }
+
         this.getDetail(this.$route.query.obj)
 	},
 	computed: {

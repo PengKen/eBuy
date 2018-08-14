@@ -42,7 +42,7 @@
             </div>
             <div class="all-money" :class="battleDetail.inviteeRate>=0 ? 'red-font' : 'green-font'">￥<countup :start-val="battleDetail.initialMoney" :end-val="battleDetail.inviteeAllMoney" :duration="2" :decimals="2" ></countup>
             </div>
-            
+
             <div class="rate">收益率：
             <span :class="battleDetail.inviteeRate>=0 ? 'red-font' : 'green-font'">{{(battleDetail.inviteeRate*100).toFixed(2)}}%</span>
             </div>
@@ -221,6 +221,12 @@ export default {
       flag: true,
       flagId:0
     }
+  },
+  activated(){
+    this.getCurrentBattle(this.userId);
+    /*
+      进入该页面时要重新计算用户的持仓等信息
+     */
   },
   methods: {
     msToDate(ms) {

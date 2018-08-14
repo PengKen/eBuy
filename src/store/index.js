@@ -32,6 +32,10 @@ const store = new Vuex.Store({
          let userInfo = await  API.getUserInfo(userId)
          console.log(userInfo)
          commit('setUserInfo',userInfo)
+         if(state.userInfo.expiredTime){
+
+
+         }
          return state
        }
      }
@@ -56,6 +60,9 @@ const store = new Vuex.Store({
     },
     challengeState: state => {
       return state.userInfo.challengeState
+    },
+    expiredTime: state => {
+      return state.userInfo.expiredTime
     }
 
   }

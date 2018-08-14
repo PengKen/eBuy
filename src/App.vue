@@ -17,6 +17,7 @@
   import ButtonBar from '@/components/ButtonBar'
   import { createConnect } from '@/api/battle/Kline'
   import  { ConfirmPlugin } from 'vux'
+  import { mapGetters } from 'vuex'
   Vue.use(ConfirmPlugin)
 export default {
   name: 'App',
@@ -27,13 +28,23 @@ export default {
 
 
   },
+  computed:{
+    ...mapGetters([
+      'expiredTime'
+  ])
+  },
   created () {
-    createConnect() //建立K线websocket连接
+
+
+    createConnect()
+    //建立K线websocket连接
+
     // prompt形式调用
     this.$vux.confirm.prompt('UserId', {
       onCancel () {},
       onConfirm: (userId) => {
         this.$store.dispatch('setUserInfo',userId)
+
       }
     })
 
