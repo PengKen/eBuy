@@ -257,7 +257,7 @@ export default {
     refresh() {
       this.intervalId = setInterval(()=>{
         this.getCurrentBattle(this.userId);
-        }, 10000)
+        }, 20000)
     },
     getCurrentBattle(userId) {
       API.getCurrentBattle(userId).then(res=>{
