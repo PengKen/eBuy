@@ -24,26 +24,26 @@
     data() {
         return {
 
-            selectTime: "all",
+            state: "3",
             filterOp: [
                 {
-                    id:"all",
-                    content:"全部",
+                    id:"3",
+                    content:"进行中",
                     active:true,
                 },
                 {
                     id:"1",
-                    content:"1天内",
+                    content:"未开始",
                     active:false,
                 },
                 {
-                    id:"3",
-                    content:"3天内",
+                    id:"4",
+                    content:"已结束",
                     active:false,
                 },
                 {
-                    id:"7",
-                    content:"7天内",
+                    id:"2",
+                    content:"已失效",
                     active:false,
                 }
             ],
@@ -87,23 +87,23 @@
     },
     created() {
 
-        this.getUserRecords(this.userId, "all");
+        this.getUserRecords(this.userId, this.state);
     },
     methods:{
         tapFilter(id) {
             for(let i=0; i<this.filterOp.length; i++) {
                 if(this.filterOp[i].id == id){
                     this.filterOp[i].active = true;
-                    this.selectTime = id;
+                    this.state = id;
                 }
                 else
                     this.filterOp[i].active = false;
             }
             this.records = [];
-            this.getUserRecords(this.userId, this.selectTime)
+            this.getUserRecords(this.userId, this.state)
         },
-        getUserRecords(userId, selectTime) {
-          API.getMyBattles(userId, selectTime).then(res=>{
+        getUserRecords(userId, state) {
+          API.getMyBattles(userId, state).then(res=>{
             this.records = res;
             if(this.records.length>0) {
                 Vue.set(this.records[0],'collapsed',true);

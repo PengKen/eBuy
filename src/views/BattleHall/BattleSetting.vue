@@ -132,7 +132,7 @@ Vue.use(AlertPlugin)
         }else {
           battleDetail = {
             ...this.battleDetail,
-            invitee:this.curUser,
+            invitee:this.challengeUser,
             founder:this.userId,
             initialMoney:this.battleDetail.initialMoney*10000,
             expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),

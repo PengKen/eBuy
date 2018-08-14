@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       showLoading:false,
-      products:[]
+      products:{}
     };
   },
   created(){

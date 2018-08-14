@@ -48,31 +48,31 @@ export default {
 				balance: 323,
 				rate: 0.3231,
 				accounts: [
-					{
-						productId: 323,
-						productName: '人民币账户白金',
-						amount: 323,
-					},
-					{
-						productId: 323,
-						productName: '人民币账户白金',
-						amount: 323,
-					},
-					{
-						productId: 323,
-						productName: '人民币账户白金',
-						amount: 323,
-					},
-					{
-						productId: 323,
-						productName: '人民币账户白金',
-						amount: 323,
-					},
-					{
-						productId: 323,
-						productName: '人民币账户白金',
-						amount: 323,
-					},
+					// {
+					// 	productId: 323,
+					// 	productName: '人民币账户白金',
+					// 	amount: 323,
+					// },
+					// {
+					// 	productId: 323,
+					// 	productName: '人民币账户白金',
+					// 	amount: 323,
+					// },
+					// {
+					// 	productId: 323,
+					// 	productName: '人民币账户白金',
+					// 	amount: 323,
+					// },
+					// {
+					// 	productId: 323,
+					// 	productName: '人民币账户白金',
+					// 	amount: 323,
+					// },
+					// {
+					// 	productId: 323,
+					// 	productName: '人民币账户白金',
+					// 	amount: 323,
+					// },
 				],
 			}
 		}

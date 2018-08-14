@@ -1,11 +1,13 @@
 <template>
     <div id="battle">
-      <div v-if="battleDetail.played == 0" class="no-battle">您还没有参加过比赛，快去大厅看看吧</div>
+      <div v-if="battleDetail.played == 0" class="no-battle top">您还没有参加过比赛，快去大厅看看吧</div>
+      <div class="count-down-wrapper top" v-if="battleDetail.played == 1">
+        <div v-if="battleDetail.endTime.time > new Date().getTime()" class="no-over">距离比赛结束还有</div>
+        <div v-if="battleDetail.endTime.time <= new Date().getTime()" class="over">本场比赛已结束</div>
+        <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
+      </div>
+      <div class="zhanwei"></div>
       <div class="current" v-if="battleDetail.played == 1">
-        <div class="count-down-wrapper">
-          <div>{{battleDetail.endTime.time > new Date().getTime() ? '距离比赛结束还有' : '本场比赛已结束'}}</div>
-          <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
-        </div>
         <div class="battle-info">
           <div class="time">
             <span>开始：{{msToDate(battleDetail.startTime.time)}}</span>
@@ -66,21 +68,39 @@
 #battle {
   // height: 100%;
   // overflow: hidden;
+  box-sizing: border-box;
   padding-bottom: 1.5rem;
   font-size: 0.4rem;
   background: #f9f9f9;
   min-height: 100%;
+  .top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 1.5rem;
+    .over {
+      line-height: 1.5rem;
+    }
+    .no-over {
+      line-height: 0.7rem;
+    }
+  }
   .no-battle {
     background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
     color: white;
-    padding: 0.2rem;
+    line-height: 1.5rem;
+  }
+  .count-down-wrapper {
+    background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
+    color: white;
+    // line-height: 1.5rem;
+  }  
+  .zhanwei {
+    height: 1.5rem;
   }
   .current {
-    .count-down-wrapper {
-      background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
-      color: white;
-      padding: 0.2rem;
-    }
     .battle-info {
       // background: #f9f9f9;
       padding-top: 0.2rem;
@@ -196,25 +216,25 @@ export default {
       // userId: 555,
       curTime: new Date().getTime(),
       battleDetail: {
-        // played:1,
+        played:1,
         // battleId:0,
-        // startTime: {time:86400000},
-        // endTime: {time:86400000},
-        // initialMoney: 100000,
+        startTime: {time:86400000},
+        endTime: {time:86400000},
+        initialMoney: 100000,
         // founderId:111,
         // inviteeId:222,
         // founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
         // inviteeName:"userB",
         // founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
         // inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-        // founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-        // inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-        // founderAllMoney:1,
-        // inviteeAllMoney:1,
-        // founderBalance:123123,
-        // inviteeBalance:32321,
-        // founderRate:0.1122,
-        // inviteeRate:0.2321,
+        founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+        inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
+        founderAllMoney:1,
+        inviteeAllMoney:1,
+        founderBalance:123123,
+        inviteeBalance:32321,
+        founderRate:0.1122,
+        inviteeRate:0.2321,
       },
       products:[],
       intervalId:0,
@@ -269,17 +289,34 @@ export default {
     ])
   },
   mounted() {
-    if(this.battleDetail.played == 1 && this.battleDetail.endTime.time > new Date().getTime())
-      this.refresh()
-    else this.flag = false
+    // if(this.battleDetail.played == 1 && this.battleDetail.endTime.time > new Date().getTime()){
+    //   this.refresh()
+    //   console.log('refresh')
+    // }
+    // else {
+    //   this.flag = false
+    //   console.log('nofresh')
+    // }
+    // this.refresh()
 
   },
   beforeDestroy() {
     clearInterval(this.intervalId)
   },
   created() {
-    this.getCurrentBattle(this.userId);
-
+    API.getCurrentBattle(this.userId).then(res=>{
+      if(res.played == 1) {
+        this.battleDetail = res;
+      }else{
+        this.battleDetail.played = 0
+      }
+      if(this.battleDetail.endTime.time < new Date().getTime()) {
+        console.log('over')
+        this.flag = false
+      }else {
+        this.refresh()
+      }
+    })    
   }
 };
 </script>
