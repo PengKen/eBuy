@@ -211,7 +211,7 @@ export default {
 		}, 1000)
 	},
 	beforeDestroy() {
-		clearInterval(timerId)
+		clearInterval(this.timerId)
 	}
 }
 </script>

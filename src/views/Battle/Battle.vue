@@ -172,7 +172,7 @@
         }
         .all-money {
           font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-          font-size: 0.6rem;
+          font-size: 0.5rem;
           // color: #ee3333;
         }
       }
