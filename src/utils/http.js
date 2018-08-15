@@ -1,7 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
 import Vue from 'vue'
+import notify from '@/utils/timer/notify'
 import  { LoadingPlugin, ToastPlugin } from 'vux'
+import store from '@/store'
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 const defaultToastMsg = {
@@ -26,6 +28,21 @@ const baseURL = process.env.API_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 /* 设置拦截 */
 axios.interceptors.response.use(response => {
+  if(response.status >= 200 && response.status < 400){
+    //响应正常且是请求的是应战的接口，则将标识重新置为false，并开始计时
+    if(response.request.responseURL.indexOf('startBattle') !== -1){
+      if(response.data.userState === 0){
+
+        /*
+            userState === 0 表示对方可以接受挑战
+         */
+        localStorage.hasShowNotify = "false"
+        notify(response.data.endTime.time,store.dispatch)
+        console.log(localStorage.hasShowNotify)
+      }
+
+    }
+  }
   Vue.$vux.loading.hide()
   return response
 }, error => {

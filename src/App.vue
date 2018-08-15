@@ -7,7 +7,14 @@
     <transition name="silde-hide">
       <button-bar v-show="isShow" class="button"></button-bar>
     </transition>
-
+    <x-dialog :show="isShowNotify" class="dialog-demo">
+      <div class="img-box">
+        <img :src="require('./assets/endTime.png')" style="max-width:100%">
+      </div>
+      <div @click="isShowNotify=false">
+        <span class="vux-close"></span>
+      </div>
+    </x-dialog>
 
   </div>
 </template>
@@ -15,26 +22,43 @@
 <script>
   import Vue from 'vue'
   import ButtonBar from '@/components/ButtonBar'
-  import { createConnect } from '@/api/battle/Kline'
-  import  { ConfirmPlugin } from 'vux'
+  import { createConnect } from '@/api/battle/KLineData'
+  import  { ConfirmPlugin,XDialog } from 'vux'
   import { mapGetters } from 'vuex'
   Vue.use(ConfirmPlugin)
 export default {
   name: 'App',
   data () {
     return {
-      isShow:true
+      isShow:true,
+      showNotify:this.isShowNotify
     }
-
-
   },
   computed:{
     ...mapGetters([
-      'expiredTime'
-  ])
+      'expiredTime',
+      'isShowNotify'
+  ]),
+    isShowNotify:{
+      get(){
+        return this.$store.state.isShowNotify
+      },
+      set(newVal){
+        console.log(this)
+        this.$store.dispatch('setShowNotify',newVal)
+      }
+
+
+    }
+  },
+  watch:{
+    showNotify(newVal){
+      console.log("wtf")
+      this.$store.dispatch('setShowNotify',newVal)
+    }
   },
   created () {
-
+    this.showNotify = this.isShowNotify
 
     createConnect()
     //建立K线websocket连接
@@ -51,7 +75,8 @@ export default {
 
   },
   components:{
-    ButtonBar
+    ButtonBar,
+    XDialog
   },
   watch: {
     $route (to, from, next) {
@@ -78,6 +103,26 @@ html,body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  @import '~vux/src/styles/close';
+
+  .dialog-demo {
+    .weui-dialog{
+      border-radius: 8px;
+      padding-bottom: 8px;
+    }
+    .dialog-title {
+      line-height: 30px;
+      color: #666;
+    }
+    .img-box {
+      height: 350px;
+      overflow: hidden;
+    }
+    .vux-close {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+  }
   .button{
 
     width: 100%;

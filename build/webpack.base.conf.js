@@ -67,6 +67,10 @@ const webpackConfig = {
       {
         test: /\.less$/,
         loader: "style-loader!css-loader!less-loader",
+      },
+      {
+        test: /\.worker\.js$/, //以.worker.js结尾的文件将被worker-loader加载
+        use: { loader: 'worker-loader' }
       }
     ]
   },
