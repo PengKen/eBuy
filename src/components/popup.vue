@@ -43,8 +43,8 @@
         width: 20px;
         /* height: 20px; */
         position: absolute;
-        right: -4px;
-        top: -15px;
+        right: 1px;
+        top: -5px;
         /* font-size: 10px; */
         /* z-index: 10000000000; */
         i{

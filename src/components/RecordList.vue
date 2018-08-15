@@ -46,8 +46,8 @@
                       <tr>
                           <td>{{record.founderBalance == undefined ? '- -' : record.founderBalance}}</td>
                           <td>
-                            <span v-if="curTime < record.endTime.time || !record.endTime">当前资金</span>
-                            <span v-if="curTime > record.endTime.time">结束资金</span>
+                            <span v-if="!record.endTime || curTime < record.endTime.time">当前资金</span>
+                            <span v-if="record.endTime && curTime > record.endTime.time">结束资金</span>
                           </td>
                           <td>{{record.inviteeBalance == undefined? '- -' : record.inviteeBalance}}</td>
                       </tr>
@@ -58,8 +58,8 @@
                       </tr>
                   </table>
                   <div class="time" v-if="record.startTime">
-                      <span>开始：{{!record.startTime ? '- -' : msToDate(record.startTime.time)}}</span>
-                      <span>结束：{{!record.endTime ? '- -' : msToDate(record.endTime.time)}}</span>
+                      <span>开始：{{ msToDate(record.startTime.time)}}</span>
+                      <span>结束：{{msToDate(record.endTime.time)}}</span>
                   </div>
                   <div class="time" v-if="!record.startTime">
                       <span>PK时长：{{record.duringTime.time / 1000 / 60}}分钟</span>

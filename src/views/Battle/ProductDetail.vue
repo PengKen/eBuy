@@ -134,11 +134,14 @@ export default {
 #product-detail {
 	width: 100%;
 	font-size: 0.4rem;
+	background: #f9f9f9;
+	min-height: 100%;
 	.color-red {color: #ee3333}
 	.color-green {color: #44bb66}
 	.detail {
 		// margin-top: 1.5rem;
 		padding: 1.8rem 0.3rem 0.3rem;
+		background: white;
 		// background: #ee3333;
 		// background: #44bb66;
 		// color: white;
@@ -186,6 +189,7 @@ export default {
 		}
 	}
 	.kline {
+		margin: 0.5rem 0;
 		height: 7rem;
 		// background: #eeeeee;
 		line-height: 7rem;
