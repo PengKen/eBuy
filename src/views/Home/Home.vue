@@ -26,7 +26,7 @@
            <div>
              <div class="name">{{ user.name }}</div>
              <div>
-               <img class="medal" src="/static/icon-img/honor.png" />
+               <img class="medal" :src="user.honor.url" />
                <span class="honor">{{user.honor.title}}</span>
              </div>
            </div>
