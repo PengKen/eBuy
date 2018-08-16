@@ -4,10 +4,11 @@ import * as API from '@/api/home'
 Vue.use(Vuex)
 import boardList from './modules/boardList'
 import battle from './modules/battle'
+import notify from '@/utils/timer/notify'
 const store = new Vuex.Store({
   modules:{
-    boardList,
-    battle,
+    boardList,//排行榜
+    battle,//对战
   },
   state: {
     userInfo:{
@@ -17,9 +18,9 @@ const store = new Vuex.Store({
       name:'',
       portrait:'',
       winRate:1,
-      expiredTime:undefined
+      endTime:null
     },
-
+    isShowNotify:false,
     isShowPopup:false// 全局定义popup的显示状态
   },
   actions:{
@@ -27,14 +28,19 @@ const store = new Vuex.Store({
       commit('setShowPopup',  isShowPopup )
       return state
     },
-    async setUserInfo({commit,state},userId){
+    async setShowNotify({ commit, state },isShowNotify){
+      commit('setShowNotify',  isShowNotify)
+      return state
+    },
+    async setUserInfo({commit,state,dispatch},userId){
        if(userId !== 0){
          let userInfo = await  API.getUserInfo(userId)
-         console.log(userInfo)
          commit('setUserInfo',userInfo)
-         if(state.userInfo.expiredTime){
-
-
+         if(state.userInfo.challengeState > 0){
+           /*
+              客户端自行倒计时
+            */
+           notify(userInfo.endTime.time,dispatch)
          }
          return state
        }
@@ -46,6 +52,9 @@ const store = new Vuex.Store({
     },
     setUserInfo(state,userInfo){
       state.userInfo = userInfo
+    },
+    setShowNotify(state, isShowNotify){
+      state.isShowNotify = isShowNotify
     }
   },
   getters:{
@@ -63,8 +72,10 @@ const store = new Vuex.Store({
     },
     expiredTime: state => {
       return state.userInfo.expiredTime
+    },
+    isShowNotify: state => {
+      return state.isShowNotify
     }
-
   }
 
 })
