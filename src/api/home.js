@@ -21,4 +21,8 @@ function getUserInfo(userId) {
   return httpServer('Get','/api/v1/eBuy/userInfo/'+userId)
 }
 
-export { getBoardList, postNewBattle, getPersonalBattle,getUserInfo }
+function searchUser(name) {
+  return httpServer('Get','/api/v1/eBuy/userFound/'+name)
+}
+
+export { getBoardList, postNewBattle, getPersonalBattle,getUserInfo, searchUser }

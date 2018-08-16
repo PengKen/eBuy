@@ -1,6 +1,11 @@
 <template>
   <div id="home">
-    <search-box id="search-box" v-if="showPersonal == false"></search-box>
+    <search-box 
+      id="search-box" 
+      v-if="showPersonal == false"
+      @showPersonal="personalBattle"
+      @challenge="challenge">
+    </search-box>
     <div class="bg"></div>
     <div id="swiper">
       <swiper :options="swiperOption" ref="mySwiper"
@@ -43,7 +48,7 @@
     <keep-alive>
       <battle-setting
         situation="Home"
-        :curUser="curUser"
+        :challengeUser="curUser"
       ></battle-setting>
     </keep-alive>
 
@@ -214,8 +219,9 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 1;
     height: 45px;
+    
   }
   .bg {
     position: absolute;
@@ -230,6 +236,8 @@ export default {
   #swiper {
     height: 30%;
     padding-top: 40px;
+    position: relative;
+    z-index: 0;
     .swiper-container {
       height: 100%;
       .swiper-pagination {

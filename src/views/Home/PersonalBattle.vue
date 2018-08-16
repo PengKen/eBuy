@@ -181,8 +181,9 @@
       width: 100%;
         #record-list {
             padding: 0 0.3rem;
-            height: 12rem;
-            overflow: scroll;
+            height: 70%;
+						overflow: scroll;
+						box-sizing: border-box;
         }
     }
     .medal {
@@ -191,11 +192,11 @@
       vertical-align: middle;
     }
     #user-info {
-        height: 10%;
-        padding-top: 1.5rem;
-        padding-bottom: 0.5rem;
+        height: 20%;
+        padding-top: 10%;
         background-image: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
-        box-shadow: 0 2px 5px #aaaaaa;
+				box-shadow: 0 2px 5px #aaaaaa;
+				box-sizing: border-box;
         #portrait, #data {
             display: inline-block;
             vertical-align: middle;
@@ -230,8 +231,9 @@
 
     }
     #filter {
-        padding: 0.5rem 0;
-        height: 5%;
+        padding-top: 5%;
+				height: 10%;
+				box-sizing: border-box;
         .filter-button {
             display: inline-block;
             width: 20%;

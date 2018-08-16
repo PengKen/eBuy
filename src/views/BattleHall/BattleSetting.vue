@@ -161,6 +161,9 @@ Vue.use(AlertPlugin)
 </script>
 
 <style lang="less" scoped>
+#battle-setting {
+  position: relative;
+  z-index: 1000;
   .pupup{
     margin-top: 30%;
     .content{
@@ -196,7 +199,7 @@ Vue.use(AlertPlugin)
       }
 
     }
-
-
   }
+}
+
 </style>
