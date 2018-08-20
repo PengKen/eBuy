@@ -148,12 +148,14 @@ export default {
           case 0: //成功
             this.msgDetail.ifAccepted = true;
             this.messages[this.msgDetail.index].ifAccepted = true;
+            var that = this
             this.$vux.alert.show({
               title: "成功",
-              content: "您已接受挑战，开始比赛吧",
+              content: "前往对战大厅开始比赛吧",
               onShow() {},
               onHide: () => {
                 this.$store.dispatch('setShowPopup',false)
+                that.$router.push({ path: "/battle/battle", query: {} });
               }
             });
             break;

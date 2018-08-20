@@ -315,12 +315,14 @@ export default {
           switch (res.userState) {
             case 0: //成功
               this.records.splice(index, 1);
+              var that = this
               this.$vux.alert.show({
                 title: "成功",
-                content: "您已接受挑战，开始比赛吧",
+                content: "前往对战平台开始比赛吧",
                 onShow() {},
                 onHide: () => {
                   this.showPopup = false;
+                  that.$router.push({ path: "/battle/battle", query: {} });
                 }
               });
               break;
