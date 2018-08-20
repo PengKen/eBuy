@@ -18,48 +18,7 @@ export default {
   name: "myFocus",
   data() {
     return {
-      records: [
-        {
-          founderName: "我是长长的用户名hhhhhhhhhhhhhhhhhh",
-          inviteeName: "userB",
-          founderPortrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-          inviteePortrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-          founderHonor: {
-            url: "/static/icon-img/honor-初出茅庐.png",
-            title: "迷你鸡王"
-          },
-          inviteeHonor: "初出茅庐",
-          founderCardId: "",
-          inviteeCardId: "",
-          startTime: "2018-07-20",
-          endTime: "2018-07-25",
-          initialMoney: "",
-          founderBalance: "",
-          inviteeBalance: "",
-          founderRate: 1.1,
-          inviteeRate: 1.2
-        },
-        {
-          founderName: "我是长长的用户名hhhhhhhhhhhhhhhhhh",
-          inviteeName: "userB",
-          founderPortrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-          inviteePortrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-          founderHonor: {
-            url: "/static/icon-img/honor-初出茅庐.png",
-            title: "迷你鸡王"
-          },
-          inviteeHonor: "初出茅庐",
-          founderCardId: "",
-          inviteeCardId: "",
-          startTime: "2018-07-20",
-          endTime: "2018-07-29",
-          initialMoney: "",
-          founderBalance: "",
-          inviteeBalance: "",
-          founderRate: 1.1,
-          inviteeRate: 1.2
-        }
-      ]
+      records: []
     };
   },
   created() {
@@ -95,8 +54,7 @@ export default {
   font-size: 0.4rem;
 	background: white;
 	.records {
-		padding: 0 0.3rem;
-		padding-top: 2rem;
+		padding: 2rem 0.3rem 0.2rem;
 	}
 }
 .medal {

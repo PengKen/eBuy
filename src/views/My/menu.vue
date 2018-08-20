@@ -5,7 +5,7 @@
         <img class="portrait" :src="userInfo.portrait">
       </div>
       <div id="data">
-        <div id="name">{{userInfo.name}}<img class="medal" :src="honor.url"></div>
+        <div id="name">{{userInfo.name}}<img class="medal" :src="userInfo.honor.url"></div>
         <span class="win-rate">胜率：{{(userInfo.winRate*100).toFixed(2) + '%'}}&nbsp&nbsp&nbsp&nbsp</span>
         <span class="honor">{{userInfo.honor.title}}</span>
 
@@ -47,11 +47,11 @@ export default {
   name: "my",
   data() {
     return {
-      userId: 111,
-      name: "投资家",
-      portrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-      honor: { title: "吃鸡达人", url: "/static/icon-img/honor.png" },
-      winRate: 0.8
+      // userId: 111,
+      // name: "投资家",
+      // portrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
+      // honor: { title: "吃鸡达人", url: "/static/icon-img/honor.png" },
+      // winRate: 0.8
     };
   },
   computed:{

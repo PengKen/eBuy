@@ -202,20 +202,8 @@
         }
       }
     }
-    .refresh {
-      font-size: 0.3rem;
-      width: 3em;
-      margin: 0 0.3rem 0 auto;
-      color: #bbbbbb;
-      position: absolute;
-      right: 0;
-    }
   }
 
-  // #product-list {
-  //   height: 19rem;
-  //   overflow: scroll
-  // }
 }
 </style>
 
@@ -237,33 +225,10 @@ export default {
   },
   data() {
     return {
-
-      // userId: 555,
       curTime: new Date().getTime(),
-      battleDetail: {
-        played:1,
-        // battleId:0,
-        startTime: {time:86400000},
-        endTime: {time:86400000},
-        initialMoney: 100000,
-        // founderId:111,
-        // inviteeId:222,
-        // founderName:"我是长长的用户名hhhhhhhhhhhhhhhhhh",
-        // inviteeName:"userB",
-        // founderPortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-        // inviteePortrait:"/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
-        founderHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-        inviteeHonor:{url:"/static/icon-img/honor-初出茅庐.png",title:"迷你鸡王"},
-        founderAllMoney:1,
-        inviteeAllMoney:1,
-        founderBalance:123123,
-        inviteeBalance:32321,
-        founderRate:0.1122,
-        inviteeRate:0.2321,
-      },
+      battleDetail: {},
       products:[],
       intervalId:0,
-      flag: true,
       flagId:0
     }
   },
@@ -276,14 +241,6 @@ export default {
   methods: {
     msToDate(ms) {
       return DF.msToDate(ms);
-    },
-    clickFresh() {
-      if(this.flag==true) {
-        this.getCurrentBattle(this.userId);
-        this.flag = false;
-        clearInterval(this.flagId)
-        this.flagId = setInterval(()=>{this.flag = true}, 5000)
-      }
     },
     refresh() {
       this.intervalId = setInterval(()=>{
@@ -310,21 +267,8 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'userId',
-      'challengeState'
+      'userId'
     ])
-  },
-  mounted() {
-    // if(this.battleDetail.played == 1 && this.battleDetail.endTime.time > new Date().getTime()){
-    //   this.refresh()
-    //   console.log('refresh')
-    // }
-    // else {
-    //   this.flag = false
-    //   console.log('nofresh')
-    // }
-    // this.refresh()
-
   },
   beforeDestroy() {
     clearInterval(this.intervalId)

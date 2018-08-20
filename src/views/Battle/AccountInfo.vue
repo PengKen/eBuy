@@ -10,10 +10,6 @@
 							<span class="title">账户余额</span>
 							<span class="num">{{accountInfo.balance}}</span>
 						</p>
-						<!-- <p class="rate">
-							<span class="title">收益率</span>
-							<span class="num">{{(accountInfo.rate*100).toFixed(2)}}%</span>
-						</p> -->
 					</div>
 				</div>
 				<div class="table">
@@ -45,35 +41,9 @@ export default {
 			userInfo: this.$route.query,
 			accountInfo: {
 				cardId: 1,
-				balance: 323,
+				balance: 0,
 				rate: 0.3231,
-				accounts: [
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-				],
+				accounts: [],
 			}
 		}
 	},
@@ -130,12 +100,12 @@ export default {
 				font-size: 0.45rem;
 				vertical-align: middle;
 				.num {
-					width: 4em;
-					display: inline-block
+					// width: 4em;
+					display: inline-block;
+					padding: 0 0 0 0.3rem;
 				}
 				.title {
 					color: #c0000b;
-					margin-right: 0.3rem;
 				}
 			}
 			

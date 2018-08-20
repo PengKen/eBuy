@@ -11,6 +11,8 @@
       <div class="img-box">
         <img :src="require('./assets/endTime.png')" style="max-width:100%">
       </div>
+      <div class="note">您的比赛结束啦，快去对战平台看看战果吧</div>
+      <button class="toBattle" @click="toBattle()">对战平台</button>
       <div @click="isShowNotify=false">
         <span class="vux-close"></span>
       </div>
@@ -49,6 +51,12 @@ export default {
       }
 
 
+    }
+  },
+  methods: {
+    toBattle() {
+      this.isShowNotify = false
+      this.$router.push({ path: "/battle/battle", query: {} });
     }
   },
   watch:{
@@ -119,12 +127,23 @@ html,body{
       color: #666;
     }
     .img-box {
-      height: 350px;
+      // height: 350px;
       overflow: hidden;
     }
     .vux-close {
       margin-top: 8px;
       margin-bottom: 8px;
+    }
+    .note {
+      margin: 0.3rem 0;
+    }
+    .toBattle {
+      color:white;
+      background: orange;
+      padding: 0.2rem 0.3rem;
+      border-radius: 1rem;
+      border: none;
+      margin: 0.3rem;
     }
   }
   .button{

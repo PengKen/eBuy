@@ -67,7 +67,7 @@
                   </div>
                   <div v-if="showBtn">
                     <div class="focus"
-										v-if="record.startTime && curTime <= record.endTime.time"
+										v-if="record.startTime"
 										:class="record.isFocus==1 ? 'btn-grey' : ''" @click.stop="focus(record.isFocus, index)">{{record.isFocus==1 ? '已关注' : '关注比赛进程'}}</div>
 										<div class="battle-btn"
 										v-if="!record.startTime"
@@ -314,13 +314,14 @@ export default {
         APIMY.postStartBattle(battleDetail).then(res => {
           switch (res.userState) {
             case 0: //成功
-              this.records.splice(index, 1);
+              var that = this
               this.$vux.alert.show({
                 title: "成功",
-                content: "您已接受挑战，开始比赛吧",
+                content: "前往对战平台开始比赛吧",
                 onShow() {},
                 onHide: () => {
                   this.showPopup = false;
+                  that.$router.push({ path: "/battle/battle", query: {} });
                 }
               });
               break;

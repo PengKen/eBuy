@@ -1,9 +1,9 @@
 <template>
 	<div id="my-message">
-		<back-arrow></back-arrow>
+		<nav-bar :color="'white'"></nav-bar>
 		<button-tab>
 			<button-tab-item  @on-item-click="clickTab(1)" selected>收到</button-tab-item>
-			<button-tab-item @on-item-click="clickTab(2)"><span class="vux-reddot-s">发出</span></button-tab-item>
+			<button-tab-item @on-item-click="clickTab(2)"><span>发出</span></button-tab-item>
 		</button-tab>
 		<div id="msg-list">
 			<div class="msg-item" v-for="(msg, index) in messages" @click="showDetail(index)">
@@ -70,7 +70,7 @@
 <script>
 import store from "@/store/index";
 import * as API from "@/api/my";
-import BackArrow from "@/components/BackArrow";
+import NavBar from "@/components/NavBar";
 import { ButtonTab, ButtonTabItem, Divider, Alert } from "vux";
 import { mapGetters } from 'vuex'
 import popup from "@/components/popup";
@@ -82,116 +82,7 @@ export default {
     return {
       tab: 1,
       showPopup: false,
-      messages: [
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 222,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 0
-        // },
-        // {
-        //   userId: 333,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // },
-        // {
-        //   userId: 111,
-        //   name: "广州五部明星员工",
-        //   portrait: "/static/img/portrait.jpg",
-        //   content: "来呀，打我呀",
-        //   messageTime: { time: 86400000 },
-        //   initialMoney: "1000000",
-        //   duringTime: { time: 86400000 },
-        //   expiredTime: { time: 86400000 },
-        //   battleId: 124,
-        //   ifAccepted: 1
-        // }
-      ],
+      messages: [],
       msgDetail: {
         index: 0,
         senderId: 111,
@@ -204,12 +95,13 @@ export default {
         initialMoney: "",
         duringTime: "",
         expiredTime: "",
-        ifAccepted: 1
+        ifAccepted: 1,
+        state: '',
       }
     };
   },
   components: {
-    BackArrow,
+    NavBar,
     ButtonTab,
     ButtonTabItem,
     Divider,
@@ -239,8 +131,9 @@ export default {
       }
     },
     getState(index) {
-      if (this.msToDate(this.messages[index].expiredTime.time) < new Date().getTime())
+      if (this.messages[index].expiredTime.time < new Date().getTime()){
         return "已失效";
+      }
       else if (this.messages[index].ifAccepted == 1) return "已接受";
       else return "待接受";
     },
@@ -255,12 +148,14 @@ export default {
           case 0: //成功
             this.msgDetail.ifAccepted = true;
             this.messages[this.msgDetail.index].ifAccepted = true;
+            var that = this
             this.$vux.alert.show({
               title: "成功",
-              content: "您已接受挑战，开始比赛吧",
+              content: "前往对战平台开始比赛吧",
               onShow() {},
               onHide: () => {
                 this.$store.dispatch('setShowPopup',false)
+                that.$router.push({ path: "/battle/battle", query: {} });
               }
             });
             break;
@@ -303,10 +198,12 @@ export default {
 
 <style lang="less" scoped>
 #my-message {
-  height: 100%;
-  overflow: hidden;
   font-size: 0.4rem;
   .vux-button-group {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 200;
     width: 60%;
     // height: 10%;
     margin: 0.4rem auto;
@@ -327,8 +224,7 @@ export default {
     }
   }
   #msg-list {
-    height: 15.9rem;
-    overflow: scroll;
+    padding-top: 1.5rem;
     .msg-item {
       display: flex;
       align-items: center;
@@ -371,6 +267,8 @@ export default {
         }
         .content {
           color: #888888;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
       .foot {
