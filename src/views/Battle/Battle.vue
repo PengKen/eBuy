@@ -44,7 +44,7 @@
           <div class="user" @click="toHold(2)">
             <div class="portrait-wrapper">
               <i
-                v-if=" challengeState === 1 && battleDetail.founderRate > battleDetail.inviteeRate"
+                v-if=" challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate"
                 class="icon iconfont icon-huangguantop rotate"
                 :style="{color:'gold'}"></i>
               <img class="portrait" :src="battleDetail.inviteePortrait"/>
@@ -267,7 +267,8 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'userId'
+      'userId',
+      'challengeState'
     ])
   },
   beforeDestroy() {

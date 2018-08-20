@@ -14,7 +14,10 @@
           <div class="name">对战平台</div>
         </li>
       </router-link>
-
+        <li class="ball" @click="newBattle()">
+          <x-icon type="ios-plus-empty" size="30"></x-icon>
+          <div class="new-battle">摆擂</div>
+        </li>
       <router-link :to="{ path:'/battlehall', params: {}}">
         <li>
           <i class="icon iconfont icon-youxidating"></i>
@@ -38,11 +41,20 @@
 </template>
 <script>
   export default {
-    name: "button-bar"
+    name: "button-bar",
+    methods: {
+      newBattle() {
+        console.log('new battle')
+        this.$store.dispatch('setShowPopup',true)
+      }
+    }
   }
 </script>
 
 <style scoped lang="less">
+.vux-x-icon {
+  fill: white;
+}
   #button-bar{
     position: fixed;
     bottom: 0;
@@ -61,14 +73,25 @@
       position: relative;
       li{
         font-size: 0.3rem;
-        flex: 0 1 auto;
+        // flex: 0 1 auto;
         list-style: none;
         color: black;
       }
       .router-link-active>li{
         color:red !important;
       }
-
+      .ball {
+        background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
+        border-radius: 0.2rem;
+        width: 1.4rem;
+        height: 1.2rem;
+        // margin-top: -1rem;
+        border: 5px solid white;
+        .new-battle {
+          margin-top: -0.3rem;
+          color: white;
+        }
+      }
     }
   }
 </style>

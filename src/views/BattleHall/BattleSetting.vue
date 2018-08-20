@@ -13,7 +13,7 @@
           <x-number :fillable="true" :step="step" title="PKS时长(分钟)" align="center" v-model="battleDetail.duringTime" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
           <datetime
             :required="true"
-            title="摆擂时长"
+            title="失效时间"
             placeholder="擂台失效时间"
             v-model="battleDetail.expiredTime"
             value-text-align="left"
