@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <search-box 
-      id="search-box" 
+    <search-box
+      id="search-box"
       v-if="showPersonal == false"
       @showPersonal="personalBattle"
       @challenge="challenge">
@@ -27,7 +27,13 @@
         <!--<li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">-->
         <!--<li  v-for="user in  boardListUser" @click="personalBattle(user.userId)">-->
           <span class="rank">{{format(index+1)}}</span>
-           <img class="portrait" :src="user.portrait" alt="">
+          <div class="portrait-wrapper">
+            <!--<i v-if="index === 0" class="icon iconfont icon-huangguantop rotate" :style="{color:'gold'}"></i>-->
+            <!--<i v-if="index === 1" class="icon iconfont icon-huangguantop rotate" :style="{color:'#b8bda6'}"></i>-->
+            <!--<i v-if="index === 2" class="icon iconfont icon-huangguantop rotate" :style="{color:'#3d8817'}"></i>-->
+            <img class="portrait" :src="user.portrait" alt="">
+          </div>
+
            <div>
              <div class="name">{{ user.name }}</div>
              <div>
@@ -207,6 +213,7 @@ export default {
 
 <style scoped lang="less">
 #home {
+
   position: relative;
   height: 100%;
   width: 100%;
@@ -221,7 +228,7 @@ export default {
     right: 0;
     z-index: 1;
     height: 45px;
-    
+
   }
   .bg {
     position: absolute;
@@ -244,7 +251,7 @@ export default {
         .swiper-pagination-bullet-active {
           background: #c7000b;
         }
-      }      
+      }
     }
     .img {
       width: 95%;
@@ -309,12 +316,17 @@ export default {
       // border: 1px solid #eee;
       background: white;
       box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-      .portrait {
-        height: 1.2rem;
-        width: 1.2rem;
-        border-radius: 50%;
-        border: 1px solid #ddd;
+      .portrait-wrapper{
+        position: relative;
+
+        .portrait {
+          height: 1.2rem;
+          width: 1.2rem;
+          border-radius: 50%;
+          border: 1px solid #ddd;
+        }
       }
+
       span {
         // flex: 0 0 2.8rem;
         // font-weight: 700;

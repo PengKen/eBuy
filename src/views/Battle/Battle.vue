@@ -19,7 +19,13 @@
         <div class="user-wrapper">
 
           <div class="user" @click="toHold(1)">
-            <div><img class="portrait" :src="battleDetail.founderPortrait"/></div>
+            <div class="portrait-wrapper">
+              <i
+                v-if=" challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate"
+                class="icon iconfont icon-huangguantop rotate"
+                :style="{color:'gold'}"></i>
+              <img class="portrait" :src="battleDetail.founderPortrait"/>
+            </div>
             <div class="name">{{battleDetail.founderName}}</div>
             <div class="honor">
               <img class="medal" :src="battleDetail.founderHonor.url"/>
@@ -27,7 +33,7 @@
             </div>
             <div class="all-money" :class="battleDetail.founderRate>=0 ? 'red-font' : 'green-font'">￥<countup :start-val="battleDetail.initialMoney" :end-val="battleDetail.founderAllMoney" :duration="2" :decimals="2" ></countup></div>
             <div class="rate" >收益率：
-            <span :class="battleDetail.founderRate>=0 ? 'red-font' : 'green-font'">{{(battleDetail.founderRate*100).toFixed(2)}}%</span>
+            <span :class="battleDetail.founderRate >= 0 ? 'red-font' : 'green-font'">{{(battleDetail.founderRate*100).toFixed(2)}}%</span>
             </div>
             <div class="balance" >余额：
             <span>{{battleDetail.founderBalance.toFixed(2)}}</span>
@@ -36,7 +42,13 @@
           </div>
           <div class="vs">VS</div>
           <div class="user" @click="toHold(2)">
-            <div><img class="portrait" :src="battleDetail.inviteePortrait"/></div>
+            <div class="portrait-wrapper">
+              <i
+                v-if=" challengeState === 1 && battleDetail.founderRate > battleDetail.inviteeRate"
+                class="icon iconfont icon-huangguantop rotate"
+                :style="{color:'gold'}"></i>
+              <img class="portrait" :src="battleDetail.inviteePortrait"/>
+            </div>
             <div class="name">{{battleDetail.inviteeName}}</div>
             <div class="honor">
               <span>{{battleDetail.inviteeHonor.title}}</span>
@@ -135,6 +147,19 @@
         // border: 1px solid #eeeeee;
         border-radius: 0.2rem;
         // background: #f5f5f5;
+        .portrait-wrapper{
+          position: relative;
+          .rotate{
+            transform: rotate(-30deg);
+            position:absolute;
+            top: 0;
+
+            line-height: 0;
+            font-size: 1.5em !important;
+
+          }
+        }
+
         .portrait {
           width: 1.5rem;
           height: 1.5rem;
