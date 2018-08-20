@@ -37,10 +37,10 @@ export default {
     var socket = io('http://192.168.43.118:3000');
     socket.on('connect', (msg)=> {
       socket.on('message', (msg)=> {
-        this.showLoading = false
         try {
           console.log(msg)
           this.products = JSON.parse(msg.productDetail)
+          this.showLoading = false
         } catch (error) {
           console.log("parse error")
         }

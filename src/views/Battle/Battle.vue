@@ -17,7 +17,6 @@
         </div>
 
         <div class="user-wrapper">
-          <div class="refresh" @click="clickFresh()" :style="flag ? 'color: #666' : ''" >刷新</div>
           <div class="user">
             <div><img class="portrait" :src="battleDetail.founderPortrait"/></div>
             <div class="name">{{battleDetail.founderName}}</div>
@@ -177,20 +176,8 @@
         }
       }
     }
-    .refresh {
-      font-size: 0.3rem;
-      width: 3em;
-      margin: 0 0.3rem 0 auto;
-      color: #bbbbbb;
-      position: absolute;
-      right: 0;
-    }
   }
 
-  // #product-list {
-  //   height: 19rem;
-  //   overflow: scroll
-  // }
 }
 </style>
 
@@ -216,7 +203,6 @@ export default {
       battleDetail: {},
       products:[],
       intervalId:0,
-      flag: true,
       flagId:0
     }
   },
@@ -229,14 +215,6 @@ export default {
   methods: {
     msToDate(ms) {
       return DF.msToDate(ms);
-    },
-    clickFresh() {
-      if(this.flag==true) {
-        this.getCurrentBattle(this.userId);
-        this.flag = false;
-        clearInterval(this.flagId)
-        this.flagId = setInterval(()=>{this.flag = true}, 5000)
-      }
     },
     refresh() {
       this.intervalId = setInterval(()=>{

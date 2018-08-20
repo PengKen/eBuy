@@ -41,7 +41,7 @@ export default {
 			userInfo: this.$route.query,
 			accountInfo: {
 				cardId: 1,
-				balance: 323,
+				balance: 0,
 				rate: 0.3231,
 				accounts: [],
 			}
@@ -100,12 +100,12 @@ export default {
 				font-size: 0.45rem;
 				vertical-align: middle;
 				.num {
-					width: 4em;
-					display: inline-block
+					// width: 4em;
+					display: inline-block;
+					padding: 0 0 0 0.3rem;
 				}
 				.title {
 					color: #c0000b;
-					margin-right: 0.3rem;
 				}
 			}
 			
