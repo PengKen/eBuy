@@ -151,7 +151,7 @@ export default {
             var that = this
             this.$vux.alert.show({
               title: "成功",
-              content: "前往对战大厅开始比赛吧",
+              content: "前往对战平台开始比赛吧",
               onShow() {},
               onHide: () => {
                 this.$store.dispatch('setShowPopup',false)

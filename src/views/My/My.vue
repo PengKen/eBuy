@@ -16,7 +16,8 @@ export default {
 
 <style lang="less" scoped>
 .my {
-    height: 100%;
+    min-height: 100%;
+    background: white;
 }
 </style>
 

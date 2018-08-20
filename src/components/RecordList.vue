@@ -314,7 +314,6 @@ export default {
         APIMY.postStartBattle(battleDetail).then(res => {
           switch (res.userState) {
             case 0: //成功
-              this.records.splice(index, 1);
               var that = this
               this.$vux.alert.show({
                 title: "成功",

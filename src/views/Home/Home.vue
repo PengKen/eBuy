@@ -23,10 +23,15 @@
     <div id="board" ref="board">
         <h2>排行榜</h2>
       <ul ref="ulBorad" v-if="boardListUser">
-        <li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">
+        <li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)" :class="getPrize(index)">
         <!--<li :key="index" v-for="(user,index) in  boardListUser" @click="personalBattle(user.userId)">-->
         <!--<li  v-for="user in  boardListUser" @click="personalBattle(user.userId)">-->
-          <span class="rank">{{format(index+1)}}</span>
+          <div class="head">
+            <span class="rank" v-if="index > 2">{{index+1}}</span>
+            <img class="prize" v-if="index == 0" src="/static/icon-img/icons8-medal-first-place-96.png"/>
+            <img class="prize" v-if="index == 1" src="/static/icon-img/icons8-medal-second-place-96.png"/>
+            <img class="prize" v-if="index == 2" src="/static/icon-img/icons8-medal-third-place-96.png"/>
+          </div>
            <img class="portrait" :src="user.portrait" alt="">
            <div>
              <div class="name">{{ user.name }}</div>
@@ -185,13 +190,17 @@ export default {
         });
       });
     },
-    format(num) {
-			if(num >= 10) {
-				return num
-			}else{
-				return `0${num}`
-			}
-		}
+    getPrize(index) {
+      if(index == 0){
+        return 'first'
+      }else if(index == 1) {
+        return 'second'
+      }else if(index == 2) {
+        return 'third'
+      }else {
+        return ''
+      }
+    }
   },
   computed: {
     expiredTime() {
@@ -355,15 +364,25 @@ export default {
         font-weight: bold;
         padding-left: 0.1rem;
       }
-      .rank {
-        display: inline-block;
-        width: 1.2em;
-        text-align: right;
-        font-size: 0.5rem;
-        color: rgb(255, 196, 0);
-        // font-weight: bold;
-        font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+      .head {
+        width: 2em;
+        
+        .rank {
+          display: inline-block;
+          // width: 1.2em;
+          // text-align: right;
+          font-size: 0.5rem;
+          color: rgb(255, 196, 0);
+          // font-weight: bold;
+          font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+        }
+        .prize {
+          width: 3em;
+          vertical-align: middle;
+          margin: 0 -0.5em;
+        }
       }
+
       .win-rate {
         font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
         .win {
@@ -385,6 +404,15 @@ export default {
         }
       }
     }
+    // li.first {
+    //   border: 3px solid #ffe082
+    // }
+    // li.second {
+    //   border: 3px solid #c5cae9
+    // }
+    // li.third {
+    //   border: 3px solid #ceb1a1;
+    // }
   }
   .pupup {
     margin-top: 30%;

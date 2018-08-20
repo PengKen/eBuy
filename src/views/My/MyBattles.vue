@@ -87,7 +87,7 @@ export default {
   font-size: 0.4rem;
   background: white;
   .records {
-    padding: 0 0.3rem;
+    padding: 0 0.3rem 0.2rem;
   }
 }
 .medal {
