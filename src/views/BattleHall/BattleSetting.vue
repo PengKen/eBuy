@@ -18,7 +18,7 @@
             v-model="battleDetail.expiredTime"
             value-text-align="left"
             format="YYYY-MM-DD HH"
-            :min-hour="minHour"
+            :compute-hours-function="computeHoursFunction"
             :start-date="battleDetail.currentTime"
           ></datetime >
 
@@ -67,7 +67,7 @@ Vue.use(AlertPlugin)
         currentTim:getNormalTime,
         showPopup:false,
         step:0.5,
-        minHour: new Date().getHours(),
+        minHour: new Date().getHours() + 1,
       }
     },
     components:{
@@ -154,7 +154,14 @@ Vue.use(AlertPlugin)
 
 
 
-      }
+      },
+      computeHoursFunction (date, isToday, generateRange) {
+        if (isToday) {
+          return generateRange(new Date().getHours()+1, 23)
+        } else {
+          return generateRange(0, 23)
+        }
+      },
     }
 
   }
