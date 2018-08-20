@@ -1,7 +1,7 @@
 <template>
 	<div id="product-detail">
 		<nav-bar :color="'red'" :title="'产品详情'"></nav-bar>
-		<div class="detail">
+		<div class="detail" v-if="productDetail.productName">
 			<div class="name">{{productDetail.productName}}</div>
 			<div class="num">
 				<div class="left">
@@ -58,14 +58,14 @@ export default {
 	data() {
 		return {
 			productDetail: {
-				productId:1,
-				productName:'白金啊啊啊啊啊啊啊啊啊啊',
-				bankBuyp:200.8927,
-				bankSellp:203.2198,
-				startSell:200.8922,
-				startBuy:203.8922,
-				endSell:200.8922,
-				endBuy:203.8922,
+				// productId:1,
+				// productName:'白金啊啊啊啊啊啊啊啊啊啊',
+				// bankBuyp:200.8927,
+				// bankSellp:203.2198,
+				// startSell:200.8922,
+				// startBuy:203.8922,
+				// endSell:200.8922,
+				// endBuy:203.8922,
 			},
 		}
 	},

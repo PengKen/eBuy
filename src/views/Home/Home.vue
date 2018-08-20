@@ -347,7 +347,7 @@ export default {
         color: white;
         margin-left: -0.2rem;
         position: relative;
-        top: 0.05rem;
+        top: 0.1rem;
       }
       .name {
         text-align: left;

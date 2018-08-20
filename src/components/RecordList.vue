@@ -67,7 +67,7 @@
                   </div>
                   <div v-if="showBtn">
                     <div class="focus"
-										v-if="record.startTime && curTime <= record.endTime.time"
+										v-if="record.startTime"
 										:class="record.isFocus==1 ? 'btn-grey' : ''" @click.stop="focus(record.isFocus, index)">{{record.isFocus==1 ? '已关注' : '关注比赛进程'}}</div>
 										<div class="battle-btn"
 										v-if="!record.startTime"

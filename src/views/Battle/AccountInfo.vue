@@ -10,10 +10,6 @@
 							<span class="title">账户余额</span>
 							<span class="num">{{accountInfo.balance}}</span>
 						</p>
-						<!-- <p class="rate">
-							<span class="title">收益率</span>
-							<span class="num">{{(accountInfo.rate*100).toFixed(2)}}%</span>
-						</p> -->
 					</div>
 				</div>
 				<div class="table">
@@ -47,33 +43,7 @@ export default {
 				cardId: 1,
 				balance: 323,
 				rate: 0.3231,
-				accounts: [
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-					// {
-					// 	productId: 323,
-					// 	productName: '人民币账户白金',
-					// 	amount: 323,
-					// },
-				],
+				accounts: [],
 			}
 		}
 	},

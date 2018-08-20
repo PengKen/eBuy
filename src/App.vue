@@ -11,6 +11,8 @@
       <div class="img-box">
         <img :src="require('./assets/endTime.png')" style="max-width:100%">
       </div>
+      <div class="note">您的比赛结束啦，快去对战平台看看战果吧</div>
+      <button class="toBattle">对战平台</button>
       <div @click="isShowNotify=false">
         <span class="vux-close"></span>
       </div>
@@ -115,12 +117,22 @@ html,body{
       color: #666;
     }
     .img-box {
-      height: 350px;
+      // height: 350px;
       overflow: hidden;
     }
     .vux-close {
       margin-top: 8px;
       margin-bottom: 8px;
+    }
+    .note {
+      margin: 0.2rem 0;
+    }
+    .toBattle {
+      color:white;
+      background: orange;
+      padding: 0.2rem;
+      border-radius: 1rem;
+      
     }
   }
   .button{

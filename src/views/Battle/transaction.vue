@@ -55,18 +55,18 @@ export default {
 		return {
 			operation: 1,
 			productDetail: {
-				productId:1,
-				productName:'白金啊啊啊啊啊啊啊啊啊啊',
-				bankBuyp:200.8927,
-				bankSellp:203.2198,
-				startSell:200.8922,
-				startBuy:203.8922,
-				endSell:200.8922,
-				endBuy:203.8922,
+				// productId:1,
+				// productName:'白金啊啊啊啊啊啊啊啊啊啊',
+				bankBuyp:0,
+				bankSellp:0,
+				startSell:0,
+				startBuy:0,
+				endSell:0,
+				endBuy:0,
 			},
 			accountInfo: {
-				balance: 10000,
-				amount: 1000,
+				balance: 0,
+				amount: 0,
 			},
 			input: 1,
 			countTime: 20,
@@ -110,6 +110,7 @@ export default {
 						onHide() {}
 					});
 				}else {
+					clearInterval(this.timerId)
 					this.postBuyProduct()
 				}
 			}else { //sell
@@ -121,6 +122,7 @@ export default {
 						onHide() {}
 					});
 				}else {
+					clearInterval(this.timerId)
 					this.postSellProduct()
 				}
 			}
@@ -150,11 +152,12 @@ export default {
 						}
 					});
 				}else {
+					var that = this
 					this.$vux.alert.show({
 						title: "失败",
 						content: res.data,
 						onShow() {},
-						onHide() {}
+						onHide() {that.$router.go(-1)}
 					});
 				}
       })
@@ -179,11 +182,12 @@ export default {
 						}
 					});
 				}else {
+					var that = this
 					this.$vux.alert.show({
 						title: "失败",
 						content: res.data,
 						onShow() {},
-						onHide() {}
+						onHide() {that.$router.go(-1)}
 					});
 				}
       })
