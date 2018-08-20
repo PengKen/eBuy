@@ -58,6 +58,10 @@ export default {
     }
   },
   created () {
+    if(localStorage in window)
+    {
+     console.log(1)
+    }
     this.showNotify = this.isShowNotify
 
     createConnect()

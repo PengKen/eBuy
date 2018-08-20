@@ -2,7 +2,7 @@
     <div id="battle">
       <div v-if="battleDetail.played == 0" class="no-battle top">您还没有参加过比赛，快去大厅看看吧</div>
       <div class="count-down-wrapper top" v-if="battleDetail.played == 1">
-        <div v-if="battleDetail.endTime.time > new Date().getTime()" class="no-over">距离比赛结束还有</div>
+        <div v-if="challengeState == 2" class="no-over">距离比赛结束还有</div>
         <div v-if="battleDetail.endTime.time <= new Date().getTime()" class="over">本场比赛已结束</div>
         <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
       </div>
@@ -17,8 +17,8 @@
         </div>
 
         <div class="user-wrapper">
-          <div class="refresh" @click="clickFresh()" :style="flag ? 'color: #666' : ''" >刷新</div>
-          <div class="user">
+
+          <div class="user" @click="toHold(1)">
             <div><img class="portrait" :src="battleDetail.founderPortrait"/></div>
             <div class="name">{{battleDetail.founderName}}</div>
             <div class="honor">
@@ -32,10 +32,10 @@
             <div class="balance" >余额：
             <span>{{battleDetail.founderBalance.toFixed(2)}}</span>
             </div>
-            <div class="hold" @click="toHold(1)">持仓情况</div>
+            <!--<div class="hold" @click="toHold(1)">持仓情况</div>-->
           </div>
           <div class="vs">VS</div>
-          <div class="user">
+          <div class="user" @click="toHold(2)">
             <div><img class="portrait" :src="battleDetail.inviteePortrait"/></div>
             <div class="name">{{battleDetail.inviteeName}}</div>
             <div class="honor">
@@ -51,7 +51,7 @@
             <div class="balance" >余额：
             <span>{{battleDetail.inviteeBalance.toFixed(2)}}</span>
             </div>
-            <div class="hold" @click="toHold(2)">持仓情况</div>
+            <!--<div class="hold" @click="toHold(2)">持仓情况</div>-->
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
     background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);
     color: white;
     // line-height: 1.5rem;
-  }  
+  }
   .zhanwei {
     height: 1.5rem;
   }
@@ -285,7 +285,8 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'userId'
+      'userId',
+      'challengeState'
     ])
   },
   mounted() {
@@ -316,7 +317,7 @@ export default {
       }else {
         this.refresh()
       }
-    })    
+    })
   }
 };
 </script>

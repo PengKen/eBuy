@@ -4,6 +4,7 @@ import Vue from 'vue'
 import notify from '@/utils/timer/notify'
 import  { LoadingPlugin, ToastPlugin } from 'vux'
 import store from '@/store'
+
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 const defaultToastMsg = {
@@ -35,9 +36,12 @@ axios.interceptors.response.use(response => {
 
         /*
             userState === 0 表示对方可以接受挑战
+            需要手动修改challengeState，方便后续的操作
+
          */
+        store.commit('setChallengeState',2)//2表示正在玩
         localStorage.hasShowNotify = "false"
-        notify(response.data.endTime.time,store.dispatch)
+        notify(response.data.endTime.time,store.dispatch,store.commit)
         console.log(localStorage.hasShowNotify)
       }
 

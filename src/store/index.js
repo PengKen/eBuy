@@ -40,7 +40,7 @@ const store = new Vuex.Store({
            /*
               客户端自行倒计时
             */
-           notify(userInfo.endTime.time,dispatch)
+           notify(userInfo.endTime.time,dispatch,commit)
          }
          return state
        }
@@ -55,6 +55,9 @@ const store = new Vuex.Store({
     },
     setShowNotify(state, isShowNotify){
       state.isShowNotify = isShowNotify
+    },
+    setChallengeState(state,newChallengeState){
+      state.userInfo.challengeState = newChallengeState
     }
   },
   getters:{

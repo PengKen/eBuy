@@ -52,7 +52,7 @@ import NavBar from '@/components/NavBar'
 import * as API from '@/api/battle/battle'
 import { mapGetters } from 'vuex'
 import KLine from '@/components/KLine'
-import { dynamicData } from '@/api/battle/kLineData'
+import { dynamicData } from '@/api/battle/KLineData'
 export default {
 	name: 'product-detail',
 	data() {
