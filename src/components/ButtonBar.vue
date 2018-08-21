@@ -1,5 +1,6 @@
 <template>
   <div id="button-bar">
+    
     <ul class="wrapper">
       <router-link :to="{ name: 'Home', params: {}}" >
         <li>

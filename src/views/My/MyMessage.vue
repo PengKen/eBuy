@@ -290,6 +290,8 @@ export default {
     }
   }
   .popup {
+    position: relative;
+    z-index: 2000;
     .content {
       height: 100%;
       position: relative;

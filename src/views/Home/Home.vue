@@ -404,7 +404,7 @@ export default {
         }
         .num {
           display: inline-block;
-          width: 2em;
+          width: 3em;
           margin-right: 0.2rem;
         }
       }
