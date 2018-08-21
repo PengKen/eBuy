@@ -280,7 +280,7 @@ export default {
     // bottom: 1.6rem;
     // margin-top: 0.3rem;
     // overflow: hidden;
-    // padding-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
     ul {
       // margin-bottom: 0.3rem;
       // overflow: scroll;
