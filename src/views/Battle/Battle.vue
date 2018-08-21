@@ -4,7 +4,7 @@
       <div class="count-down-wrapper top" v-if="challengeState != 0">
         <div v-if="challengeState == 2" class="no-over">距离比赛结束还有</div>
         <div v-if="challengeState == 1" class="over">本场比赛已结束</div>
-        <time-count v-if="challengeState == 2" :endTime="battleDetail.endTime.time" ></time-count>
+        <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
       </div>
       <div class="zhanwei"></div>
       <div class="current" v-if="battleDetail.played == 1">
@@ -24,6 +24,7 @@
                 v-if=" challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate"
                 class="icon iconfont icon-huangguantop rotate"
                 :style="{color:'gold'}"></i>
+              <div class="stamp">{{battleDetail.founderRate >= battleDetail.inviteeRate ? '胜' : '负'}}</div>
               <img class="portrait" :src="battleDetail.founderPortrait"/>
             </div>
             <div class="name">{{battleDetail.founderName}}</div>
@@ -47,6 +48,7 @@
                 v-if=" challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate"
                 class="icon iconfont icon-huangguantop rotate"
                 :style="{color:'gold'}"></i>
+              <div class="stamp">{{battleDetail.founderRate < battleDetail.inviteeRate ? '胜' : '负'}}</div>
               <img class="portrait" :src="battleDetail.inviteePortrait"/>
             </div>
             <div class="name">{{battleDetail.inviteeName}}</div>
@@ -158,6 +160,19 @@
             font-size: 1.5em !important;
 
           }
+          .stamp {
+            position: absolute;
+            bottom: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            font-weight: bold;
+            line-height: 1rem;
+            border: 3px solid #ee3333;
+            color: #ee3333;
+            opacity: 0.5;
+          }
         }
 
         .portrait {
@@ -165,6 +180,8 @@
           height: 1.5rem;
           border-radius: 50%;
           border: 0.1rem solid #ee3333;
+          position: relative;
+          z-index: 2;
         }
         .honor {
           padding-bottom: 0.2rem;

@@ -41,7 +41,7 @@
              </div>
            </div>
            <div class="win-rate"><span class="win">胜</span><span class="num">{{user.win}}/{{user.all}}</span></div>
-           <button class="challenge" @click.stop="challenge(user.userId)">挑战</button>
+           <button class="challenge" :class="user.userId == userId ? 'disable' : ''" @click.stop="challenge(user.userId)">挑战</button>
         </li>
       </ul>
     </div>
@@ -144,15 +144,8 @@ export default {
         : (this.showPersonal = false);
     },
     challenge(userId) {
-      if (userId == this.userId) {
-        this.$vux.alert.show({
-          title: "提示",
-          content: "不可以挑战自己哦",
-          onShow() {},
-          onHide() {}
-        });
-      } else {
-        this.curUser = userId;
+      if (userId != this.userId) {
+        // this.curUser = userId;
         var battleSetting = {
           situation: 'Home',
           challengeUser: userId
@@ -342,6 +335,9 @@ export default {
         background: orange;
         color: white;
         border: none;
+      }
+      .disable {
+        background: #ddd;
       }
       .medal {
         height: 0.7rem;

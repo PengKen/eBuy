@@ -148,7 +148,7 @@
           color: white;
           margin-left: -0.2rem;
           position: relative;
-          top: 1rem;
+          top: 0.1rem;
         }
         .name {
           text-align: left;
@@ -173,7 +173,7 @@
           }
           .num {
             display: inline-block;
-            width: 2em;
+            width: 3em;
             margin-right: 0.2rem;
           }
         }
