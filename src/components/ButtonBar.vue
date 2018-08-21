@@ -43,7 +43,11 @@ import BattleSetting from "@/views/BattleHall/BattleSetting"
     name: "button-bar",
     methods: {
       setBattle(){
-        this.$store.dispatch('setBattleSetting','BattleHall', 0)
+        var battleSetting = {
+          situation: 'BattleHall',
+          challengeUser: 0
+        }
+        this.$store.dispatch('setBattleSetting',battleSetting)
         this.$store.dispatch('setShowPopup',true)
       }
     },

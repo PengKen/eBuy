@@ -153,7 +153,11 @@ export default {
         });
       } else {
         this.curUser = userId;
-        this.$store.dispatch('setBattleSetting','Home', userId)
+        var battleSetting = {
+          situation: 'Home',
+          challengeUser: userId
+        }
+        this.$store.dispatch('setBattleSetting',battleSetting)
         this.$store.dispatch('setShowPopup',true)
       }
     },

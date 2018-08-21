@@ -32,6 +32,10 @@ const store = new Vuex.Store({
       commit('setShowPopup',  isShowPopup )
       return state
     },
+    setBattleSetting({commit, state}, battleSetting) {
+      commit('setBattleSetting', battleSetting)
+      return state
+    },
     async setShowNotify({ commit, state },isShowNotify){
       commit('setShowNotify',  isShowNotify)
       return state
@@ -63,9 +67,9 @@ const store = new Vuex.Store({
     setChallengeState(state,newChallengeState){
       state.userInfo.challengeState = newChallengeState
     },
-    setBattleSetting(state, situation, challengeUser){
-      state.battleSetting.situation = situation
-      state.battleSetting.challengeUser = challengeUser
+    setBattleSetting(state, battleSetting){
+      state.battleSetting = battleSetting
+      console.log(state.battleSetting)
     }
   },
   getters:{
