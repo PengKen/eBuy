@@ -4,6 +4,11 @@
       <router-view/>
     </keep-alive>
 
+      <battle-setting
+        :situation="battleSetting.situation"
+        :challengeUser="battleSetting.curUser"
+      ></battle-setting>
+
     <transition name="silde-hide">
       <button-bar v-show="isShow" class="button"></button-bar>
     </transition>
@@ -24,6 +29,7 @@
 <script>
   import Vue from 'vue'
   import ButtonBar from '@/components/ButtonBar'
+  import BattleSetting from '@/views/BattleHall/BattleSetting'
   import { createConnect } from '@/api/battle/KLineData'
   import  { ConfirmPlugin,XDialog } from 'vux'
   import { mapGetters } from 'vuex'
@@ -39,7 +45,8 @@ export default {
   computed:{
     ...mapGetters([
       'expiredTime',
-      'isShowNotify'
+      'isShowNotify',
+      'battleSetting'
   ]),
     isShowNotify:{
       get(){
@@ -66,6 +73,7 @@ export default {
     }
   },
   created () {
+    console.log(this.BattleSetting)
     if(localStorage in window)
     {
      console.log(1)
@@ -88,7 +96,8 @@ export default {
   },
   components:{
     ButtonBar,
-    XDialog
+    XDialog,
+    BattleSetting
   },
   watch: {
     $route (to, from, next) {

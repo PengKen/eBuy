@@ -13,7 +13,7 @@
           <x-number :fillable="true" :step="step" title="PKS时长(分钟)" align="center" v-model="battleDetail.duringTime" button-style="round" :min="1" :max="20"><span>aaa</span></x-number>
           <datetime
             :required="true"
-            title="摆擂时长"
+            title="失效时间"
             placeholder="擂台失效时间"
             v-model="battleDetail.expiredTime"
             value-text-align="left"
@@ -24,7 +24,7 @@
 
 
           <x-textarea
-            v-if="situation === 'Home'"
+            v-if="battleSetting.situation === 'Home'"
             title="捎话"
             placeholder="呛他两句？"
             :show-counter="false"
@@ -80,7 +80,8 @@ Vue.use(AlertPlugin)
     },
     computed:{
       ...mapGetters([
-        'userId'
+        'userId',
+        'battleSetting'
       ])
     },
     props:{
@@ -109,7 +110,7 @@ Vue.use(AlertPlugin)
           return
         }
         let battleDetail = null
-        if(this.situation !== 'Home'){
+        if(this.battleSetting.situation !== 'Home'){
            battleDetail = {
             ...this.battleDetail,
             founder:this.userId,
@@ -132,7 +133,7 @@ Vue.use(AlertPlugin)
         }else {
           battleDetail = {
             ...this.battleDetail,
-            invitee:this.challengeUser,
+            invitee:this.battleSetting.challengeUser,
             founder:this.userId,
             initialMoney:this.battleDetail.initialMoney*10000,
             expiredTime:new Date(this.battleDetail.expiredTime + ":00:00").getTime(),

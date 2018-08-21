@@ -51,10 +51,10 @@
       :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
     ></personal-battle>
     <keep-alive>
-      <battle-setting
+      <!-- <battle-setting
         situation="Home"
         :challengeUser="curUser"
-      ></battle-setting>
+      ></battle-setting> -->
     </keep-alive>
 
   </div>
@@ -153,7 +153,12 @@ export default {
         });
       } else {
         this.curUser = userId;
-        this.$store.dispatch("setShowPopup", true);
+        var battleSetting = {
+          situation: 'Home',
+          challengeUser: userId
+        }
+        this.$store.dispatch('setBattleSetting',battleSetting)
+        this.$store.dispatch('setShowPopup',true)
       }
     },
     hidePopUp() {
@@ -275,7 +280,7 @@ export default {
     // bottom: 1.6rem;
     // margin-top: 0.3rem;
     // overflow: hidden;
-    // padding-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
     ul {
       // margin-bottom: 0.3rem;
       // overflow: scroll;
