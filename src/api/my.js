@@ -19,4 +19,8 @@ function getMyBattles(userId, state) {
 function getMyFocus(userId) {
     return httpServer('GET','/api/v1/eBuy/selectFocus/'+userId)
 }
-export { getReceivedMsg, getSendMsg, postStartBattle, getMyBattles, getMyFocus }
+
+function readMsg(battleId) {
+    return httpServer('GET','/api/v1/eBuy/readMessage/'+battleId)
+}
+export { getReceivedMsg, getSendMsg, postStartBattle, getMyBattles, getMyFocus, readMsg }

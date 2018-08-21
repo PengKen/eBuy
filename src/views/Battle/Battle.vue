@@ -24,8 +24,9 @@
                 v-if=" challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate"
                 class="icon iconfont icon-huangguantop rotate"
                 :style="{color:'gold'}"></i>
-              <div class="stamp">{{battleDetail.founderRate >= battleDetail.inviteeRate ? '胜' : '负'}}</div>
-              <img class="portrait" :src="battleDetail.founderPortrait"/>
+              <div v-if="challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate" class="stamp win">胜</div>
+              <div v-if="challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate" class="stamp lose">负</div>
+              <img class="portrait" :class="battleDetail.founderRate >= battleDetail.inviteeRate ? 'gold-shadow' : ''" :src="battleDetail.founderPortrait"/>
             </div>
             <div class="name">{{battleDetail.founderName}}</div>
             <div class="honor">
@@ -48,8 +49,9 @@
                 v-if=" challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate"
                 class="icon iconfont icon-huangguantop rotate"
                 :style="{color:'gold'}"></i>
-              <div class="stamp">{{battleDetail.founderRate < battleDetail.inviteeRate ? '胜' : '负'}}</div>
-              <img class="portrait" :src="battleDetail.inviteePortrait"/>
+              <div v-if="challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate" class="stamp win">胜</div>
+              <div v-if="challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate" class="stamp lose">负</div>
+              <img class="portrait" :class="battleDetail.founderRate < battleDetail.inviteeRate ? 'gold-shadow' : ''" :src="battleDetail.inviteePortrait"/>
             </div>
             <div class="name">{{battleDetail.inviteeName}}</div>
             <div class="honor">
@@ -143,7 +145,7 @@
       }
       .user {
         flex: 1;
-        overflow: hidden;
+        // overflow: hidden;
         margin: 0 0.2rem 0.2rem;
         padding: 0.3rem;
         // border: 1px solid #eeeeee;
@@ -157,21 +159,27 @@
             top: 0;
 
             line-height: 0;
-            font-size: 1.5em !important;
+            font-size: 2em !important;
 
           }
           .stamp {
             position: absolute;
-            bottom: 0;
-            width: 1rem;
-            height: 1rem;
-            border-radius: 50%;
-            font-size: 0.6rem;
-            font-weight: bold;
-            line-height: 1rem;
-            border: 3px solid #ee3333;
-            color: #ee3333;
-            opacity: 0.5;
+            bottom: 0.2rem;
+            right: 0.7rem;
+            width: 0.7rem;
+            height: 0.5rem;
+            font-size: 0.35rem;
+            line-height: 0.5rem;
+            border-radius: 0.1rem;
+            z-index: 3;
+          }
+          .win {
+            color: white;
+            background: #ee3333;
+          }
+          .lose {
+            background: #888;
+            color: white;
           }
         }
 
@@ -179,9 +187,13 @@
           width: 1.5rem;
           height: 1.5rem;
           border-radius: 50%;
-          border: 0.1rem solid #ee3333;
+          border: 0.1rem solid #bbb;
           position: relative;
           z-index: 2;
+        }
+        .gold-shadow {
+          box-shadow: 0px 0px 1rem gold;
+          border-color: gold;
         }
         .honor {
           padding-bottom: 0.2rem;
