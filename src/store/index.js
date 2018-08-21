@@ -21,7 +21,11 @@ const store = new Vuex.Store({
       endTime:null
     },
     isShowNotify:false,
-    isShowPopup:false// 全局定义popup的显示状态
+    isShowPopup:false,// 全局定义popup的显示状态
+    battleSetting: {
+      situation: 'BattleHall',
+      curUser:0
+    }
   },
   actions:{
      setShowPopup({ commit, state },isShowPopup) {
@@ -58,6 +62,10 @@ const store = new Vuex.Store({
     },
     setChallengeState(state,newChallengeState){
       state.userInfo.challengeState = newChallengeState
+    },
+    setBattleSetting(state, situation, challengeUser){
+      state.battleSetting.situation = situation
+      state.battleSetting.challengeUser = challengeUser
     }
   },
   getters:{
@@ -78,6 +86,9 @@ const store = new Vuex.Store({
     },
     isShowNotify: state => {
       return state.isShowNotify
+    },
+    battleSetting: state => {
+      return state.battleSetting
     }
   }
 

@@ -51,10 +51,10 @@
       :class="[showPersonal ? 'rotate-start' : 'rotate-finish']"
     ></personal-battle>
     <keep-alive>
-      <battle-setting
+      <!-- <battle-setting
         situation="Home"
         :challengeUser="curUser"
-      ></battle-setting>
+      ></battle-setting> -->
     </keep-alive>
 
   </div>
@@ -153,7 +153,8 @@ export default {
         });
       } else {
         this.curUser = userId;
-        this.$store.dispatch("setShowPopup", true);
+        this.$store.dispatch('setBattleSetting','Home', userId)
+        this.$store.dispatch('setShowPopup',true)
       }
     },
     hidePopUp() {

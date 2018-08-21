@@ -24,7 +24,7 @@
         <div class="invite" :class="[out ? showInvite : '']">邀请</div>
         <div class="set-battle" :class="[out ? showBattle : '']" @click.stop="setBattle">摆擂台</div>
       </div> -->
-      <battle-setting></battle-setting>
+      <!-- <battle-setting></battle-setting> -->
     </div>
 </template>
 

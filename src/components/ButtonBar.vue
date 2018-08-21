@@ -14,7 +14,7 @@
           <div class="name">对战平台</div>
         </li>
       </router-link>
-        <li class="ball" @click="newBattle()">
+        <li class="ball" @click="setBattle()">
           <x-icon type="ios-plus-empty" size="30"></x-icon>
           <div class="new-battle">摆擂</div>
         </li>
@@ -32,21 +32,23 @@
         </li>
       </router-link>
 
-
-
-
     </ul>
+    
   </div>
 
 </template>
 <script>
+import BattleSetting from "@/views/BattleHall/BattleSetting"
   export default {
     name: "button-bar",
     methods: {
-      newBattle() {
-        console.log('new battle')
+      setBattle(){
+        this.$store.dispatch('setBattleSetting','BattleHall', 0)
         this.$store.dispatch('setShowPopup',true)
       }
+    },
+    components: {
+      BattleSetting
     }
   }
 </script>

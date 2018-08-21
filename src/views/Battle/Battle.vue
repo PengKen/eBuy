@@ -1,10 +1,10 @@
 <template>
     <div id="battle">
-      <div v-if="battleDetail.played == 0" class="no-battle top">您还没有参加过比赛，快去大厅看看吧</div>
-      <div class="count-down-wrapper top" v-if="battleDetail.played == 1">
+      <div v-if="challengeState == 0" class="no-battle top">您还没有参加过比赛，快去大厅看看吧</div>
+      <div class="count-down-wrapper top" v-if="challengeState != 0">
         <div v-if="challengeState == 2" class="no-over">距离比赛结束还有</div>
-        <div v-if="battleDetail.endTime.time <= new Date().getTime()" class="over">本场比赛已结束</div>
-        <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
+        <div v-if="challengeState == 1" class="over">本场比赛已结束</div>
+        <time-count v-if="challengeState == 2" :endTime="battleDetail.endTime.time" ></time-count>
       </div>
       <div class="zhanwei"></div>
       <div class="current" v-if="battleDetail.played == 1">
