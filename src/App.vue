@@ -144,6 +144,7 @@ html,body{
       border-radius: 1rem;
       border: none;
       margin: 0.3rem;
+      width: 80%;
     }
   }
   .button{

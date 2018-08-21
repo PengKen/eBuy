@@ -267,7 +267,8 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'userId'
+      'userId',
+      'challengeState'
     ])
   },
   beforeDestroy() {
