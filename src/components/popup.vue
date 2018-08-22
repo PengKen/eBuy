@@ -9,8 +9,11 @@
       @on-hide="handleHide">
       <slot  name="content"></slot>
       <div style="width: 100%"></div>
-      <div  class="close" @click="handleHide">
-        <i class="icon iconfont icon-close1"></i>
+      <div  class="close-wrapper" @click="handleHide">
+        <div class="close">
+          <i class="icon iconfont icon-close1"></i>
+        </div>
+
       </div>
 
     </popup>
@@ -39,18 +42,24 @@
       flex-direction: column;
       justify-content: center;
 
-      .close{
+      .close-wrapper{
         width: 20px;
         /* height: 20px; */
         position: absolute;
-        right: 1px;
-        top: -5px;
+        right: 0;
+        top: 0;
         /* font-size: 10px; */
         /* z-index: 10000000000; */
-        i{
-          font-size: 20px;
-          color: #5a5656;
+        .close{
+          position: absolute;
+          top: -10px;
+          left: 50%;
+          i{
+            font-size: 20px;
+            color: #5a5656;
+          }
         }
+
 
       }
     }
@@ -99,7 +108,7 @@
     methods:{
       handleHide(){
         this.$store.dispatch('setShowPopup',false)
-
+        this.$store.commit('setShowMessage',false)
       }
     },
     computed:{

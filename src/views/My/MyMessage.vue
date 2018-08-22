@@ -5,6 +5,19 @@
 			<button-tab-item  @on-item-click="clickTab(1)" selected>收到</button-tab-item>
 			<button-tab-item @on-item-click="clickTab(2)"><span>发出</span></button-tab-item>
 		</button-tab>
+
+      <masker :fullscreen="true" class="masker" v-show="showFist">
+        <div class="fire">
+          <img width="100%" height="100%" :src="require('./img/fire.png')" alt="">
+        </div>
+        <div slot="content" class="content">
+          <img class="transition" :class="[!showFist ? 'hide-left-fist' :'show-left-fist'] " :src="require('./img/left.png')" alt="" />
+
+          <img class="transition" :class="[ !showFist ? 'hide-right-fist' :'show-right-fist']" :src="require('./img/right.png')" alt="" />
+        </div>
+      </masker>
+
+
 		<div id="msg-list">
 			<div class="msg-item" v-for="(msg, index) in messages" @click="showDetail(index)">
 				<div class="head"><img :src="msg.portrait"/></div>
@@ -19,7 +32,7 @@
 			</div>
 			<divider v-if="messages.length == 0" >这里什么也没有，快去对战大厅看看吧</divider>
 		</div>
-		<popup class="popup" >
+		<popup class="popup">
 			<div class="content" slot="content">
 				<h1>挑战书</h1>
 				<div>
@@ -68,13 +81,11 @@
 
 
 <script>
-import store from "@/store/index";
 import * as API from "@/api/my";
 import NavBar from "@/components/NavBar";
-import { ButtonTab, ButtonTabItem, Divider, Alert } from "vux";
+import { ButtonTab, ButtonTabItem, Divider, Alert, Masker} from "vux";
 import { mapGetters } from 'vuex'
 import popup from "@/components/popup";
-import getNormalTime from "@/utils/timeFormat";
 import * as DF from "@/utils/timeFormat";
 export default {
   name: "myMessage",
@@ -82,6 +93,7 @@ export default {
     return {
       tab: 1,
       showPopup: false,
+      showFist:false,
       messages: [],
       msgDetail: {
         index: 0,
@@ -106,11 +118,13 @@ export default {
     ButtonTabItem,
     Divider,
     popup,
-    Alert
+    Alert,
+    Masker
   },
   methods: {
     hidePopUp() {
-      this.$store.dispatch('setShowPopup',false)
+      this.$store.commit('setShowPopup',false)
+      this.$store.commit('setShowMessage',false)
     },
     showDetail(index) {
       if(this.messages[index].read == 0) {
@@ -119,6 +133,8 @@ export default {
         })
       }
       this.$store.dispatch('setShowPopup',true)
+      this.$store.commit('setShowPopup',true)
+      this.$store.commit('setShowMessage',true)
       this.msgDetail = this.messages[index];
       this.msgDetail.state = this.getState(index);
       this.msgDetail.index = index;
@@ -154,15 +170,30 @@ export default {
             this.msgDetail.ifAccepted = true;
             this.messages[this.msgDetail.index].ifAccepted = true;
             var that = this
-            this.$vux.alert.show({
-              title: "成功",
-              content: "前往对战平台开始比赛吧",
-              onShow() {},
-              onHide: () => {
-                this.$store.dispatch('setShowPopup',false)
-                that.$router.push({ path: "/battle/battle", query: {} });
-              }
-            });
+            this.showFist = true
+            this.$store.dispatch('setShowPopup',false)
+            setTimeout( () => {
+              this.$vux.alert.show({
+                title: "成功",
+                content: "前往对战平台开始比赛吧",
+                onShow:() =>{
+                  this.showFist = false
+                },
+                onHide: () => {
+                  this.$store.dispatch('setShowPopup',false)
+                    .then(res => {
+
+
+                        that.$router.push({ path: "/battle/battle", query: {} });
+                        this.showFist = false
+
+
+                    })
+
+                }
+              });
+            },3000)
+
             break;
 					case 1: //我没空
 						this.$vux.alert.show({
@@ -203,6 +234,38 @@ export default {
 
 <style lang="less" scoped>
 #my-message {
+ .masker{
+   .fire{
+     position: absolute;
+
+   }
+   .content{
+     height: 100%;
+
+     .transition{
+
+       transition: transform 5000ms;
+     }
+     .show-left-fist{
+       width: 60%;
+       transform: translate3d(-33%,100%,0);
+     }
+     .show-right-fist{
+       width: 60%;
+       transform: translate3d(33%,0,0);
+     }
+     .hide-left-fist{
+       width: 60%;
+       transform: translate3d(-150%,100%,0);
+     }
+     .hide-right-fist{
+       width: 60%;
+       transform: translate3d(150%,0,0);
+
+     }
+   }
+
+ }
   font-size: 0.4rem;
   .vux-button-group {
     position: fixed;
@@ -303,8 +366,6 @@ export default {
     }
   }
   .popup {
-    position: relative;
-    z-index: 2000;
     .content {
       height: 100%;
       position: relative;
@@ -333,12 +394,13 @@ export default {
 
       .btn {
         width: 5rem;
-        height: 1.2rem;
-        line-height: 1.2rem;
+        height: 1rem;
+        line-height: 1rem;
         font-size: 0.5rem;
         margin: 0 auto;
         position: absolute;
-        bottom: 0.5rem;
+        bottom: 3rem;
+        width: 80%;
         left: 0;
         right: 0;
       }

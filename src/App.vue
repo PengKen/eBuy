@@ -5,6 +5,7 @@
     </keep-alive>
 
       <battle-setting
+        v-if="!isShowMessage"
         :situation="battleSetting.situation"
         :challengeUser="battleSetting.curUser"
       ></battle-setting>
@@ -46,7 +47,8 @@ export default {
     ...mapGetters([
       'expiredTime',
       'isShowNotify',
-      'battleSetting'
+      'battleSetting',
+      'isShowMessage'
   ]),
     isShowNotify:{
       get(){
@@ -153,6 +155,7 @@ html,body{
       border-radius: 1rem;
       border: none;
       margin: 0.3rem;
+      width: 80%;
     }
   }
   .button{

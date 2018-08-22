@@ -30,6 +30,7 @@ export default {
 
 	},
 	mounted() {
+	  console.log("time-count-down mounted")
 		let id = setInterval(()=>{
 			if(this.flag == true) {
 				clearInterval(id)

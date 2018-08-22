@@ -278,6 +278,7 @@ export default {
     },
     getCurrentBattle(userId) {
       API.getCurrentBattle(userId).then(res=>{
+        this.$store.commit('setChallengeState',res.challengeState)
         if(res.played == 1) {
           this.battleDetail = res;
         }else{
@@ -305,6 +306,7 @@ export default {
   },
   created() {
     API.getCurrentBattle(this.userId).then(res=>{
+      this.$store.commit('setChallengeState',res.challengeState)
       if(res.played == 1) {
         this.battleDetail = res;
       }else{
