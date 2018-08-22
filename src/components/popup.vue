@@ -108,7 +108,7 @@
     methods:{
       handleHide(){
         this.$store.dispatch('setShowPopup',false)
-
+        this.$store.commit('setShowMessage',false)
       }
     },
     computed:{

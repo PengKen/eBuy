@@ -5,6 +5,7 @@
     </keep-alive>
 
       <battle-setting
+        v-if="!isShowMessage"
         :situation="battleSetting.situation"
         :challengeUser="battleSetting.curUser"
       ></battle-setting>
@@ -46,7 +47,8 @@ export default {
     ...mapGetters([
       'expiredTime',
       'isShowNotify',
-      'battleSetting'
+      'battleSetting',
+      'isShowMessage'
   ]),
     isShowNotify:{
       get(){

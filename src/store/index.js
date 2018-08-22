@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     },
     isShowNotify:false,
     isShowPopup:false,// 全局定义popup的显示状态
+    isShowMessage:false,//全局定义messgae-popup的状态
     battleSetting: {
       situation: 'BattleHall',
       curUser:0
@@ -70,6 +71,9 @@ const store = new Vuex.Store({
     setBattleSetting(state, battleSetting){
       state.battleSetting = battleSetting
       console.log(state.battleSetting)
+    },
+    setShowMessage(state, showMessage){
+      state.isShowMessage = showMessage
     }
   },
   getters:{
@@ -93,6 +97,9 @@ const store = new Vuex.Store({
     },
     battleSetting: state => {
       return state.battleSetting
+    },
+    isShowMessage: state => {
+      return state.isShowMessage
     }
   }
 

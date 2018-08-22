@@ -69,7 +69,7 @@
           }
         })
 
-    
+
       },
       onFocus () {
         console.log('on focus')
@@ -148,7 +148,7 @@
           color: white;
           margin-left: -0.2rem;
           position: relative;
-          top: 1rem;
+          top: 0.1rem;
         }
         .name {
           text-align: left;

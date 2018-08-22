@@ -32,7 +32,7 @@
 			</div>
 			<divider v-if="messages.length == 0" >这里什么也没有，快去对战大厅看看吧</divider>
 		</div>
-		<popup class="popup" >
+		<popup class="popup">
 			<div class="content" slot="content">
 				<h1>挑战书</h1>
 				<div>
@@ -123,10 +123,12 @@ export default {
   },
   methods: {
     hidePopUp() {
-      this.$store.dispatch('setShowPopup',false)
+      this.$store.commit('setShowPopup',false)
+      this.$store.commit('setShowMessage',false)
     },
     showDetail(index) {
-      this.$store.dispatch('setShowPopup',true)
+      this.$store.commit('setShowPopup',true)
+      this.$store.commit('setShowMessage',true)
       this.msgDetail = this.messages[index];
       this.msgDetail.state = this.getState(index);
       this.msgDetail.index = index;
