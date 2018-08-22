@@ -152,10 +152,10 @@ export default {
       }
     },
     getState(index) {
-      if (this.messages[index].expiredTime.time < new Date().getTime()){
+      if (this.messages[index].ifAccepted == 1) return "已接受";
+      else if (this.messages[index].expiredTime.time < new Date().getTime()){
         return "已失效";
       }
-      else if (this.messages[index].ifAccepted == 1) return "已接受";
       else return "待接受";
     },
     msToDate(ms) {
@@ -399,7 +399,7 @@ export default {
         font-size: 0.5rem;
         margin: 0 auto;
         position: absolute;
-        bottom: 3rem;
+        bottom:15%;
         width: 80%;
         left: 0;
         right: 0;

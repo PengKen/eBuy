@@ -305,7 +305,6 @@ export default {
     }
     li {
       display: flex;
-      line-height: 0.8rem;
       list-style: none;
       font-size: 0.4rem;
       align-items: center;

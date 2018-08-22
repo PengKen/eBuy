@@ -169,7 +169,6 @@
             width: 0.7rem;
             height: 0.5rem;
             font-size: 0.35rem;
-            line-height: 0.5rem;
             border-radius: 0.1rem;
             z-index: 3;
           }

@@ -12,7 +12,7 @@
       <router-link :to="{ name: 'Battle', params: {}}">
         <li>
           <i class="icon iconfont icon-duizhanpingtai"></i>
-          <div class="name">对战平台</div>
+          <div class="name">交易平台</div>
         </li>
       </router-link>
         <li class="ball" @click="setBattle()">
@@ -22,7 +22,7 @@
       <router-link :to="{ path:'/battlehall', params: {}}">
         <li>
           <i class="icon iconfont icon-youxidating"></i>
-          <div class="name">游戏大厅</div>
+          <div class="name">对战大厅</div>
         </li>
       </router-link>
 

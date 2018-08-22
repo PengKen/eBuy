@@ -40,14 +40,14 @@
                       </tr>
                       <tr>
                           <td>{{record.initialMoney}}</td>
-                          <td>初始资金</td>
+                          <td>初始资产</td>
                           <td>{{record.initialMoney}}</td>
                       </tr>
                       <tr>
                           <td>{{record.founderBalance == undefined ? '- -' : record.founderBalance}}</td>
                           <td>
-                            <span v-if="!record.endTime || curTime < record.endTime.time">当前资金</span>
-                            <span v-if="record.endTime && curTime > record.endTime.time">结束资金</span>
+                            <span v-if="!record.endTime || curTime < record.endTime.time">当前资产</span>
+                            <span v-if="record.endTime && curTime > record.endTime.time">结束资产</span>
                           </td>
                           <td>{{record.inviteeBalance == undefined? '- -' : record.inviteeBalance}}</td>
                       </tr>

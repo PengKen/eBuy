@@ -42,8 +42,6 @@ export default {
 		timeDown() {
 			const now = new Date().getTime();
 			var timeLeft = parseInt((this.endTime-now)/1000);
-			console.log(new Date(now))
-			console.log(new Date(this.endTime))
 			this.day = parseInt(timeLeft/(24*60*60))
 			this.hour = this.formate(parseInt(timeLeft/(60*60)%24))
 			this.min = this.formate(parseInt(timeLeft/60%60))
