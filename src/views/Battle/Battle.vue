@@ -26,7 +26,7 @@
                 :style="{color:'gold'}"></i>
               <div v-if="challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate" class="stamp win">胜</div>
               <div v-if="challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate" class="stamp lose">负</div>
-              <img class="portrait" :class="battleDetail.founderRate >= battleDetail.inviteeRate ? 'gold-shadow' : ''" :src="battleDetail.founderPortrait"/>
+              <img class="portrait" :class="challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate ? 'gold-shadow' : ''" :src="battleDetail.founderPortrait"/>
             </div>
             <div class="name">{{battleDetail.founderName}}</div>
             <div class="honor">
@@ -51,7 +51,7 @@
                 :style="{color:'gold'}"></i>
               <div v-if="challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate" class="stamp win">胜</div>
               <div v-if="challengeState === 1 && battleDetail.founderRate >= battleDetail.inviteeRate" class="stamp lose">负</div>
-              <img class="portrait" :class="battleDetail.founderRate < battleDetail.inviteeRate ? 'gold-shadow' : ''" :src="battleDetail.inviteePortrait"/>
+              <img class="portrait" :class="challengeState === 1 && battleDetail.founderRate < battleDetail.inviteeRate ? 'gold-shadow' : ''" :src="battleDetail.inviteePortrait"/>
             </div>
             <div class="name">{{battleDetail.inviteeName}}</div>
             <div class="honor">
@@ -274,7 +274,7 @@ export default {
     refresh() {
       this.intervalId = setInterval(()=>{
         this.getCurrentBattle(this.userId);
-        }, 20000)
+        }, 10000)
     },
     getCurrentBattle(userId) {
       API.getCurrentBattle(userId).then(res=>{

@@ -70,6 +70,7 @@
 										v-if="record.startTime"
 										:class="record.isFocus==1 ? 'btn-grey' : ''" @click.stop="focus(record.isFocus, index)">{{record.isFocus==1 ? '已关注' : '关注比赛进程'}}</div>
 										<div class="battle-btn"
+                    :class="record.founderId == userId ? 'btn-grey' : ''" 
 										v-if="!record.startTime"
 										@click.stop="acceptBattle(index)">应战</div>
                   </div>
@@ -209,7 +210,7 @@
       transition: background-color 0.5s;
     }
     .btn-grey {
-      background: #bbbbbb;
+      background: #bbbbbb !important;
       // color: #2c3e50;
       // transition: background-color 0.5s;
     }
@@ -299,14 +300,7 @@ export default {
       }
     },
     acceptBattle(index) {
-      if (this.records[index].founderId == this.userId) {
-        this.$vux.alert.show({
-          title: "失败",
-          content: "这是您自己摆的擂台哦",
-          onShow() {},
-          onHide() {}
-        });
-      } else {
+      if (this.records[index].founderId != this.userId) {
         var battleDetail = {
           invitee: this.userId,
           battleId: this.records[index].battleId

@@ -9,7 +9,7 @@
 			<div class="msg-item" v-for="(msg, index) in messages" @click="showDetail(index)">
 				<div class="head"><img :src="msg.portrait"/></div>
 				<div class="body">
-					<div class="name">{{msg.name}}</div>
+					<div class="name">{{msg.name}}<span v-if="msg.read == 0" class="red-dot"></span></div>
 					<div class="content">{{msg.content}}</div>
 				</div>
 				<div class="foot">
@@ -113,6 +113,11 @@ export default {
       this.$store.dispatch('setShowPopup',false)
     },
     showDetail(index) {
+      if(this.messages[index].read == 0) {
+        API.readMsg(this.messages[index].battleId).then(() => {
+          this.messages[index].read = 1
+        })
+      }
       this.$store.dispatch('setShowPopup',true)
       this.msgDetail = this.messages[index];
       this.msgDetail.state = this.getState(index);
@@ -264,6 +269,14 @@ export default {
           // font-size: 0.5rem;
           // font-weight: bold;
           color: black;
+          .red-dot {
+            display: inline-block;
+            width: 0.2rem;
+            height: 0.2rem;
+            border-radius: 50%;
+            margin: 0 0.2rem;
+            background: #ee3333;
+          }
         }
         .content {
           color: #888888;

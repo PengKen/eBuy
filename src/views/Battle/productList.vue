@@ -34,7 +34,7 @@ export default {
   created(){
     this.showLoading = true
     const io = require('socket.io-client')
-    var socket = io('http://http://172.20.10.2:3000');
+    var socket = io('http://192.168.43.118:3000');
     socket.on('connect', (msg)=> {
       socket.on('message', (msg)=> {
         try {
