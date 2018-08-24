@@ -7,10 +7,11 @@
 		</button-tab>
 
       <masker :fullscreen="true" class="masker" v-show="showFist">
-        <div class="fire">
-          <img width="100%" height="100%" :src="require('./img/fire.png')" alt="">
-        </div>
+
         <div slot="content" class="content">
+          <div class="fire" :class="showFist ? 'show-fire' : ''">
+            <img width="100%" height="100%" :src="require('./img/fire.png')" alt="">
+          </div>
           <img class="transition" :class="[!showFist ? 'hide-left-fist' :'show-left-fist'] " :src="require('./img/left.png')" alt="" />
 
           <img class="transition" :class="[ !showFist ? 'hide-right-fist' :'show-right-fist']" :src="require('./img/right.png')" alt="" />
@@ -164,6 +165,11 @@ export default {
     onAccept() {
       console.log("accept challenge" + this.msgDetail.battleId);
       var battleDetail = { invitee: this.userId, battleId: this.msgDetail.battleId };
+      // this.showFist = true;
+      // // setTimeout(() => {
+      // //   this.showFist = false
+      // // }, 5000)
+      
       API.postStartBattle(battleDetail).then(res => {
         switch (res.userState) {
           case 0: //成功
@@ -175,24 +181,19 @@ export default {
             setTimeout( () => {
               this.$vux.alert.show({
                 title: "成功",
-                content: "前往对战平台开始比赛吧",
+                content: "前往交易平台开始比赛吧",
                 onShow:() =>{
                   this.showFist = false
                 },
                 onHide: () => {
                   this.$store.dispatch('setShowPopup',false)
                     .then(res => {
-
-
                         that.$router.push({ path: "/battle/battle", query: {} });
                         this.showFist = false
-
-
                     })
-
                 }
               });
-            },3000)
+            },2000)
 
             break;
 					case 1: //我没空
@@ -237,30 +238,56 @@ export default {
  .masker{
    .fire{
      position: absolute;
-
+     opacity: 0;
+   }
+   @keyframes showfire {
+     from {opacity: 0;}
+     to {opacity: 1;}
+   }
+   .show-fire {
+     animation: showfire 0.5s;
+     animation-delay: 0.5s;
+     animation-fill-mode: forwards;
    }
    .content{
      height: 100%;
 
      .transition{
-
-       transition: transform 5000ms;
+       width: 60%;
+       position: absolute;
+       top: 30%
+     }
+     @keyframes showleft {
+       from {left: -60%;}
+       to {left: 0}
+     }
+     @keyframes showright {
+       from {right: -60%;}
+       to {right: 0}
+     }
+     @keyframes hideleft {
+       from {left: 0;}
+       to {left: -60%}
+     }
+     @keyframes hideright {
+       from {right: 0;}
+       to {right: -60%}
      }
      .show-left-fist{
-       width: 60%;
-       transform: translate3d(-33%,100%,0);
+      animation: showleft 0.5s;
+      animation-fill-mode: forwards;
      }
      .show-right-fist{
-       width: 60%;
-       transform: translate3d(33%,0,0);
+       animation: showright 0.5s;
+       animation-fill-mode: forwards;
      }
      .hide-left-fist{
-       width: 60%;
-       transform: translate3d(-150%,100%,0);
+       animation: hideleft 0.5s;
+       animation-fill-mode: forwards;
      }
      .hide-right-fist{
-       width: 60%;
-       transform: translate3d(150%,0,0);
+       animation: hideright 0.5s;
+       animation-fill-mode: forwards;
 
      }
    }

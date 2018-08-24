@@ -47,7 +47,6 @@ export default {
   name: "my",
   data() {
     return {
-      userInfo: {}
       // userId: 111,
       // name: "投资家",
       // portrait: "/static/img/5f236c10dc4d2e83d386048aedf9e50c.jpg",
@@ -57,13 +56,12 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'userId'
+      'userId',
+      'userInfo'
     ])
   },
   created() {
-    API.getUserInfo(this.userId).then(res => {
-      this.userInfo = res;
-    })
+    this.$store.dispatch('setUserInfo',this.userId)
   }
 
 };

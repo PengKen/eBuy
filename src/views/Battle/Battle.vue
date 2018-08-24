@@ -4,12 +4,12 @@
       <div class="count-down-wrapper top" v-if="challengeState != 0">
         <div v-if="challengeState == 2" class="no-over">距离比赛结束还有</div>
         <div v-if="challengeState == 1" class="over">本场比赛已结束</div>
-        <time-count v-if="battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
+        <time-count v-if="battleDetail.endTime && battleDetail.endTime.time > new Date().getTime()" :endTime="battleDetail.endTime.time" ></time-count>
       </div>
       <div class="zhanwei"></div>
       <div class="current" v-if="battleDetail.played == 1">
         <div class="battle-info">
-          <div class="time">
+          <div class="time" v-if="battleDetail.startTime">
             <span>开始：{{msToDate(battleDetail.startTime.time)}}</span>
             <span>结束：{{msToDate(battleDetail.endTime.time)}}</span>
           </div>

@@ -1,7 +1,7 @@
 <template>
-	<div id="product-detail">
+	<div id="product-detail" v-if="productDetail.productName">
 		<nav-bar :color="'red'" :title="'产品详情'"></nav-bar>
-		<div class="detail" v-if="productDetail.productName">
+		<div class="detail">
 			<div class="name">{{productDetail.productName}}</div>
 			<div class="num">
 				<div class="left">

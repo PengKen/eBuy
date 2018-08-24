@@ -1,5 +1,18 @@
 <template>
   <div id="record-list">
+
+      <masker :fullscreen="true" class="masker" v-show="showFist">
+
+        <div slot="content" class="content">
+          <div class="fire" :class="showFist ? 'show-fire' : ''">
+            <img width="100%" height="100%" :src="require('../views/My/img/fire.png')" alt="">
+          </div>
+          <img class="transition" :class="[!showFist ? 'hide-left-fist' :'show-left-fist'] " :src="require('../views/My/img/left.png')" alt="" />
+
+          <img class="transition" :class="[ !showFist ? 'hide-right-fist' :'show-right-fist']" :src="require('../views/My/img/right.png')" alt="" />
+        </div>
+      </masker>
+
       <div id="records">
           <div class="record-item"
             v-for="(record, index) in records"
@@ -85,6 +98,64 @@
 <style lang="less">
 #record-list {
   font-size: 0.4rem;
+ .masker{
+   .fire{
+     position: absolute;
+     opacity: 0;
+   }
+   @keyframes showfire {
+     from {opacity: 0;}
+     to {opacity: 1;}
+   }
+   .show-fire {
+     animation: showfire 0.5s;
+     animation-delay: 0.5s;
+     animation-fill-mode: forwards;
+   }
+   .content{
+     height: 100%;
+
+     .transition{
+       width: 60%;
+       position: absolute;
+       top: 30%
+     }
+     @keyframes showleft {
+       from {left: -60%;}
+       to {left: 0}
+     }
+     @keyframes showright {
+       from {right: -60%;}
+       to {right: 0}
+     }
+     @keyframes hideleft {
+       from {left: 0;}
+       to {left: -60%}
+     }
+     @keyframes hideright {
+       from {right: 0;}
+       to {right: -60%}
+     }
+     .show-left-fist{
+      animation: showleft 0.5s;
+      animation-fill-mode: forwards;
+     }
+     .show-right-fist{
+       animation: showright 0.5s;
+       animation-fill-mode: forwards;
+     }
+     .hide-left-fist{
+       animation: hideleft 0.5s;
+       animation-fill-mode: forwards;
+     }
+     .hide-right-fist{
+       animation: hideright 0.5s;
+       animation-fill-mode: forwards;
+
+     }
+   }
+
+ }
   .record-item {
     font-size: 0.4rem;
     transition: all 500ms;
@@ -244,7 +315,7 @@ import * as APIMY from "@/api/my";
 import getNormalTime from "@/utils/timeFormat";
 import * as DF from "@/utils/timeFormat";
 import Vue from "vue";
-import { Toast, Divider } from "vux";
+import { Toast, Divider, Masker } from "vux";
 import { mapGetters } from 'vuex'
 export default {
   name: "record-list",
@@ -263,7 +334,7 @@ export default {
 	},
 	data() {
 		return {
-
+      showFist: false
 		}
 	},
   created() {
@@ -309,15 +380,24 @@ export default {
           switch (res.userState) {
             case 0: //成功
               var that = this
+              this.showFist = true
+            this.$store.dispatch('setShowPopup',false)
+            setTimeout( () => {
               this.$vux.alert.show({
                 title: "成功",
-                content: "前往对战平台开始比赛吧",
-                onShow() {},
+                content: "前往交易平台开始比赛吧",
+                onShow:() =>{
+                  this.showFist = false
+                },
                 onHide: () => {
-                  this.showPopup = false;
-                  that.$router.push({ path: "/battle/battle", query: {} });
+                  this.$store.dispatch('setShowPopup',false)
+                    .then(res => {
+                        that.$router.push({ path: "/battle/battle", query: {} });
+                        this.showFist = false
+                    })
                 }
               });
+            },2000)
               break;
             case 1: //我没空
               this.$vux.alert.show({
@@ -357,7 +437,8 @@ export default {
   },
   components: {
     Toast,
-    Divider
+    Divider,
+    Masker
   }
 };
 </script>
