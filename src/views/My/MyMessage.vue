@@ -336,9 +336,11 @@ export default {
             display: inline-block;
             width: 0.2rem;
             height: 0.2rem;
-            border-radius: 50%;
+            border-radius: 1rem;
             margin: 0 0.2rem;
             background: #ee3333;
+            position: relative;
+            top: -0.2rem;
           }
         }
         .content {
@@ -367,6 +369,9 @@ export default {
   }
   .popup {
     .content {
+      background: url('/static/img/paper.png');
+      background-size: 100% 100%;
+      // background-position: 50%;
       height: 100%;
       position: relative;
       padding: 1rem 1rem 2.2rem;
@@ -386,7 +391,7 @@ export default {
       }
       .detail {
         .title {
-          color: #ff9729;
+          color: #d87000;
           display: inline-block;
           width: 5em;
         }
@@ -403,11 +408,11 @@ export default {
         width: 80%;
         left: 0;
         right: 0;
+        color: white;
       }
       .accept-btn {
         background: #c7000b;
         border-radius: 1.2rem;
-        color: white;
       }
       .accept-btn:active {
         background: #a70109;
@@ -416,10 +421,10 @@ export default {
       .accepted-btn,
       .accepted-btn:active {
         border-radius: 1.2rem;
-        background: #bbbbbb;
+        background: rgb(207, 158, 93);
       }
       .state {
-        background: #bbbbbb;
+        background: rgb(207, 158, 93);
       }
     }
   }

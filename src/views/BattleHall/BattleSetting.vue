@@ -179,6 +179,8 @@ Vue.use(AlertPlugin)
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background: #eee;
+      border-radius: 0.3rem;
 
       .vux-number-selector svg {
         fill: red;

@@ -4,14 +4,14 @@
     <ul class="wrapper">
       <router-link :to="{ name: 'Home', params: {}}" >
         <li>
-          <i class="icon iconfont icon-home-copy"></i>
+          <i class="icon iconfont icon-home"></i>
           <div class="name">首页</div>
         </li>
       </router-link>
 
       <router-link :to="{ name: 'Battle', params: {}}">
         <li>
-          <i class="icon iconfont icon-duizhanpingtai"></i>
+          <i class="icon iconfont icon-touzilicai"></i>
           <div class="name">交易平台</div>
         </li>
       </router-link>
@@ -21,14 +21,14 @@
         </li>
       <router-link :to="{ path:'/battlehall', params: {}}">
         <li>
-          <i class="icon iconfont icon-youxidating"></i>
+          <i class="icon iconfont icon-zhandouzuozhan"></i>
           <div class="name">对战大厅</div>
         </li>
       </router-link>
 
       <router-link :to="{ name: 'My', params: {}}">
         <li>
-          <i class="icon iconfont icon-profile"></i>
+          <i class="icon iconfont icon-my"></i>
           <div class="name">我 的</div>
         </li>
       </router-link>
@@ -59,6 +59,7 @@ import BattleSetting from "@/views/BattleHall/BattleSetting"
 </script>
 
 <style scoped lang="less">
+
 .vux-x-icon {
   fill: white;
 }
@@ -83,9 +84,12 @@ import BattleSetting from "@/views/BattleHall/BattleSetting"
         // flex: 0 1 auto;
         list-style: none;
         color: black;
+        i {
+          font-size: 0.5rem
+        }
       }
       .router-link-active>li{
-        color:red !important;
+        color:#ee3333 !important;
       }
       .ball {
         background: linear-gradient(120deg, #f77062 0%, #c7000b 100%);

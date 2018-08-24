@@ -25,7 +25,7 @@
   #popup{
     .vux-popup-dialog{
       overflow-y: unset;
-
+      background: none;
     }
     .vux-popup-top{
       width: 90%;
@@ -51,9 +51,11 @@
         /* font-size: 10px; */
         /* z-index: 10000000000; */
         .close{
-          position: absolute;
-          top: -10px;
-          left: 50%;
+          // position: absolute;
+          // top: -10px;
+          // left: 50%;
+          position: relative;
+          right: 0.2rem;
           i{
             font-size: 20px;
             color: #5a5656;
